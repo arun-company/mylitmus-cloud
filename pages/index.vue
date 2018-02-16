@@ -1,54 +1,66 @@
 <template>
   <section class="container">
-    <div>
-      <app-logo/>
-      <h1 class="title">
-        Hello World Vue JS
-      </h1>
-      <h2 class="subtitle">
-        Nuxt.js project
-      </h2>
-    </div>
+      <div class="section">
+        <div class="div-block-3 home">
+          <div class="div-block-4 search">
+            <div>Search sites ...</div><a href="#" class="w-inline-block"><img src="~/assets/images/search.333333.png" width="20" height="20" class="image"></a></div>
+        </div>
+        <div class="w-container">
+          <h1 class="heading">Organization Name</h1>
+        </div>
+        <a href="site" class="div-block-2 w-inline-block">
+          <div class="text-block-3">Site 1</div>
+          <div class="text-block-4">1</div>
+        </a>
+        <a href="site" class="div-block-2 w-inline-block">
+          <div class="text-block-3">Site 2</div>
+          <div class="text-block-4">2</div>
+        </a>
+        <a href="site" class="div-block-2 w-inline-block">
+          <div class="text-block-3">Site 3</div>
+          <div class="text-block-4">3</div>
+        </a>
+        <a href="site" class="div-block-2 w-inline-block">
+          <div class="text-block-3">Site 4</div>
+          <div class="text-block-4">4</div>
+        </a>
+        <a href="site" class="div-block-2 w-inline-block">
+          <div class="text-block-3">Site 5</div>
+          <div class="text-block-4">5</div>
+        </a>
+        <a href="site" class="div-block-2 w-inline-block">
+          <div class="text-block-3">Site 6</div>
+          <div class="text-block-4">6</div>
+        </a>
+        <a href="site" class="div-block-2 w-inline-block">
+          <div class="text-block-3">Site 7</div>
+          <div class="text-block-4">7</div>
+        </a>
+        <a href="site" class="div-block-2 w-inline-block">
+          <div class="text-block-3">Site 8</div>
+          <div class="text-block-4">8</div>
+        </a>
+        <a href="site" class="div-block-2 w-inline-block">
+          <div class="text-block-3">Site 9</div>
+          <div class="text-block-4">9</div>
+        </a>
+        <a href="site" class="div-block-2 w-inline-block">
+          <div class="text-block-3">Site 10</div>
+          <div class="text-block-4">10</div>
+        </a>
+        <a href="site" class="div-block-2 w-inline-block">
+          <div class="text-block-3">Site 11</div>
+          <div class="text-block-4">11</div>
+        </a>
+        <a href="site" class="div-block-2 w-inline-block">
+          <div class="text-block-3">Site 12</div>
+          <div class="text-block-4">12</div>
+        </a>
+      </div>
   </section>
 </template>
 
 <script>
-import AppLogo from '~/components/AppLogo.vue'
 
-export default {
-  components: {
-    AppLogo
-  }
-}
+
 </script>
-
-<style>
-.container {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
-}
-
-.title {
-  font-family: "Quicksand", "Source Sans Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* 1 */
-  display: block;
-  font-weight: 300;
-  font-size: 100px;
-  color: #35495e;
-  letter-spacing: 1px;
-}
-
-.subtitle {
-  font-weight: 300;
-  font-size: 42px;
-  color: #526488;
-  word-spacing: 5px;
-  padding-bottom: 15px;
-}
-
-.links {
-  padding-top: 15px;
-}
-</style>

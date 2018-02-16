@@ -13,6 +13,11 @@ module.exports = {
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }
     ]
   },
+  css: [
+    '~/css/webflow.css',
+    '~/css/normalize.css',
+    '~/css/mylitmus-cloud.webflow.css'
+  ],
   /*
   ** Customize the progress bar color
   */

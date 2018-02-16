@@ -1,16 +1,16 @@
 <template>
   <div>
-   <Menu />
+   <MenuNav />
     <nuxt/>
   </div>
 </template>
 
 <script>
-  import Menu from '~/components/Menu.vue'
+  import MenuNav from '~/components/MenuNav.vue'
 
   export default {
     components: {
-      Menu
+      MenuNav
     }
   }
 </script>
