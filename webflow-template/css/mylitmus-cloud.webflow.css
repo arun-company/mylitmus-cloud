@@ -5,7 +5,8 @@
   bottom: 0px;
   z-index: 1000;
   padding-top: 60px;
-  background-color: #333;
+  background-color: #202231;
+  color: #202231;
 }
 
 .menu-button {
@@ -15,20 +16,21 @@
 }
 
 .menu-button:hover {
-  background-color: #7a7a7a;
+  background-color: #6a6d7e;
 }
 
 .menu-button.w--open {
-  background-color: #333;
+  background-color: #202231;
 }
 
 .nav-menu {
-  background-color: #333;
+  background-color: #202231;
   color: #fff;
 }
 
 .nav-menu.sidebar {
   padding-top: 60px;
+  background-color: #202231;
 }
 
 .nav-link {
@@ -38,7 +40,7 @@
 }
 
 .nav-link:hover {
-  background-color: #7a7a7a;
+  background-color: #6a6d7e;
 }
 
 .navbar {
@@ -56,7 +58,7 @@
   -webkit-align-items: center;
   -ms-flex-align: center;
   align-items: center;
-  background-color: #333;
+  background-color: #202231;
 }
 
 .brand {
@@ -65,7 +67,7 @@
 }
 
 .brand:hover {
-  background-color: #7a7a7a;
+  background-color: #6a6d7e;
 }
 
 .link-block {
@@ -75,11 +77,11 @@
 }
 
 .link-block:hover {
-  background-color: #7a7a7a;
+  background-color: #6a6d7e;
 }
 
 .link-block.w--current {
-  background-color: #505050;
+  background-color: #3f4255;
 }
 
 .container {
@@ -120,11 +122,11 @@
 }
 
 .link-block-2:hover {
-  background-color: #7a7a7a;
+  background-color: #6a6d7e;
 }
 
 .link-block-2.w--current {
-  background-color: #505050;
+  background-color: #3f4255;
 }
 
 .link-block-2.arrow {
@@ -159,13 +161,14 @@
 }
 
 .text-block-2 {
+  font-family: 'Futura font', sans-serif;
   font-size: 18px;
+  font-weight: 900;
 }
 
 .section {
   margin-top: 60px;
   padding: 20px;
-  background-color: #f3f3f3;
 }
 
 .section.top {
@@ -278,6 +281,7 @@
 
 .heading {
   margin-top: 10px;
+  font-weight: 700;
   text-align: center;
 }
 
@@ -304,6 +308,60 @@
   -ms-flex-align: center;
   align-items: center;
   background-color: #a3a3a3;
+}
+
+.body {
+  background-color: #e0e0e0;
+  font-family: 'Notosanskr webfont', sans-serif;
+}
+
+.utility-page-wrap {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  max-height: 100%;
+  max-width: 100%;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.utility-page-content {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 260px;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  text-align: center;
+}
+
+.utility-page-form {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: stretch;
+  -webkit-align-items: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
 }
 
 @media (max-width: 991px) {
@@ -390,4 +448,23 @@
     margin-right: 0%;
     margin-left: 0%;
   }
+}
+
+@font-face {
+  font-family: 'Notosanskr webfont';
+  src: url('../fonts/notosanskr-bold-webfont.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Futura font';
+  src: url('../fonts/Futura-Heavy-font.ttf') format('truetype');
+  font-weight: 900;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Notosanskr webfont';
+  src: url('../fonts/notosanskr-regular-webfont.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
 }
