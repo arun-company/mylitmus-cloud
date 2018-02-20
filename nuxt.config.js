@@ -22,7 +22,8 @@ module.exports = {
     '~/css/mylitmus-cloud.webflow.css'
   ],
   plugins: [
-    { src: '~plugins/webflow.js', ssr: false }
+    { src: '~js/webflow.js', ssr: false },
+    { src: '~js/script.js', ssr: false },
   ],
   /*
   ** Customize the progress bar color

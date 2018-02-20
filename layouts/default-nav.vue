@@ -13,6 +13,11 @@
   export default {
     components: {
       MenuNav
+    },
+    head: {
+      bodyAttrs: {
+        class: 'body'
+      }
     }
   }
 </script>
