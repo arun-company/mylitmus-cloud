@@ -1,6 +1,8 @@
 <template>
   <div>
-   <MenuNav />
+    <no-ssr>
+      <MenuNav />
+    </no-ssr>
     <nuxt/>
   </div>
 </template>
