@@ -31,5 +31,8 @@
          <div class="w-icon-nav-menu"></div>
        </div>
      </div>
+    <script>
+      Webflow.ready()
+    </script>
   </div>
 </template>
