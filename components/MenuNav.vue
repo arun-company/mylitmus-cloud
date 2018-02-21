@@ -15,7 +15,7 @@
          </div>
 
          <div class="div-block">
-            <a href="zone" title="Dashboard" class="link-block w-inline-block"><img src="~/assets/images/005-dashboard.png" width="20" height="20"></a>
+            <a href="/zone" title="Dashboard" class="link-block w-inline-block"><img src="~/assets/images/005-dashboard.png" width="20" height="20"></a>
             <a href="#" title="Sensor List" class="link-block w-inline-block"><img src="~/assets/images/003-signs.png" width="20" height="20"></a>
             <a href="#" title="Reporting" class="link-block w-inline-block"><img src="~/assets/images/002-sign.png" width="20" height="20"></a>
             <a href="#" title="Alarm" class="link-block w-inline-block"><img src="~/assets/images/004-alarm-clock.png" width="20" height="20"></a>

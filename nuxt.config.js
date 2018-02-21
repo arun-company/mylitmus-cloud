@@ -17,13 +17,13 @@ module.exports = {
     ]
   },
   css: [
-    '~/css/webflow.css',
-    '~/css/normalize.css',
-    '~/css/mylitmus-cloud.webflow.css'
+    '~/assets/css/webflow.css',
+    '~/assets/css/normalize.css',
+    '~/assets/css/mylitmus-cloud.webflow.css'
   ],
   plugins: [
-    { src: '~js/webflow.js', ssr: false },
-    { src: '~js/script.js', ssr: false },
+    { src: '~/assets/js/webflow.js', ssr: false },
+    { src: '~/assets/js/script.js', ssr: false },
   ],
   /*
   ** Customize the progress bar color
