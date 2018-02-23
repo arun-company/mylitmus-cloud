@@ -28,6 +28,7 @@
         search: 1,
       }
     },
+
     asyncData({ store, route, userAgent }) {
         return {
           userAgent

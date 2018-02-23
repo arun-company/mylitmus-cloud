@@ -7,8 +7,8 @@
            <a href="/zone" class="link-block-2 w-inline-block"><img src="~/assets/images/005-dashboard.png" width="20" height="20"><div class="text-block">Dashboard</div></a>
            <a href="#" class="link-block-2 w-inline-block"><img src="~/assets/images/003-signs.png" width="20" height="20"><div class="text-block">Sensor List</div></a>
            <a href="#" class="link-block-2 w-inline-block"><img src="~/assets/images/002-sign.png" width="20" height="20"><div class="text-block">Reporting</div></a>
-           <a href="#" class="link-block-2 w-inline-block"><img src="~/assets/images/004-alarm-clock.png" width="20" height="20"><div class="text-block">Settings</div></a>
-           <a href="#" class="link-block-2 w-inline-block"><img src="~/assets/images/001-cogwheel.png" width="20" height="20"><div class="text-block">Alarm</div></a>
+           <a href="#" class="link-block-2 w-inline-block"><img src="~/assets/images/004-alarm-clock.png" width="20" height="20"><div class="text-block">Alarm</div></a>
+           <a href="#" class="link-block-2 w-inline-block"><img src="~/assets/images/001-cogwheel.png" width="20" height="20"><div class="text-block">Settings</div></a>
          </nav>
          <div title="Open Menu" class="menu-button w-nav-button">
            <div class="w-icon-nav-menu"></div>
