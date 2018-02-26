@@ -26,6 +26,9 @@
   export default {
     layout: 'default-nav',
     middleware: 'auth',
+    auth: {
+
+    }
 
   }
 

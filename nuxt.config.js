@@ -1,4 +1,7 @@
 module.exports = {
+  env: {
+    baseUrl: process.env.BASE_URL || 'http://localhost:3000'
+  },
   /*
   ** Headers of the page
   */
@@ -24,7 +27,49 @@ module.exports = {
   plugins: [
     { src: '~/assets/js/webflow.js', ssr: false },
     { src: '~/assets/js/script.js', ssr: false },
+    { src: '~/plugins/auth.js' },
   ],
+
+
+
+modules: [
+  ['@nuxtjs/axios', { baseURL: 'https://mylitmus.cloud',
+    proxyHeaders: false,
+    credentials: false
+  }],
+  '@nuxtjs/auth',
+  ['@nuxtjs/bootstrap-vue', { css: false }]
+  ],
+
+  auth: {
+    fetchUserOnLogin: true,
+    resetOnError: false,
+    rewriteRedirects: true,
+    watchLoggedIn: true,
+    namespace: 'auth',
+    scopeKey: 'scope',
+    token: {
+      type: 'Bearer',
+      name: 'token'
+    },
+    cookie: {
+      name: 'token',
+      options: {
+        path: '/'
+      }
+    },
+    endpoints: {
+      login: { url: '/auth/login',method: 'post', propertyName: 'token' },
+      logout: { url: '/auth/logout', },
+      user: { url: '/auth/user', method: 'post', propertyName: 'user' }
+    },
+    redirect: {
+      login: '/login',
+      home: '/'
+    },
+
+  },
+
   /*
   ** Customize the progress bar color
   */
@@ -32,8 +77,8 @@ module.exports = {
   /*
   ** Build configuration
   */
+
   build: {
-    vendor: ['axios'],
     /*
     ** Run ESLint on save
     */
