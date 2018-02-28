@@ -59,8 +59,8 @@ modules: [
       }
     },
     endpoints: {
-      login: { url: '/auth/login',method: 'post', propertyName: 'token' },
-      logout: { url: '/auth/logout', },
+      login: { url: '/auth/login/', method: 'post', propertyName: 'token' },
+      logout: { url: '/auth/logout/', },
       user: { url: '/auth/user', method: 'post', propertyName: 'user' }
     },
     redirect: {

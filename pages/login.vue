@@ -30,26 +30,30 @@
 
 <script>
   import busyOverlay from '~/components/busy-overlay'
+  import axios from 'axios'
 
   export default {
 //    middleware: ['auth'],
     components: { busyOverlay },
     data() {
       return {
-        username: 'flo',
-        password: '@flotrack',
+        username: "",
+        password: "",
         error: null
       }
     },
   methods: {
     async login() {
       this.error = null
-      console.log( this.$auth.login({
+      var result = this.$auth.login({
         data: {
           username: this.username,
           password: this.password
         }
-      }) );
+      });
+      console.log("###############");
+      console.log(result);
+      console.log("###############");
     }
   }
   }
