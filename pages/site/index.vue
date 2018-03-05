@@ -15,9 +15,9 @@
           <div class="div-block-5">
             <div class="text-block-4">Map Area</div>
           </div>
-          <nuxt-link :to="'/zone?' + key " v-for="(key, index) in 12" :key="index" class="div-block-2 w-inline-block">
-                <div class="text-block-3">Zone {{key}}</div>
-                <div class="text-block-4">{{key}}</div>
+          <nuxt-link :to="'/zone?' + key.id" v-for="(key, index) in zones" :key="index" class="div-block-2 w-inline-block">
+                <div class="text-block-3">{{key.name}}</div>
+                <div class="text-block-4">{{key.description}}</div>
           </nuxt-link>
         </div>
   </section>
@@ -34,10 +34,12 @@
       search: 1
     }
   },
-  asyncData({ store, route, userAgent }) {
-    return {
-      userAgent
-    }
+  async asyncData({ app, store }) {
+    // TODO get zone cookies
+    var zones = [{id:1, name:"Default Zone", description:"Zone 1"}];
+//    app.$axios.setHeader('Authorization', 'token ' + localStorage.getItem('token'));
+//    const zone = await app.$axios.$get('https://mylitmus.cloud/v1/users/self/zones/');
+    return { zones}
   }
   }
 </script>

@@ -28,6 +28,7 @@ module.exports = {
     { src: '~/assets/js/webflow.js', ssr: false },
     { src: '~/assets/js/script.js', ssr: false },
     { src: '~/plugins/auth.js' },
+    { src: '~/plugins/global.js' },
   ],
 
 

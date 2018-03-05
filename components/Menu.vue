@@ -8,6 +8,32 @@
       <div class="menu-button w-nav-button">
         <div class="w-icon-nav-menu"></div>
       </div>
+     <h1>list</h1>
+     <input class="new-todo" placeholder="What needs to be done?" autofocus v-model="todo" @keyup.enter="addTodo">
     </div>
 
 </template>
+<script>
+
+
+export default{
+  data () {
+   return { todo: '' }
+  },
+  methods: {
+
+    addTodo () {
+      var value = this.todo && this.todo.trim()
+      console.log(value);
+      if (value) {
+        this.$store.dispatch('addTodo', { title: value, completed: this.$route.params.slug === 'completed' })
+        this.$store.dispatch('saveTodos')
+        this.todo = ''
+      }
+
+//      console.log(localStorage.getItem('token')));
+//       {localStorage.getItem('token')};
+    }
+  }
+}
+</script>
