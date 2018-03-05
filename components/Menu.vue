@@ -1,6 +1,5 @@
 <template>
    <div data-collapse="none" data-animation="over-right" data-duration="400" class="navbar w-nav">
-
       <a href="/" class="brand w-nav-brand">
         <div class="text-block-2">Litmus.Cloud</div>
       </a>
@@ -8,8 +7,6 @@
       <div class="menu-button w-nav-button">
         <div class="w-icon-nav-menu"></div>
       </div>
-     <h1>list</h1>
-     <input class="new-todo" placeholder="What needs to be done?" autofocus v-model="todo" @keyup.enter="addTodo">
     </div>
 
 </template>

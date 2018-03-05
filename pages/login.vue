@@ -1,31 +1,31 @@
 <template>
-  <section class="container">
-    <div class="section zone">
+      <div class="loginsection">
+        <div class="w-container">
+          <div class="logindiv">
+            <h2 class="brandtitle">Litmus.Cloud</h2>
+            <div class="">
+              <form id="wf-form-Login-Form" class="loginform" @keydown.enter="login" method="post" >
+                <div class="div-block-6">
+                  <label for="usernameinput">ID:</label>
+                  <b-input class="w-input" id="usernameinput" maxlength="256" autofocus="true" v-model="username" placeholder="Enter your ID" ref="username" required />
 
-      <div>
-        <h2 class="text-center">Login</h2>
-        <hr>
-        <b-alert v-if="error" show variant="danger">{{ error + '' }}</b-alert>
-        <b-alert show v-if="$auth.getState('redirect')">
-          <!--You have to login before accessing to <strong>{{ $auth.getState('redirect') }}</strong>-->
-        </b-alert>
+                </div>
+                <div class="div-block-6"><label for="password">Password:</label>
+                  <b-input type="password" v-model="password" class="w-input" maxlength="256" autofocus="true" placeholder="Enter your password" id="password" required="" />
+                </div>
+                <b-btn @click="login" class="submit-button w-button" type="submit" value="Sign In" >Sign In</b-btn>
 
-        <form @keydown.enter="login" method="post">
-        <b-form-group label="Username">
-          <b-input v-model="username" placeholder="anything" ref="username" />
-        </b-form-group>
-
-        <b-form-group label="Password">
-          <b-input type="password" v-model="password" placeholder="123" />
-        </b-form-group>
-        <div class="text-center">
-          <b-btn @click="login" variant="primary" block>Login</b-btn>
+              </form>
+              <div class="w-form-done">
+                <div>Thank you! Your sign in has been successful!</div>
+              </div>
+              <div class="w-form-fail">
+                <div>Your sign in has  failed.</div>
+              </div>
+            </div>
+          </div>
         </div>
-        </form>
       </div>
-
-    </div>
-  </section>
 </template>
 
 <script>
@@ -33,7 +33,6 @@
   import axios from 'axios'
 
   export default {
-//    middleware: ['auth'],
     components: { busyOverlay },
     data() {
       return {
@@ -51,9 +50,6 @@
           password: this.password
         }
       });
-      console.log("###############");
-      console.log(result);
-      console.log("###############");
     }
   }
   }

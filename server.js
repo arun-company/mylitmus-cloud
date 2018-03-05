@@ -15,7 +15,6 @@ app.use(session({
 }))
 
 app.put('/api/todos', function (req, res) {
-
   req.session.todos = req.body.todos
   res.json(req.session.todos)
 })
