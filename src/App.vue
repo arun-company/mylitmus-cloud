@@ -16,8 +16,8 @@
       <div class="menu-button w-nav-button">
         <div class="w-icon-nav-menu"></div>
       </div>
-      <router-view></router-view>
     </div>
+    <router-view></router-view>
 
   </v-app>
 </template>

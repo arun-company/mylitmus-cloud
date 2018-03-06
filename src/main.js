@@ -12,6 +12,8 @@ import loadStock from 'highcharts/modules/stock';
 
 import Login from '@/pages/Login'
 import Site from '@/pages/Site'
+import Zone from '@/pages/Zone'
+import Sensor from '@/pages/Sensor'
 import Dashboard from '@/pages/Dashboard'
 import SensorList from '@/pages/SensorList'
 import Report from '@/pages/Report'
@@ -45,6 +47,8 @@ const routes = [
 	{ path: '/login', component: Login },
 	{ path: '/dashboard', component: Dashboard },
 	{ path: '/site', component: Site },
+	{ path: '/zone', component: Zone },
+	{ path: '/sensor', component: Sensor },
 	{ path: '/dashboard/:zoneid', component: Dashboard, props: true },
 	{ path: '/sensor-list', component: SensorList },
 	{ path: '/sensor-list/:zoneid', component: SensorList, props: true },

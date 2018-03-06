@@ -1,5 +1,5 @@
 <template>
-  <main>
+
     <div class="loginsection">
       <div class="w-container">
         <div class="logindiv">
@@ -27,7 +27,7 @@
       </div>
     </div>
     <!--<v-btn dark flat @click.native="snackbar = false">Close</v-btn>-->
-  </main>
+
 </template>
 
 <script>

@@ -10,8 +10,10 @@
       <div class="w-container">
         <h1 class="heading">Organization Name</h1>
       </div>
-
-      <router-link to="/zone" class="div-block-2 w-inline-block" v-for="(key, index) in sites" :key="index">
+      <div class="div-block-5">
+        <div class="text-block-4">Map Area</div>
+      </div>
+      <router-link to="/sensor" class="div-block-2 w-inline-block" v-for="(key, index) in items" :key="index">
         <div class="text-block-3">{{ key.name }}</div>
         <div class="text-block-4">{{ key.description }}</div>
       </router-link>
@@ -32,9 +34,11 @@
       this.$store.state.menu = false
     return {
       open: this.drawer,
-      sites: [
-        {id:1, name:"Default Site",description:"1"},
-        {id:2, name:"Home",description:"2"}
+      items: [
+        {id:1, name:"Zone",description:"1"},
+        {id:2, name:"Zone 2",description:"2"},
+        {id:3, name:"Zone 3",description:"3"},
+        {id:4, name:"Zone 4",description:"4"}
       ],
     }
     }
