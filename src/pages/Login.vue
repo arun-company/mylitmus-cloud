@@ -1,54 +1,32 @@
 <template>
   <main>
-    <v-container>
-      <v-layout row>
-        <v-flex xs12 sm6 offset-sm3>
-          <v-card>
-            <v-card-text>
-              <v-container>
-                <form @submit.prevent="onLogin">
-                  <v-layout row>
-                    <v-flex xs12>
-                      <v-text-field
-                        name="username"
-                        label="아이디"
-                        id="username"
-                        v-model="credentials.username"
-                        required
-                      ></v-text-field>
-                    </v-flex>
-                  </v-layout>
-                  <v-layout row>
-                    <v-flex xs12>
-                      <v-text-field
-                        name="password"
-                        label="비밀번호"
-                        id="password"
-                        v-model="credentials.password"
-                        type="password"
-                        required
-                      ></v-text-field>
-                    </v-flex>
-                  </v-layout>
-                  <v-layout row>
-                    <v-flex xs12>
-                      <v-btn primary type="submit" style="width: 100%">
-                        로그인
-                      </v-btn>
-                    </v-flex>
-                  </v-layout>
-                </form>
-              </v-container>
-            </v-card-text>
-          </v-card>
-        </v-flex>
-      </v-layout>
-    </v-container>
-    <v-snackbar
-      :timeout="3000" class="error" v-model="snackbar">
-      {{ '로그인에 실패하였습니다.' }}
-      <v-btn dark flat @click.native="snackbar = false">Close</v-btn>
-    </v-snackbar>
+    <div class="loginsection">
+      <div class="w-container">
+        <div class="logindiv">
+          <h2 class="brandtitle">Litmus.Cloud</h2>
+          <div class="w-form">
+            <form @submit.prevent="onLogin" class="loginform" id="wf-form-Login-Form">
+              <v-layout class="div-block-6">
+                <label for="username">ID:</label>
+                <input type="text" class="w-input" v-model="credentials.username" maxlength="256" autofocus="true" placeholder="Enter your ID" id="username" >
+
+                <label for="password">Password:</label>
+                <input class="w-input" id="password"  type="password"  name="password" v-model="credentials.password" required=""  placeholder="Enter your password" >
+              </v-layout>
+              <input type="submit" value="Sign In" class="submit-button w-button">
+            </form>
+
+            <v-snackbar
+                    :timeout="3000" class="error" v-model="snackbar">
+                    <div class="w-form-fail" style="display: block">
+                      <div>{{ '로그인에 실패하였습니다.' }}</div>
+                    </div>
+            </v-snackbar>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--<v-btn dark flat @click.native="snackbar = false">Close</v-btn>-->
   </main>
 </template>
 
@@ -73,7 +51,7 @@
           }
 
           auth.checkAuth()
-          this.$router.push('/')
+          this.$router.go('/site')
         })
       }
     }
