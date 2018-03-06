@@ -11,8 +11,9 @@ import highchartsMore from 'highcharts/highcharts-more';
 import loadStock from 'highcharts/modules/stock';
 
 import Login from '@/pages/Login'
-import Site from '@/pages/Site'
+import SiteList from '@/pages/SiteList'
 import Zone from '@/pages/Zone'
+import Site from '@/pages/Site'
 import Sensor from '@/pages/Sensor'
 import Dashboard from '@/pages/Dashboard'
 import SensorList from '@/pages/SensorList'
@@ -43,7 +44,7 @@ highchartsMore(Highcharts);
 Vue.use(VueHighcharts, { Highcharts })
 
 const routes = [
-	{ path: '/', redirect: '/site' },
+	{ path: '/', component: SiteList },
 	{ path: '/login', component: Login },
 	{ path: '/dashboard', component: Dashboard },
 	{ path: '/site', component: Site },
@@ -68,7 +69,7 @@ router.beforeEach((to, from, next) => {
 })
 
 export const store = new Vuex.Store({
-	state: { zones: [], zoneid: null, zone: null, token: null, menu:false},
+	state: { zones: [], zoneid: null, zone: null, token: null, menu:true},
 	mutations: {
 		setZones (state, zones) { state.zones = zones },
 		setZoneId (state, zoneid) { state.zoneid = zoneid },

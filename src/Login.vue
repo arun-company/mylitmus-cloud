@@ -1,6 +1,6 @@
 <template>
   <v-app light>
-    <sidebar :drawer.sync="drawer" v-if="$store.getters.isAuthenticated"></sidebar>
+    <sidebar :drawer.sync="drawer" v-if="$store.getters.isAuthenticated || drawer"></sidebar>
     <v-toolbar class="secondary" fixed>
       <v-toolbar-side-icon @click.stop="drawer = !drawer" v-if="$store.getters.isAuthenticated"></v-toolbar-side-icon>
       <v-toolbar-title @click.stop="$router.push('/dashboard')" class="white--text hidden-sm-and-down" v-text="title" style="cursor: pointer"></v-toolbar-title>
@@ -22,6 +22,7 @@
   import ZoneSelector from '@/components/ZoneSelector'
 
   export default {
+    name: 'login',
     components: { Sidebar, ZoneSelector },
     data () {
       return {

@@ -4,7 +4,7 @@
       <div class="w-container">
         <div class="logindiv">
           <h2 class="brandtitle">Litmus.Cloud</h2>
-          <div class="w-form">
+          <div class="">
             <form @submit.prevent="onLogin" class="loginform" id="wf-form-Login-Form">
               <v-layout class="div-block-6">
                 <label for="username">ID:</label>
@@ -19,7 +19,7 @@
             <v-snackbar
                     :timeout="3000" class="error" v-model="snackbar">
                     <div class="w-form-fail" style="display: block">
-                      <div>{{ '로그인에 실패하였습니다.' }}</div>
+                      <div>{{ 'Your sign in has  failed.' }}</div>
                     </div>
             </v-snackbar>
           </div>
