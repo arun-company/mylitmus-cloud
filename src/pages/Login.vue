@@ -34,8 +34,8 @@
   import auth from '@/auth'
 
   export default {
-    layout:'login',
     data () {
+      this.$store.state.menu = false
       return {
         snackbar: false,
         credentials: { username: '', password: '' },
@@ -51,7 +51,7 @@
           }
 
           auth.checkAuth()
-          this.$router.go('/site')
+          this.$router.push('/')
         })
       }
     }
