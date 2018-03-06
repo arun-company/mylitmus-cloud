@@ -41,7 +41,7 @@
       headerTitle: 'Default Site',
       searchTitle: 'Search Zone ...',
       items: [
-        {id:1, name:"Zone",description:"1"},
+        {id:1, name:"Zone",description:"1" },
         {id:2, name:"Zone 2",description:"2"},
         {id:3, name:"Zone 3",description:"3"},
         {id:4, name:"Zone 4",description:"4"}

@@ -5,7 +5,7 @@
       <a href="/" class="brand w-nav-brand">
         <div class="text-block-2">Litmus.Cloud</div>
       </a>
-      <nav role="navigation" class="nav-menu w-nav-menu"><a v-if="$store.getters.isAuthenticated"  @click='logout' href="/" class="nav-link w-nav-link">Sign out</a></nav>
+      <nav role="navigation" class="nav-menu w-nav-menu"><a v-if="$store.getters.isAuthenticated"  @click='logout' class="nav-link w-nav-link">Sign out</a></nav>
       <div class="menu-button w-nav-button">
         <div class="w-icon-nav-menu"></div>
       </div>
@@ -29,7 +29,6 @@
   import ZoneSelector from '@/components/ZoneSelector'
 
   export default {
-    name: 'app',
     components: { Toolbar, ZoneSelector },
     data (state) {
       return {
