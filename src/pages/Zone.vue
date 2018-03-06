@@ -13,7 +13,7 @@
         <div class="text-block-5">Zone</div>
       </div>
       <div class="div-block-4 search">
-        <input id="search-box" keyup="reverseMessage" class="w-input" type="text" :placeholder="searchTitle"><a href="#" class="w-inline-block"><img src="public/images/search.333333.png" width="20" height="20" class="image"></a></div>
+        <input id="search-box" keyup="reverseMessage" v-model="search" class="w-input" type="text" :placeholder="searchTitle"><a href="#" class="w-inline-block"><img src="public/images/search.333333.png" width="20" height="20" class="image"></a></div>
     </div>
 
     <div class="w-container">
@@ -24,7 +24,7 @@
       <div class="text-block-4">Map Area</div>
     </div>
 
-    <router-link class="div-block-2 w-inline-block" v-for="key in items" to="#">
+    <router-link class="div-block-2 w-inline-block" v-for="key in filteredItems" to="#">
       <div class="text-block-3">{{ key.name }}</div>
       <div class="text-block-4">{{ key.description }}</div>
     </router-link>
@@ -44,6 +44,7 @@
     data () {
         this.$store.state.menu = true
         return {
+          search: '',
           headerTitle: "Zone",
           searchTitle: "Search sensors ...",
           items: [
@@ -54,9 +55,12 @@
           ],
         }
       },
-      methods: {
-        reverseMessage: function () {
-          this.searchTitle = 'Hello world'
+      computed:
+      {
+        filteredItems:function()
+        {
+          var self=this;
+          return this.items.filter(function(item){return item.name.toLowerCase().indexOf(self.search.toLowerCase())>=0;});
         }
       }
 
