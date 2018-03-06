@@ -59,7 +59,24 @@ module.exports = {
       {
         test: /\.styl$/,
         loader: ['style-loader', 'css-loader', 'stylus-loader']
+      },
+      {
+        test: /\.scss$/,
+        use: [
+          {
+            loader: "style-loader"
+          },
+          {
+            loader: "css-loader",
+            options: {
+              alias: {
+                "../fonts/bootstrap": "bootstrap-sass/assets/fonts/bootstrap"
+              }
+            }
+          }
+        ]
       }
+
     ]
   },
   plugins: [

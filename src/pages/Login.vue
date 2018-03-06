@@ -56,6 +56,7 @@
   import auth from '@/auth'
 
   export default {
+    layout:'login',
     data () {
       return {
         snackbar: false,
