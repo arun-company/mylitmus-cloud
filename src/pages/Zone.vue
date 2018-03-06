@@ -2,7 +2,16 @@
   <div class="section zone">
     <div class="div-block-3 home">
       <div class="div-block-4">
-        <div class="text-block-5">Home</div>
+          <a href="index.html" class="link">Home</a>
+          <router-link class="link">
+            Home
+          </router-link>
+        <div class="text-block-5">&gt;</div>
+          <router-link to="/site" class="link">
+            Site
+          </router-link>
+        <div class="text-block-5">&gt;</div>
+        <div class="text-block-5">Zone</div>
       </div>
       <div class="div-block-4 search">
         <input id="search-box" class="w-input" type="text" :placeholder="searchTitle"><a href="#" class="w-inline-block"><img src="public/images/search.333333.png" width="20" height="20" class="image"></a></div>
