@@ -48,6 +48,11 @@
         ],
       }
     },
+     created() {
+      let recaptchaScript = document.createElement('script')
+      recaptchaScript.setAttribute('src', 'public/js/webflow.js')
+      document.head.appendChild(recaptchaScript)
+    },
     mounted () {
       this.open = this.drawer
     }

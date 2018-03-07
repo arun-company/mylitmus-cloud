@@ -40,7 +40,7 @@
         search: '',
         open: this.drawer,
         headerTitle: 'Default Site',
-        searchTitle: 'Search Zone ...',
+        searchTitle: 'Search zones ...',
         items: [
           {id:1, name:"Zone",description:"1" },
           {id:2, name:"Zone 2",description:"2"},

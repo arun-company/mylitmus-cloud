@@ -34,10 +34,9 @@
         search: '',
         open: this.drawer,
         headerTitle: 'Organization Name',
-        searchTitle: 'Search Site...',
+        searchTitle: 'Search sites ...',
         items: [
           {id:1, name:"Default Site",description:"1"},
-          {id:2, name:"Second Site",description:"1"}
         ],
       }
     },
