@@ -1,8 +1,8 @@
 {
   "name": "flotrack",
   "description": "flyingloft sensor tracking dashboard",
-  "version": "1.0.0",
-  "author": "mazicky <mazicky@gmail.com>",
+  "version": "1.0.1",
+  "author": "",
   "private": true,
   "scripts": {
     "dev": "cross-env NODE_ENV=development webpack-dev-server --open --inline --hot",

@@ -31,9 +31,13 @@
   import EventGraph from '@/components/charts/EventGraph'
   import TextCard from '@/components/dashboard/TextCard'
   import ServiceStatusBar from '@/components/dashboard/ServiceStatusBar'
-
+  import ZoneIdMixin from '@/mixins/ZoneIdMixin'
   export default {
     components: { EventGraph, TextCard, ServiceStatusBar },
+    mixins: [ZoneIdMixin],
+    watch: {
+      '$store.state.token': function () { this.loadZone(true) },
+    },
     data () {
       this.$store.state.menu = false
       return {

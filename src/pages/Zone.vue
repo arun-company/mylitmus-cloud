@@ -55,6 +55,11 @@
           ],
         }
       },
+      created() {
+        let litmus_js = document.createElement('script')
+        litmus_js.setAttribute('src', 'public/js/webflow.js')
+        document.head.appendChild(litmus_js)
+      },
       computed:
       {
         filteredItems:function()

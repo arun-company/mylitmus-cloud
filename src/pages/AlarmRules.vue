@@ -1,6 +1,6 @@
 <template>
-  <main>
-    <v-container grid-list-lg text-xs-center>
+    <div class="section">
+        <div class="div-block-3 home">
       <v-layout row wrap>
           <v-flex xs12 md6 v-for="rule in alarmRules" :key="rule.name">
             <v-card>
@@ -26,8 +26,8 @@
           </v-flex>
         <v-progress-linear v-bind:indeterminate="true" v-if="!alarmRules"></v-progress-linear>
       </v-layout>
-    </v-container>
-  </main>
+    </div>
+  </div>
 </template>
 
 <script>

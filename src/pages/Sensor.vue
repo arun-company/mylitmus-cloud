@@ -35,10 +35,10 @@
     return {
       open: this.drawer,
       items: [
-        {id:1, name:"Sensor1",description:"1"},
-        {id:1, name:"Sensor2",description:"2"},
-        {id:1, name:"Sensor3",description:"3"},
-        {id:1, name:"Sensor4",description:"4"},
+        {id:1, name:"Sensor 1",description:"1"},
+        {id:1, name:"Sensor 2",description:"2"},
+        {id:1, name:"Sensor 3",description:"3"},
+        {id:1, name:"Sensor 4",description:"4"},
 
       ],
     }

@@ -33,8 +33,13 @@
     data (state) {
       return {
         drawer: false,
-        title: 'Litmus.Cloud',
+        title: 'Litmus --- Cloud',
       }
+    },
+    created() {
+      let jQuery = document.createElement('script')
+      jQuery.setAttribute('src', 'https://code.jquery.com/jquery-3.3.1.min.js')
+      document.head.appendChild(jQuery)
     },
     methods: {
       logout () {

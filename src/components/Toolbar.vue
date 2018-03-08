@@ -40,18 +40,16 @@
       return {
         open: this.drawer,
         items: [
-          {id:1, name:'Dashboard', icon:'005-dashboard.png', path:'/zone', class:'w--current'},
-          {id:2, name:'Sensor List', icon:'003-signs.png', path:'/', class:''},
-          {id:3, name:'Reporting', icon:'002-sign.png', path:'/', class:''},
-          {id:4, name:'Notifications', icon:'004-alarm-clock.png', path:'/' , class:''},
-          {id:5, name:'Settings', icon:'001-cogwheel.png', path:'/', class:''},
+          {id:1, name:'Dashboard', icon:'005-dashboard.png', path:'/zone', class:''},
+          // {id:2, name:'Sensor List', icon:'003-signs.png', path:'/', class:''},
+          {id:3, name:'Reporting', icon:'002-sign.png', path:'/report', class:''},
+          {id:4, name:'Notifications', icon:'004-alarm-clock.png', path:'/alarmrules' , class:''},
+          {id:5, name:'Settings', icon:'001-cogwheel.png', path:'/settings', class:''},
         ],
       }
     },
      created() {
-      let recaptchaScript = document.createElement('script')
-      recaptchaScript.setAttribute('src', 'public/js/webflow.js')
-      document.head.appendChild(recaptchaScript)
+     
     },
     mounted () {
       this.open = this.drawer

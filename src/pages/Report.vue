@@ -1,15 +1,9 @@
 <template>
-  <main>
-    <v-container grid-list-lg text-xs-center>
-      <v-layout row wrap>
-        <v-flex xs12 md6>
+    <div class="section">
+        <div class="div-block-3 home">
           <date-selector label="시작날짜" :date.sync="range.dateFrom" :allowed-dates="beforeToday"/>
-        </v-flex>
-        <v-flex xs12 md6>
           <date-selector label="종료날짜" :date.sync="range.dateTo" :allowed-dates="afterDateFrom" at-the-end="true" />
-        </v-flex>
-        <v-flex xs12>
-          <v-card>
+            <v-card>
             <min-max-average-graph 
               title="온도" 
               color="#ee513b" 
@@ -21,31 +15,25 @@
               :alarmEvents="alarmEvents"
               :alarmRules="alarmRules"
               unit="℃"
-            />
-          </v-card>
-          <v-card class="mt-2">
-            <min-max-average-graph 
-              title="습도" 
-              color="#9badff" 
-              :averages="averages.humidity" 
-              :ranges="ranges.humidity"
-              :min-value="getMinMax('humidity', 'min_value')"
-              :max-value="getMinMax('humidity', 'max_value')"
-              sensorType="humidity"
-              :alarmEvents="alarmEvents"
-              :alarmRules="alarmRules"
-              unit="%"
-            />
-          </v-card>
-        </v-flex>
-        <v-flex xs12>
-          <v-card>
+              />
+            </v-card>
+            <v-card class="mt-2">
+              <min-max-average-graph 
+                title="습도" 
+                color="#9badff" 
+                :averages="averages.humidity" 
+                :ranges="ranges.humidity"
+                :min-value="getMinMax('humidity', 'min_value')"
+                :max-value="getMinMax('humidity', 'max_value')"
+                sensorType="humidity"
+                :alarmEvents="alarmEvents"
+                :alarmRules="alarmRules"
+                unit="%"
+              />
+            </v-card>
             <node-map :selectionEnabled="false"></node-map>
-          </v-card>
-        </v-flex>
-      </v-layout>
-    </v-container>
-  </main>
+          </div>
+    </div> 
 </template>
 
 <script>
