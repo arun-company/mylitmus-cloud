@@ -47,7 +47,7 @@ const routes = [
 	{ path: '/', component: SiteList },
 	{ path: '/login', component: Login },
 	{ path: '/dashboard', component: Dashboard },
-	{ path: '/site', component: Site },
+	{ path: '/site/:zoneid', component: Site },
 	{ path: '/zone', component: Zone },
 	{ path: '/sensor', component: Sensor },
 	{ path: '/dashboard/:zoneid', component: Dashboard, props: true },

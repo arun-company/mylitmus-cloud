@@ -35,9 +35,6 @@
   export default {
     components: { EventGraph, TextCard, ServiceStatusBar },
     mixins: [ZoneIdMixin],
-    watch: {
-      '$store.state.token': function () { this.loadZone(true) },
-    },
     data () {
       this.$store.state.menu = false
       return {
@@ -45,12 +42,7 @@
         open: this.drawer,
         headerTitle: 'Default Site',
         searchTitle: 'Search zones ...',
-        items: [
-          {id:1, name:"Zone",description:"1" },
-          {id:2, name:"Zone 2",description:"2"},
-          {id:3, name:"Zone 3",description:"3"},
-          {id:4, name:"Zone 4",description:"4"}
-        ],
+        items: this.$store.state.zones,
       }
     },
     computed:

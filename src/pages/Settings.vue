@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <div class="section zone" >
     <v-container grid-list-lg text-xs-center>
       <v-layout row wrap>
         <template v-for="setting in settings">
@@ -21,7 +21,7 @@
         <v-progress-linear v-bind:indeterminate="true" v-if="!settings"></v-progress-linear>
       </v-layout>
     </v-container>
-  </main>
+  </div>
 </template>
 
 <script>

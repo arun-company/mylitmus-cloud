@@ -1,5 +1,5 @@
 <template>
-    <div class="section">
+    <div class="section zone">
         <div class="div-block-3 home">
       <v-layout row wrap>
           <v-flex xs12 md6 v-for="rule in alarmRules" :key="rule.name">

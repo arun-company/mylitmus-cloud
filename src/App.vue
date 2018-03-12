@@ -1,6 +1,7 @@
 <template>
   <v-app light>
     <Toolbar :drawer.sync="drawer" v-if="$store.getters.isAuthenticated && this.$store.state.menu"></Toolbar>
+    <zone-selector></zone-selector>
     <div data-collapse="none" data-animation="over-right" data-duration="400" class="navbar w-nav">
       <a href="/" class="brand w-nav-brand">
         <div class="text-block-2">Litmus.Cloud</div>

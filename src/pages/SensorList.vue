@@ -1,5 +1,5 @@
 <template>
-	<main>
+	<div class="section zone">
   	<v-slide-y-transition mode="out-in">
   	  <v-container grid-list-lg text-xs-center>
   	  	<v-layout row wrap>
@@ -38,7 +38,7 @@
         </v-layout>
   	  </v-container>
   	</v-slide-y-transition>
-  </main>
+  </div>
 </template>
 
 <script type="text/javascript">
