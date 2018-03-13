@@ -1,8 +1,8 @@
 <template>
     <div class="section zone">
-        <div class="div-block-3 home">
-      <v-layout row wrap>
-          <v-flex xs12 md6 v-for="rule in alarmRules" :key="rule.name">
+        <div class="">
+      <v-layout div-block-3 home>
+          <v-flex div-block-3 v-for="rule in alarmRules" :key="rule.name">
             <v-card>
               <v-card-title primary-title>
                 <v-layout align-content-space-between>

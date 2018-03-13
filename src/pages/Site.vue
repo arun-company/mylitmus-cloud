@@ -18,7 +18,7 @@
       <div class="text-block-4">Map Area</div>
     </div>
     <router-link to="/zone" class="div-block-2 w-inline-block" v-for="(key, index) in filteredItems">
-      <div class="text-block-3">{{ key.name }}</div>
+      <div @click="$store.dispatch('setZone', { zoneId: key.id, shouldClear: true })" class="text-block-3">{{ key.name }}</div>
       <div class="text-block-4">{{ key.description }}</div>
     </router-link>
   </div>
