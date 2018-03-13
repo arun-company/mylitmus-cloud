@@ -1,5 +1,5 @@
 <template>
-    <div class="section">
+    <div class="section zone">
         <div class="div-block-3 home">
           <date-selector label="시작날짜" :date.sync="range.dateFrom" :allowed-dates="beforeToday"/>
           <date-selector label="종료날짜" :date.sync="range.dateTo" :allowed-dates="afterDateFrom" at-the-end="true" />

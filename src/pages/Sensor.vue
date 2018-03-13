@@ -1,5 +1,5 @@
 <template>
-    <div class="section">
+    <div class="section zone">
       <div class="div-block-3 home">
         <div class="div-block-4">
           <div class="text-block-5">Home</div>
