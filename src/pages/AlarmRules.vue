@@ -1,8 +1,9 @@
 <template>
+  <main>
     <div class="section zone">
-        <div class="">
-      <v-layout div-block-3 home>
-          <v-flex div-block-3 v-for="rule in alarmRules" :key="rule.name">
+      <v-container grid-list-lg text-xs-center>
+      <v-layout row wrap>
+          <v-flex xs12 md6 v-for="rule in alarmRules" :key="rule.name">
             <v-card>
               <v-card-title primary-title>
                 <v-layout align-content-space-between>
@@ -26,8 +27,9 @@
           </v-flex>
         <v-progress-linear v-bind:indeterminate="true" v-if="!alarmRules"></v-progress-linear>
       </v-layout>
+    </v-container>
     </div>
-  </div>
+  </main>
 </template>
 
 <script>
