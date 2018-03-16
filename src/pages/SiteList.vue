@@ -33,10 +33,10 @@
       return {
         search: '',
         open: this.drawer,
-        headerTitle: 'Organization Name',
+        headerTitle: 'Organization',
         searchTitle: 'Search sites ...',
         items: [
-          {id:1, name:"Default Site",description:"1"},
+          {id:1, name:"Default",description:""},
         ],
       }
     },

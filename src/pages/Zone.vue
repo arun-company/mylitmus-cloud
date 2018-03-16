@@ -7,10 +7,10 @@
           </router-link>
         <div class="text-block-5">&gt;</div>
           <router-link to="/site" class="link">
-            Site
+            Default
           </router-link>
         <div class="text-block-5">&gt;</div>
-        <div class="text-block-5">Zone</div>
+        <div class="text-block-5">{{headerTitle}}</div>
       </div>
       <div class="div-block-4 search">
         <input id="search-box" keyup="reverseMessage" v-model="search" class="w-input" type="text" :placeholder="searchTitle"><a href="#" class="w-inline-block"><img src="public/images/search.333333.png" width="20" height="20" class="image"></a></div>
@@ -21,12 +21,16 @@
     </div>
 
     <div class="div-block-5">
-      <div class="text-block-4">Map Area</div>
+      <div class="text-block-4" style="width: 100%; height: 100%;">
+        <div class="floor_img" v-if="zone" v-bind:style="'background-image: url('+zone.floor_map+')'"></div>
+        <!-- <img v-if="zone" v-bind:src="zone.floor_map" alt=""> -->
+        <!-- <img v-if="$store.zone"  src="{{zone.floor_map}}" alt="Floor Map"> -->
+      </div>
     </div>
 
     <router-link class="div-block-2 w-inline-block" v-for="key in filteredItems" to="#">
-      <div class="text-block-3">{{ key.name }}</div>
-      <div class="text-block-4">{{ key.description }}</div>
+      <div class="text-block-3">{{ key.nodeName }}</div>
+      <!-- <div class="text-block-4">{{ key.description }}</div> -->
     </router-link>
   </div>
 </template>
@@ -43,19 +47,16 @@
   export default {
     components: { EventGraph, TextCard, ServiceStatusBar },
     data () {
-        zone:1;
+      
         events_grouped_by_id: [];
         this.$store.state.menu = true
         return {
           search: '',
+          sensors:[],
+          zone: null,
           headerTitle: "Zone",
           searchTitle: "Search sensors ...",
-          items: [
-            {id:1, name:"Sensor1", description:"1"},
-            {id:2, name:"Sensor2", description:"2"},
-            {id:3, name:"Sensor3", description:"3"},
-            {id:4, name:"Sensor4", description:"4"}
-          ],
+          items: [],
         }
       },
       created() {
@@ -68,7 +69,10 @@
         filteredItems:function()
         {
           var self=this;
-          return this.items.filter(function(item){return item.name.toLowerCase().indexOf(self.search.toLowerCase())>=0;});
+          return this.items.filter(function(item){
+            return item.nodeName.toLowerCase().indexOf(self.search.toLowerCase())>=0;
+            }
+          );
         }
       },
       mounted () {
@@ -82,10 +86,16 @@
         // console.log(this.zone);
         // console.log(this.$store.state.zone);
         // if (!this.zone) { return }
-        
-        const EVENT_API = `${API_BASE}/zones/3/alarmEvents/spots`
+        var zoneId = localStorage.getItem('zoneid')
+        const EVENT_API = `${API_BASE}/zones/${zoneId}/alarmEvents/spots`
         axios.get(EVENT_API, { params: { dateFrom: '-24h', nodewise: true }}).then(res => {
-          this.events_grouped_by_id = res.data
+          this.items = res.data 
+        })
+        // https://mylitmus.cloud/v1/zones/2
+        const GET_ZONE = `${API_BASE}/zones/${zoneId}`
+        axios.get(GET_ZONE,{params:{}}).then(res => {
+          this.zone = res.data
+          this.headerTitle = this.zone.name
         })
         // const ALARMS_API = `${API_BASE}/zones/${this.zone.id}/alarmRules`
         // axios.get(ALARMS_API).then(res => {

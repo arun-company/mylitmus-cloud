@@ -6,7 +6,7 @@
           Home
         </router-link>
         <div class="text-block-5">&gt;</div>
-        <div class="text-block-5">Site</div>
+        <div class="text-block-5">{{headerTitle}}</div>
       </div>
       <div class="div-block-4 search">
         <input id="search-box" class="w-input" v-model="search" type="text" :placeholder="searchTitle"><a href="#" class="w-inline-block"><img src="public/images/search.333333.png" width="20" height="20" class="image"></a></div>
@@ -40,7 +40,7 @@
       return {
         search: '',
         open: this.drawer,
-        headerTitle: 'Default Site',
+        headerTitle: 'Default',
         searchTitle: 'Search zones ...',
         items: this.$store.state.zones,
       }
