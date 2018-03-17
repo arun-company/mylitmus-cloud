@@ -19,12 +19,9 @@
     <div class="w-container">
       <h1 class="heading">{{headerTitle}}</h1>
     </div>
-
     <div class="div-block-5">
       <div class="text-block-4" style="width: 100%; height: 100%;">
-        <div class="floor_img" v-if="zone" v-bind:style="'background-image: url('+zone.floor_map+')'"></div>
-        <!-- <img v-if="zone" v-bind:src="zone.floor_map" alt=""> -->
-        <!-- <img v-if="$store.zone"  src="{{zone.floor_map}}" alt="Floor Map"> -->
+        <node-map @onSelectNode="selectNode($event.id)"></node-map>
       </div>
     </div>
 
@@ -43,9 +40,10 @@
   import TextCard from '@/components/dashboard/TextCard'
   import ServiceStatusBar from '@/components/dashboard/ServiceStatusBar'
   import { API_BASE, DASHBOARD_REFRESH_TIME } from '@/global'
-
+  import NodeMap from '@/components/NodeMap'
+  import DurationSelector from '@/components/DurationSelector'
   export default {
-    components: { EventGraph, TextCard, ServiceStatusBar },
+    components: { EventGraph, TextCard, ServiceStatusBar,NodeMap,DurationSelector  },
     data () {
       
         events_grouped_by_id: [];

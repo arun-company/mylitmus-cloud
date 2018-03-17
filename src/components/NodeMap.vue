@@ -94,7 +94,7 @@
       onClick (node) {
         if (!this.selectionEnabled) { return }
         this.selected = node
-        this.$emit('onSelectNode', node)
+        // this.$emit('onSelectNode', node)
       },
       setSize () {
         if (!this.$refs.svg) { return }
