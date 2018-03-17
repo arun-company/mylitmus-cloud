@@ -59,7 +59,7 @@
   import MinMaxAverageGraph from '@/components/charts/MinMaxAverageGraph'
   import NodeMap from '@/components/NodeMap'
   import ZoneIdMixin from '@/mixins/ZoneIdMixin'
-
+  
   export default {
     components: { DateSelector, MinMaxAverageGraph, NodeMap },
     mixins: [ZoneIdMixin],

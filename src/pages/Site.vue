@@ -17,10 +17,10 @@
     <div class="div-block-5">
       <div class="text-block-4">Map Area</div>
     </div>
-    <router-link to="/zone" class="div-block-2 w-inline-block" v-for="(key, index) in filteredItems">
-      <div @click="$store.dispatch('setZone', { zoneId: key.id, shouldClear: true })" class="text-block-3">{{ key.name }}</div>
-      <div class="text-block-4">{{ key.description }}</div>
-    </router-link>
+    <div class="div-block-2 w-inline-block zone-card" v-for="(key, index) in filteredItems" v-bind:key="key.id">
+      <div @click="setZoneLocal(key)" class="text-block-3">{{ key.name }}</div>
+      <!-- <div class="text-block-4">{{ key.description }}</div> -->
+    </div>
   </div>
 </template>
 
@@ -37,7 +37,9 @@
     mixins: [ZoneIdMixin],
     data () {
       this.$store.state.menu = false
+      // router = 
       return {
+        router :this.$router,
         search: '',
         open: this.drawer,
         headerTitle: 'Default',
@@ -51,6 +53,19 @@
       {
         var self=this;
         return this.items.filter(function(item){return item.name.toLowerCase().indexOf(self.search.toLowerCase())>=0;});
+      }
+    },
+    methods: {
+      setZoneLocal: function(zone) {
+        var self=this;
+        localStorage.setItem('zone', JSON.stringify(zone));
+        localStorage.setItem('zoneid', zone.id);
+        localStorage.setItem('zonename', zone.name);
+        
+        this.$router.push(`/zone`)
+        
+        
+        return
       }
     }
   }

@@ -5,7 +5,7 @@
         <div class="logindiv">
           <h2 class="brandtitle">Litmus.Cloud</h2>
           <div class="">
-            <form @submit.prevent="onLogin" class="loginform" id="wf-form-Login-Form">
+            <form @submit.prevent="onLogin" class="loginform-webflow" id="wf-form-Login-Form">
               <v-layout class="div-block-6">
                 <label for="username">ID:</label>
                 <input type="text" class="w-input" v-model="credentials.username" maxlength="256" autofocus="true" placeholder="Enter your ID" id="username" >

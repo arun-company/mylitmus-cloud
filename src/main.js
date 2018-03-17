@@ -98,7 +98,6 @@ export const store = new Vuex.Store({
 			})
 		},
 		setZone ({ commit }, { zoneId, shouldClear }) {
-			localStorage.setItem('zoneid', zoneId)
 			if (shouldClear) { commit('setZone', null) }
 			axios.get(ZONE_INFO_API + zoneId).then(res => {
 				commit('setZone', res.data)
