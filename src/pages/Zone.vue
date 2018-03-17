@@ -21,42 +21,50 @@
     </div>
     <div class="div-block-5">
       <div class="text-block-4" style="width: 100%; height: 100%;">
-
         <node-map @onSelectNode="selectNode($event.id)"></node-map>
       </div>
     </div>
+    
+    <div class="div-block-2 w-inline-block" v-for="key in filteredItems">
+      <div  @click="selectNode(key.id)" class="text-block-3">{{ key.name }}</div>
+    </div>
 
-
-    <router-link class="div-block-2 w-inline-block" v-for="key in filteredItems" to="#">
-      <div class="text-block-3">{{ key.name }}</div>
-    </router-link>
-    <v-flex xs12>
-      <v-layout row wrap>
-        <v-flex xs12 v-if="!id">
-          <v-card><v-card-text>{{ !$store.state.zone ? '리스트 로딩 중..' : '센서를 선택해 주세요' }}</v-card-text></v-card>
-        </v-flex>
-        <v-flex xs4 v-for="info in node_info" :key="info ? info.key : null" v-else>
-          <text-card size="4" :data="info ? { desc: info.key, value: info.value, subtitle: info.subtitle } : null"></text-card>
-        </v-flex>
-      </v-layout>
-      <v-progress-linear v-bind:indeterminate="true" v-if="loading.info"></v-progress-linear>
-      <v-card class="mt-2" v-if="chartData.temperature && chartData.humidity">
-        <duration-selector :duration.sync="duration" />
-        <v-btn-toggle mandatory v-model="chartType" class="mt-2 mb-2">
-          <v-btn flat value="column">
-              <span>Column</span>
-          </v-btn>
-          <v-btn flat value="line">
-              <span>Line</span>
-          </v-btn>
-          <v-btn flat value="scatter">
-              <span>Scatter</span>
-          </v-btn>
-        </v-btn-toggle>
-        <highcharts :options="chartData.temperature"></highcharts>
-        <highcharts :options="chartData.humidity"></highcharts>
-      </v-card>
-    </v-flex>
+    <v-slide-y-transition mode="out-in">
+  	  <v-container grid-list-lg text-xs-center>
+  	  	<v-layout row wrap>
+					<v-flex xs12>
+					
+					</v-flex>
+          <v-flex xs12>
+						<v-layout row wrap>
+							<v-flex xs12 v-if="!id">
+								<v-card><v-card-text>{{ !$store.state.zone ? '리스트 로딩 중..' : '센서를 선택해 주세요' }}</v-card-text></v-card>
+							</v-flex>
+							<v-flex xs4 v-for="info in node_info" :key="info ? info.key : null" v-else>
+								<text-card size="4" :data="info ? { desc: info.key, value: info.value, subtitle: info.subtitle } : null"></text-card>
+							</v-flex>
+						</v-layout>
+						<v-progress-linear v-bind:indeterminate="true" v-if="loading.info"></v-progress-linear>
+						<v-card class="mt-2" v-if="chartData.temperature && chartData.humidity">
+							<duration-selector :duration.sync="duration" />
+							<v-btn-toggle mandatory v-model="chartType" class="mt-2 mb-2">
+								<v-btn flat value="column">
+										<span>Column</span>
+								</v-btn>
+								<v-btn flat value="line">
+										<span>Line</span>
+								</v-btn>
+								<v-btn flat value="scatter">
+										<span>Scatter</span>
+								</v-btn>
+							</v-btn-toggle>
+							<highcharts :options="chartData.temperature"></highcharts>
+							<highcharts :options="chartData.humidity"></highcharts>
+						</v-card>
+          </v-flex>
+        </v-layout>
+  	  </v-container>
+  	</v-slide-y-transition>
   </div>
 </template>
 
@@ -70,6 +78,7 @@
   import { API_BASE, DASHBOARD_REFRESH_TIME } from '@/global'
   import NodeMap from '@/components/NodeMap'
   import DurationSelector from '@/components/DurationSelector'
+  import { toFixedNumber } from '@/util'
   export default {
     props: ['id'],
     components: { EventGraph, TextCard, ServiceStatusBar,NodeMap,DurationSelector  },
@@ -83,6 +92,7 @@
         if (localStorage.getItem('zonename'))
             zonename = localStorage.getItem('zonename')
         return {
+          zoneId : localStorage.getItem('zoneid'),
           search: '',
           sensors:[],
           zone: zoneObj,
@@ -102,6 +112,9 @@
           chartData: { 'temperature': null, 'humidity': null },
         }
       },
+      id: function () {
+			  this.selectNode(this.id)
+		  },
       created() {
         let litmus_js = document.createElement('script')
         litmus_js.setAttribute('src', 'public/js/webflow.js')
@@ -140,13 +153,13 @@
         // console.log(this.zone);
         // console.log(this.$store.state.zone);
         // if (!this.zone) { return }
-        var zoneId = localStorage.getItem('zoneid')
-        const EVENT_API = `${API_BASE}/zones/${zoneId}/nodes`
+        // var zoneId = localStorage.getItem('zoneid')
+        const EVENT_API = `${API_BASE}/zones/${this.zoneId}/nodes`
         axios.get(EVENT_API).then(res => {
           this.items = res.data 
         })
         // https://mylitmus.cloud/v1/zones/2
-        const GET_ZONE = `${API_BASE}/zones/${zoneId}`
+        const GET_ZONE = `${API_BASE}/zones/${this.zoneId}`
         axios.get(GET_ZONE,{params:{}}).then(res => {
           this.zone = res.data
         })
@@ -168,9 +181,14 @@
         //   })
         // })
       },
-      selectNode(id) {
-			if (!this.$store.state.zone) { return }
-
+      getSensorTypes() {     
+			this.chartData = {}
+			const SENSOR_MIN_MAX_API = `${API_BASE}/zones/${this.zoneId}/sensorTypes`;
+			axios.get(SENSOR_MIN_MAX_API).then(res => {
+				this.sensorTypes = res.data
+			})
+		},
+		selectNode(id) {
 			this.chartData = {}
 			this.node = null
 
@@ -179,7 +197,7 @@
 			}
 
 			if (id !== this.id) {
-				this.$router.push(`/sensor-list/${this.$store.state.zone.id}/${id}`)
+				this.$router.push(`/zone/${id}`)
 				return
 			}
 			
@@ -190,43 +208,106 @@
 			});
 			this.getMeasuresFromRemote(id)
 		},
-    	average_string(prop) {
-        if (this.loading) { return null }
-        const measure = this.zone.currentMeasures.find(measure => measure.uid === prop)
-        if (!measure) {
-          return 'N/A'
-        }
-        return `${measure.value.toFixed(2)}${measure.unit}`
-      },
-      chart_data(title, timeSeries) {
-        this.add_count(timeSeries)
-
-        return {
-          chart: {
-            type: 'column'
-          },
-          title: { text: title },
-          xAxis: {
-            type: 'datetime',
-            dateTimeLabelFormats: {
-              day: '%b %e일'
+		getMeasuresFromRemote(id) {
+      // var zoneid = localStorage.getItem('zoneid')
+			this.loading.info = true
+			const NODE_MEASURES_API = `${API_BASE}/nodes/${id}/measures`
+			const EVENTS_API = `${API_BASE}/zones/${this.zoneId}/alarmEvents`
+			const RULES_API = `${API_BASE}/zones/${this.zoneId}/alarmRules`
+			axios.all([
+				axios.get(NODE_MEASURES_API, { params: { dateFrom: this.duration }}),
+				axios.get(EVENTS_API, { params: { dateFrom: this.duration }}),
+				axios.get(RULES_API),
+			]).then(res => {
+				this.measures = res[0].data.measures
+				this.alarmEvents = res[1].data.filter(event => event.nodeId === id)
+				this.alarmRules = res[2].data.alarmRules
+				this.chartData.temperature = this.chart_data('온도', '온도 (℃)', '#ee513b', this.getMinMax('temperature', 'min_value'), this.getMinMax('temperature', 'max_value'), '℃', '온도', this.measures.filter(measure => measure.sensorType.uid === 'temperature'), 'temperature')
+				this.chartData.humidity = this.chart_data('습도', '습도 (%)', '#9badff', this.getMinMax('humidity', 'min_value'), this.getMinMax('humidity', 'max_value'), '%', '습도', this.measures.filter(measure => measure.sensorType.uid === 'humidity'), 'humidity')
+				this.loading.info = false
+			});
+		},
+		getMeasureString(node, measureType) {
+			const measure = this.node.currentMeasures.find(measure => measure.uid === measureType)
+			if (!measure) { return '값 없음' }
+			return `${measure.value.toFixed(2)}${measure.unit}`
+		},
+		getMinMax(uid, minmax) {
+			const sensorType = this.sensorTypes.find(element => element.sensorType.uid === uid) || {}
+			return sensorType[minmax] || 0
+		},
+		chart_data(title, yAxisTitle, color, min, max, unit, seriesTitle, measures, sensorType) {
+			// TODO 알람이 과거에는 존재하고 현재 없어진 경우, plotband subtitle에는 표시되지 않는 이슈가 있다.
+			return {
+				chart: { type: this.chartType, zoomType: 'x' },
+				title: { text: title },
+				subtitle: {
+				  text: this.alarmRules.filter(rule => rule.sensorType.uid === sensorType).map(rule => `<span style="background-color: ${rule.color || '#FFC4C4'}; margin: 2px;">${rule.name}</span>`).join(''),
+				  useHTML: true,
+				  verticalAlign: 'bottom'
+        },
+				xAxis: {
+					type: 'datetime',
+					dateTimeLabelFormats: {
+						day: '%b %e일'
+					},
+				  plotBands: this.getPlotBands(sensorType),
+				},
+			    yAxis: {
+			      title: { text: yAxisTitle },
+				  min, max
+				},
+			    tooltip: { valueSuffix: unit },
+			    legend: {
+			      layout: 'vertical',
+			      align: 'right',
+			      verticalAlign: 'middle',
+			      borderWidth: 0
+				},
+				plotOptions: {
+				  scatter: {
+            marker: {
+                radius: 2,
+                states: {
+                    hover: {
+                        enabled: true,
+                    }
+                }
             },
-          },
-          yAxis: {
-            allowDecimals: false,
-            title: { text: '알람 갯수' },
-          },
-          plotOptions: {
-            column: {
-              stacking: 'normal',
+            states: {
+                hover: {
+                    marker: {
+                        enabled: false
+                    }
+                }
             },
-            series: {
-              minPointLength: 1,
+            tooltip: {
+                headerFormat: '<b>{point.key}</b><br>',
+                pointFormat: '{series.name} {point.y}{unit}'
             }
-          },
-          series: this.eventSeries,
-        }
-      },
+        	}
+				},
+				series: [{
+				name: seriesTitle,
+				color,
+					data: measures.map(measure => [moment(measure.measuredAt).valueOf(), toFixedNumber(measure.value, 2)])
+				}]
+			}
+		},
+		getPlotBands(sensorType) {
+			const bands = this.alarmEvents.filter(e => e.sensorType.uid === sensorType).map(alarmEvent => {
+				return {
+					color: this.getBandColor(alarmEvent),
+					from: moment(alarmEvent.startedAt).valueOf(),
+					to: moment(alarmEvent.finishedAt).valueOf(),
+				}
+			})
+			return bands
+		},
+		getBandColor(event) {
+			const rule = this.alarmRules.find(rule => rule.name === event.alarmName) || {}
+			return rule.color || '#FFC4C4'
+		},
       add_count(timeSeries) {
         timeSeries.forEach(series => {
           this.eventSeries.forEach(group => {

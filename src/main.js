@@ -50,6 +50,7 @@ const routes = [
 	{ path: '/site/:zoneid', component: Site },
 	{ path: '/site', component: Site },
 	{ path: '/zone', component: Zone },
+	{ path: '/zone/:id', component: Zone, props: true  },
 	{ path: '/sensor', component: Sensor },
 	{ path: '/dashboard/:zoneid', component: Dashboard, props: true },
 	{ path: '/sensor-list', component: SensorList },
