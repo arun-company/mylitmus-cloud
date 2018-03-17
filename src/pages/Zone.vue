@@ -21,12 +21,13 @@
     </div>
     <div class="div-block-5">
       <div class="text-block-4" style="width: 100%; height: 100%;">
+
         <node-map @onSelectNode="selectNode($event.id)"></node-map>
       </div>
     </div>
 
     <router-link class="div-block-2 w-inline-block" v-for="key in filteredItems" to="#">
-      <div class="text-block-3">{{ key.nodeName }}</div>
+      <div class="text-block-3">{{ key.name }}</div>
       <!-- <div class="text-block-4">{{ key.description }}</div> -->
     </router-link>
   </div>
@@ -68,7 +69,9 @@
         {
           var self=this;
           return this.items.filter(function(item){
-            return item.nodeName.toLowerCase().indexOf(self.search.toLowerCase())>=0;
+            if (item.name)
+              return item.name.toLowerCase().indexOf(self.search.toLowerCase())>=0;
+            
             }
           );
         }
@@ -85,9 +88,10 @@
         // console.log(this.$store.state.zone);
         // if (!this.zone) { return }
         var zoneId = localStorage.getItem('zoneid')
-        const EVENT_API = `${API_BASE}/zones/${zoneId}/alarmEvents/spots`
-        axios.get(EVENT_API, { params: { dateFrom: '-24h', nodewise: true }}).then(res => {
+        const EVENT_API = `${API_BASE}/zones/${zoneId}/nodes`
+        axios.get(EVENT_API).then(res => {
           this.items = res.data 
+          console.log(this.items )
         })
         // https://mylitmus.cloud/v1/zones/2
         const GET_ZONE = `${API_BASE}/zones/${zoneId}`
