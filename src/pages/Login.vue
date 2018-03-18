@@ -16,12 +16,11 @@
               <input type="submit" value="Sign In" class="submit-button w-button">
             </form>
 
-            <v-snackbar
-                    :timeout="3000" class="error" v-model="snackbar">
+            <div v-if="snackbar" :timeout="3000" class="">
                     <div class="w-form-fail" style="display: block">
                       <div>{{ 'Your sign in has  failed.' }}</div>
                     </div>
-            </v-snackbar>
+            </div>
           </div>
         </div>
       </div>

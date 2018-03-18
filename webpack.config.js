@@ -46,7 +46,9 @@ module.exports = {
         loader: 'babel-loader',
         include: [
           path.resolve(__dirname, './src'),
-          path.resolve(__dirname, './node_modules/vuetify')
+          path.resolve(__dirname, './node_modules/vuetify'),
+          path.resolve(__dirname, "src"), // white-list your app source files
+          require.resolve("bootstrap-vue"), // white-list bootstrap-vue
         ]
       },
       {

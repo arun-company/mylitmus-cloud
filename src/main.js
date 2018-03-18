@@ -20,6 +20,7 @@ import SensorList from '@/pages/SensorList'
 import Report from '@/pages/Report'
 import AlarmRules from '@/pages/AlarmRules'
 import Settings from '@/pages/Settings'
+// import BootstrapVue from 'bootstrap-vue'
 
 import { ZONES_API, ZONE_INFO_API } from '@/global'
 import auth from '@/auth'
@@ -27,6 +28,8 @@ import auth from '@/auth'
 Vue.use(Vuetify)
 Vue.use(VueRouter)
 Vue.use(Vuex)
+// Vue.use(BootstrapVue)
+
 
 Highcharts.setOptions({
 	global: {
@@ -50,7 +53,7 @@ const routes = [
 	{ path: '/site/:zoneid', component: Site },
 	{ path: '/site', component: Site },
 	{ path: '/zone', component: Zone },
-	{ path: '/zone/:id', component: Zone, props: true  },
+	{ path: '/zone/:id', component: Zone, props: true },
 	{ path: '/sensor', component: Sensor },
 	{ path: '/dashboard/:zoneid', component: Dashboard, props: true },
 	{ path: '/sensor-list', component: SensorList },

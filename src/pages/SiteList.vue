@@ -10,11 +10,13 @@
       <div class="w-container">
         <h1 class="heading">{{headerTitle}}</h1>
       </div>
-
-      <router-link to="/site" class="div-block-2 w-inline-block" v-for="(key, index) in filteredItems">
-        <div class="text-block-3">{{ key.name }}</div>
-        <div class="text-block-4">{{ key.description }}</div>
-      </router-link>
+      
+      <div class="div-block-9">
+         <router-link to="/site" class="div-block-2 w-inline-block" v-for="(key, index) in filteredItems">
+          <div class="text-block-3">{{ key.name }}</div>
+          <div class="text-block-4">{{ key.description }}</div>
+        </router-link>
+      </div>
     </div>
 </template>
 

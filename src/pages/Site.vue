@@ -17,10 +17,15 @@
     <div class="div-block-5">
       <div class="text-block-4">Map Area</div>
     </div>
-    <div class="div-block-2 w-inline-block zone-card" v-for="(key, index) in filteredItems" v-bind:key="key.id">
-      <div @click="setZoneLocal(key)" class="text-block-3">{{ key.name }}</div>
-      <!-- <div class="text-block-4">{{ key.description }}</div> -->
+    <div class="div-block-9">
+      <div class="div-block-2 w-inline-block zone-card" v-for="(key, index) in filteredItems" v-bind:key="key.id">
+        <div @click="setZoneLocal(key)" class="text-block-3">{{ key.name }}</div>
+        <!-- <div class="text-block-4">{{ key.description }}</div> -->
+      </div>
     </div>
+    
+  
+
   </div>
 </template>
 
@@ -57,7 +62,10 @@
     },
     methods: {
       setZoneLocal: function(zone) {
+        
         var self=this;
+        self.$store.zone = null
+        self.$store.dispatch('setZone', { zoneId: zone.id, shouldClear: false})
         localStorage.setItem('zone', JSON.stringify(zone));
         localStorage.setItem('zoneid', zone.id);
         localStorage.setItem('zonename', zone.name);
@@ -70,3 +78,7 @@
     }
   }
 </script>
+<style>
+
+</style>
+

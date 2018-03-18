@@ -67,6 +67,7 @@
         return !this.infoExists || this.orientation === 'landscape' ? SVG_DEFAULT_HEIGHT : imageDisplayHeight
       },
       imageLink () {
+        // if this.$store.zone.id == localStorage.getItem
         return this.$store.state.zone.floor_map
       },
       imageDisplayWidth () {

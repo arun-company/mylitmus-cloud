@@ -24,47 +24,67 @@
         <node-map @onSelectNode="selectNode($event.id)"></node-map>
       </div>
     </div>
-    
-    <div class="div-block-2 w-inline-block" v-for="key in filteredItems">
-      <div  @click="selectNode(key.id)" class="text-block-3">{{ key.name }}</div>
+  
+    <div class="div-block-9">
+      <div class="div-block-2 w-inline-block" v-for="key in filteredItems" v-bind:key="key" >
+        <div  @click="selectNode(key.id)" @click.stop="dialog = true" class="text-block-3">{{ key.name }}</div> 
+      </div>
     </div>
 
-    <v-slide-y-transition mode="out-in">
-  	  <v-container grid-list-lg text-xs-center>
-  	  	<v-layout row wrap>
-					<v-flex xs12>
-					
-					</v-flex>
-          <v-flex xs12>
-						<v-layout row wrap>
-							<v-flex xs12 v-if="!id">
-								<v-card><v-card-text>{{ !$store.state.zone ? '리스트 로딩 중..' : '센서를 선택해 주세요' }}</v-card-text></v-card>
-							</v-flex>
-							<v-flex xs4 v-for="info in node_info" :key="info ? info.key : null" v-else>
-								<text-card size="4" :data="info ? { desc: info.key, value: info.value, subtitle: info.subtitle } : null"></text-card>
-							</v-flex>
-						</v-layout>
-						<v-progress-linear v-bind:indeterminate="true" v-if="loading.info"></v-progress-linear>
-						<v-card class="mt-2" v-if="chartData.temperature && chartData.humidity">
-							<duration-selector :duration.sync="duration" />
-							<v-btn-toggle mandatory v-model="chartType" class="mt-2 mb-2">
-								<v-btn flat value="column">
-										<span>Column</span>
-								</v-btn>
-								<v-btn flat value="line">
-										<span>Line</span>
-								</v-btn>
-								<v-btn flat value="scatter">
-										<span>Scatter</span>
-								</v-btn>
-							</v-btn-toggle>
-							<highcharts :options="chartData.temperature"></highcharts>
-							<highcharts :options="chartData.humidity"></highcharts>
-						</v-card>
-          </v-flex>
-        </v-layout>
-  	  </v-container>
-  	</v-slide-y-transition>
+    <div>
+    <v-layout>
+      <v-dialog
+        v-model="dialog"
+        fullscreen="True"
+        transition="dialog-bottom-transition"
+        :overlay="true"
+        scrollable
+      >
+        <v-card tile >
+          
+          <v-slide-y-transition mode="out-in">
+            <v-layout grid-list-lg text-xs-center>
+              <v-layout row wrap>
+                <v-flex xs10 offset-xs1 popup-box >
+                  <v-toolbar card color="primary">
+                    <v-btn icon @click.native="dialog = false">
+                      <v-icon>close</v-icon>
+                    </v-btn>
+                  </v-toolbar>
+                  <v-layout row wrap>
+                    <v-progress-linear v-bind:indeterminate="true" v-if="loading.info"></v-progress-linear>
+                    <v-flex xs4 v-for="info in node_info" :key="info ? info.key : null" v-if="card">
+                      <text-card size="4" :data="info ? { desc: info.key, value: info.value, subtitle: info.subtitle } : null"></text-card>
+                    </v-flex>
+                  </v-layout>
+                  <v-card class="mt-2" v-if="chartData.temperature && chartData.humidity">
+                    <duration-selector :duration.sync="duration" />
+                    <v-btn-toggle mandatory v-model="chartType" class="mt-2 mb-2">
+                      <v-btn flat value="column">
+                          <span>Column</span>
+                      </v-btn>
+                      <v-btn flat value="line">
+                          <span>Line</span>
+                      </v-btn>
+                      <v-btn flat value="scatter">
+                          <span>Scatter</span>
+                      </v-btn>
+                    </v-btn-toggle>
+                    <highcharts :options="chartData.temperature"></highcharts>
+                    <highcharts :options="chartData.humidity"></highcharts>
+                  </v-card>
+                </v-flex>
+              </v-layout>
+            </v-layout>
+          </v-slide-y-transition>
+
+          <div style="flex: 1 1 auto;"/>
+        </v-card>
+      </v-dialog>
+      
+    
+    </v-layout>
+  </div>
   </div>
 </template>
 
@@ -110,7 +130,23 @@
           duration: '-24h',
           chartType: 'line',
           chartData: { 'temperature': null, 'humidity': null },
+          card: false,
+          dialog: false,
         }
+      },
+      watch: {
+        '$store.state.zone': function () {
+          this.getSensorTypes()
+        },
+        id: function () {
+          this.selectNode(this.id)
+        },
+        duration: function () {
+          this.getMeasuresFromRemote(this.id)
+        },
+        chartType: function () {
+          this.getMeasuresFromRemote(this.id)
+        },
       },
       id: function () {
 			  this.selectNode(this.id)
@@ -147,61 +183,51 @@
       },
       methods: {
     	getSummaryValue () {
-        
-        // this.zone = this.$store.state.zone
-        // console.log('zone');
-        // console.log(this.zone);
-        // console.log(this.$store.state.zone);
-        // if (!this.zone) { return }
-        // var zoneId = localStorage.getItem('zoneid')
         const EVENT_API = `${API_BASE}/zones/${this.zoneId}/nodes`
         axios.get(EVENT_API).then(res => {
           this.items = res.data 
         })
-        // https://mylitmus.cloud/v1/zones/2
+
         const GET_ZONE = `${API_BASE}/zones/${this.zoneId}`
         axios.get(GET_ZONE,{params:{}}).then(res => {
           this.zone = res.data
         })
-        // const ALARMS_API = `${API_BASE}/zones/${this.zone.id}/alarmRules`
-        // axios.get(ALARMS_API).then(res => {
-        //   this.alarmRules = res.data.alarmRules
-        //   this.eventSeries = this.alarmRules.map(rule => ({
-        //     name: rule.name, data: [], color: rule.color,
-        //   }))
-        //   if (this.eventSeries.length < 1) {
-        //     this.alarmRules = null
-        //     this.eventSeries = []
-        //     this.eventChartData = null
-        //     return
-        //   }
-        //   const EVENT_TIMESERIES_API = `${API_BASE}/zones/${this.zone.id}/alarmEvents/timeSeries`
-        //   axios.get(EVENT_TIMESERIES_API, { params: { dateFrom: '-24h' }}).then(res => {
-        //     this.eventChartData = this.chart_data('알람 현황', res.data.timeSeries)
-        //   })
-        // })
+        const ALARMS_API = `${API_BASE}/zones/${this.zone.id}/alarmRules`
+        axios.get(ALARMS_API).then(res => {
+          this.alarmRules = res.data.alarmRules
+          this.eventSeries = this.alarmRules.map(rule => ({
+            name: rule.name, data: [], color: rule.color,
+          }))
+          if (this.eventSeries.length < 1) {
+            this.alarmRules = null
+            this.eventSeries = []
+            this.eventChartData = null
+            return
+          }
+          const EVENT_TIMESERIES_API = `${API_BASE}/zones/${this.zoneId}/alarmEvents/timeSeries`
+          axios.get(EVENT_TIMESERIES_API, { params: { dateFrom: '-24h' }}).then(res => {
+            this.eventChartData = this.chart_data('알람 현황', res.data.timeSeries)
+          })
+        })
       },
       getSensorTypes() {     
-			this.chartData = {}
-			const SENSOR_MIN_MAX_API = `${API_BASE}/zones/${this.zoneId}/sensorTypes`;
-			axios.get(SENSOR_MIN_MAX_API).then(res => {
-				this.sensorTypes = res.data
-			})
-		},
+        this.chartData = {}
+        const SENSOR_MIN_MAX_API = `${API_BASE}/zones/${this.zoneId}/sensorTypes`;
+        axios.get(SENSOR_MIN_MAX_API).then(res => {
+          this.sensorTypes = res.data
+        })
+		  },
 		selectNode(id) {
 			this.chartData = {}
 			this.node = null
 
-			if (!id) {
-				return
-			}
 
 			if (id !== this.id) {
 				this.$router.push(`/zone/${id}`)
-				return
 			}
 			
-			this.loading.info = true
+      this.loading.info = true
+      this.card = true
 			const NODE_API = `${API_BASE}/nodes/${id}`
 			axios.get(NODE_API).then(res => {
 				this.node = res.data
