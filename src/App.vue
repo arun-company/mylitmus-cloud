@@ -16,16 +16,6 @@
     <router-view></router-view>
   </v-app>
 </template>
-<style>
-  #search-box {
-    border: none;
-    background: transparent;
-    text-align: right;
-    vertical-align: bottom;
-    padding-bottom: 0;
-    margin-bottom: 0;
-  }
-</style>
 <script>
   import auth from '@/auth'
   import Toolbar from '@/components/Toolbar'

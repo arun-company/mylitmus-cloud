@@ -18,9 +18,8 @@
       <div class="text-block-4">Map Area</div>
     </div>
     <div class="div-block-9">
-      <div class="div-block-2 w-inline-block zone-card" v-for="(key, index) in filteredItems" v-bind:key="key.id">
+      <div class="div-block-2 w-inline-block zone-card" v-for="key in filteredItems" v-bind:key="key.id">
         <div @click="setZoneLocal(key)" class="text-block-3">{{ key.name }}</div>
-        <!-- <div class="text-block-4">{{ key.description }}</div> -->
       </div>
     </div>
     
@@ -49,7 +48,6 @@
         open: this.drawer,
         headerTitle: 'Default',
         searchTitle: 'Search zones ...',
-        items: this.$store.state.zones,
       }
     },
     computed:
@@ -57,7 +55,7 @@
       filteredItems:function()
       {
         var self=this;
-        return this.items.filter(function(item){return item.name.toLowerCase().indexOf(self.search.toLowerCase())>=0;});
+        return self.$store.state.zones.filter(function(item){return item.name.toLowerCase().indexOf(self.search.toLowerCase())>=0;});
       }
     },
     methods: {
