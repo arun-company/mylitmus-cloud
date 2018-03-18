@@ -68,6 +68,7 @@
       },
       imageLink () {
         return this.$store.state.zone.floor_map
+        
       },
       imageDisplayWidth () {
         if (!this.infoExists) { return 0 }
@@ -87,7 +88,6 @@
     },
     methods: {
       getNodes() {
-        if (!this.$store.state.zone) { return }
         var zoneId = localStorage.getItem('zoneid')
         this.nodes = null;
         const NODES_API = `${API_BASE}/zones/${zoneId}/nodes`;

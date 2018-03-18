@@ -63,7 +63,7 @@
         
         var self=this;
         self.$store.zone = null
-        self.$store.dispatch('setZone', { zoneId: zone.id, shouldClear: false})
+        // self.$store.dispatch('setZone', { zoneId: zone.id, shouldClear: false})
         localStorage.setItem('zone', JSON.stringify(zone));
         localStorage.setItem('zoneid', zone.id);
         localStorage.setItem('zonename', zone.name);

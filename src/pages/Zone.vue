@@ -26,7 +26,7 @@
     </div>
   
     <div class="div-block-9">
-      <div class="div-block-2 w-inline-block" v-for="key in filteredItems" v-bind:key="key" >
+      <div class="div-block-2 w-inline-block" v-for="(key,index) in filteredItems" v-bind:key="index" >
         <div  @click="selectNode(key.id)" @click.stop="dialog = true" class="text-block-3">{{ key.name }}</div> 
       </div>
     </div>
@@ -35,10 +35,8 @@
     <v-layout>
       <v-dialog
         v-model="dialog"
-        fullscreen="True"
+        :fullscreen="true"
         transition="dialog-bottom-transition"
-        :overlay="true"
-        scrollable
       >
         <v-card tile >
           
@@ -179,6 +177,7 @@
 
       },
       mounted () {
+        this.$store.dispatch('setZone', { zoneId: this.zoneId, shouldClear: false})
     	  this.getSummaryValue()
       },
       methods: {

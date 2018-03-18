@@ -97,7 +97,11 @@ export const store = new Vuex.Store({
 			axios.get(ZONES_API).then(res => {
 				commit('setZones', res.data)
 				if (res.data.length && shouldSetZone) {
-					dispatch('setZone', { zoneId: store.getters.zoneid ? store.getters.zoneid : res.data[0].id, shouldClear: false })
+					
+					var zoneId = localStorage.getItem('zoneid')
+					if (!zoneId)
+						zoneId = store.getters.zoneid ? store.getters.zoneid : res.data[0].id,
+					dispatch('setZone', { zoneId: zoneId, shouldClear: false })
 				}
 			})
 		},
