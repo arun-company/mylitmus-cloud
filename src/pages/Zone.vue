@@ -1,5 +1,5 @@
 <template>
-  <div class="section zone">
+  <div class="section">
     <div class="div-block-3 home">
       <div class="div-block-4">
           <router-link class="link" to="/">
@@ -101,6 +101,12 @@
     props: ['id'],
     components: { EventGraph, TextCard, ServiceStatusBar,NodeMap,DurationSelector  },
     data () {
+        this.$store.state.menuItems =  [
+          {id:1, name:'Dashboard', icon:'005-dashboard.png', path:'/zone', class:''},
+          {id:3, name:'Reporting', icon:'002-sign.png', path:'/report', class:''},
+          {id:4, name:'Notifications', icon:'004-alarm-clock.png', path:'/alarmrules' , class:''},
+          {id:5, name:'Settings', icon:'001-cogwheel.png', path:'/settings', class:''},
+        ]
         events_grouped_by_id: [];
         this.$store.state.menu = true
         var zoneObj=null
@@ -149,11 +155,6 @@
       id: function () {
 			  this.selectNode(this.id)
 		  },
-      created() {
-        let litmus_js = document.createElement('script')
-        litmus_js.setAttribute('src', 'public/js/webflow.js')
-        document.head.appendChild(litmus_js)
-      },
       computed:
       {
         filteredItems:function()

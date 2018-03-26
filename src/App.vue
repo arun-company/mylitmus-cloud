@@ -1,6 +1,6 @@
 <template>
   <v-app light>
-    <Toolbar :drawer.sync="drawer" v-if="$store.getters.isAuthenticated && this.$store.state.menu"></Toolbar>
+    <Toolbar :drawer.sync="drawer" v-if="$store.getters.isAuthenticated"></Toolbar>
     <div class="hidden">
     <zone-selector></zone-selector>
     </div>
@@ -26,13 +26,13 @@
     data (state) {
       return {
         drawer: false,
-        title: 'Litmus --- Cloud',
+        title: 'Litmus --- Cloud Client',
       }
     },
     created() {
-      let jQuery = document.createElement('script')
-      jQuery.setAttribute('src', 'https://code.jquery.com/jquery-3.3.1.min.js')
-      document.head.appendChild(jQuery)
+      let litmus_js = document.createElement('script')
+      litmus_js.setAttribute('src', 'public/js/webflow.js')
+      document.head.appendChild(litmus_js)
     },
     methods: {
       logout () {

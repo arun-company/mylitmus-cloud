@@ -5,7 +5,7 @@
         <a href="#" title="Close Menu" class="link-block-2 w-inline-block">
           <img src="public/images/left-arrow-key.png" width="20" height="20">
         </a>
-        <router-link v-for="(key, index) in items" :key="index" :to="key.path" :class="key.class + ' link-block-2 w-inline-block'">
+        <router-link v-for="(key, index) in $store.state.menuItems" :key="index" :to="key.path" :class="key.class + ' link-block-2 w-inline-block'">
           <img :src="'public/images/'+key.icon" width="20" height="20">
           <div class="text-block">{{key.name}}</div>
         </router-link>
@@ -17,7 +17,7 @@
       </div>
 
       <div class="div-block">
-        <router-link v-for="(key, index) in items" :key="index" :to="key.path" :class="key.class + ' link-block-2 w-inline-block'">
+        <router-link v-for="(key, index) in $store.state.menuItems" :key="index" :to="key.path" :class="key.class + ' link-block-2 w-inline-block'">
           <img :src="'public/images/'+key.icon" width="20" height="20">
         </router-link>
       </div>
@@ -39,12 +39,6 @@
     data () {
       return {
         open: this.drawer,
-        items: [
-          {id:1, name:'Dashboard', icon:'005-dashboard.png', path:'/zone', class:''},
-          {id:3, name:'Reporting', icon:'002-sign.png', path:'/report', class:''},
-          {id:4, name:'Notifications', icon:'004-alarm-clock.png', path:'/alarmrules' , class:''},
-          {id:5, name:'Settings', icon:'001-cogwheel.png', path:'/settings', class:''},
-        ],
       }
     },
      created() {

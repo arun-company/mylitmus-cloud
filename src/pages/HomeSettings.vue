@@ -12,10 +12,7 @@
       </div>
       
       <div class="div-block-9">
-         <router-link to="/site" class="div-block-2 w-inline-block" v-for="(key, index) in filteredItems">
-          <div class="text-block-3">{{ key.name }}</div>
-          <div class="text-block-4">{{ key.description }}</div>
-        </router-link>
+      
       </div>
     </div>
 </template>
@@ -32,15 +29,14 @@
     components: { EventGraph, TextCard, ServiceStatusBar },
     data () {
       this.$store.state.menuItems =  [
-          {id:1, name:'Dashboard', icon:'005-dashboard.png', path:'/', class:'w--current'},
+          {id:1, name:'Dashboard', icon:'005-dashboard.png', path:'/', class:''},
           {id:2, name:'Reporting', icon:'004-profit-report.png', path:'/home-reporting', class:''},
-          {id:3, name:'Settings', icon:'001-cogwheel.png', path:'/home-settings', class:''},
-          {id:4, name:'View', icon:'003-signs.png', path:'/view-all' , class:''},
+          {id:3, name:'Settings', icon:'001-cogwheel.png', path:'/home-settings', class:'w--current'},
         ]
       return {
         search: '',
         open: this.drawer,
-        headerTitle: 'Organization',
+        headerTitle: 'Settings',
         searchTitle: 'Search sites ...',
         items: [
           {id:1, name:"Default",description:""},

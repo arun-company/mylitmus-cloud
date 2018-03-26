@@ -12,6 +12,9 @@ import loadStock from 'highcharts/modules/stock';
 
 import Login from '@/pages/Login'
 import SiteList from '@/pages/SiteList'
+import HomeReporting from '@/pages/HomeReporting'
+import HomeSettings from '@/pages/HomeSettings' 
+import ViewAll from '@/pages/ViewAll'
 import Zone from '@/pages/Zone'
 import Site from '@/pages/Site'
 import Sensor from '@/pages/Sensor'
@@ -48,6 +51,10 @@ Vue.use(VueHighcharts, { Highcharts })
 
 const routes = [
 	{ path: '/', component: SiteList },
+	{ path: '/view-all', component: ViewAll },
+	{ path: '/home-reporting', component: HomeReporting },
+	{ path: '/home-settings', component: HomeSettings },
+	
 	{ path: '/login', component: Login },
 	{ path: '/dashboard', component: Dashboard },
 	{ path: '/site/:zoneid', component: Site },
@@ -74,12 +81,13 @@ router.beforeEach((to, from, next) => {
 })
 
 export const store = new Vuex.Store({
-	state: { zones: [], zoneid: null, zone: null, token: null, menu:true},
+	state: { zones: [], zoneid: null, zone: null, token: null, menu:true, menuItems:[]},
 	mutations: {
 		setZones (state, zones) { state.zones = zones },
 		setZoneId (state, zoneid) { state.zoneid = zoneid },
 		setZone (state, zone) { state.zone = zone },
-		setToken (state, token) { state.token = token }
+		setToken (state, token) { state.token = token },
+		setMenuItems (state, menus) {state.menuItems = menus}
 	},
 	getters: {
     isAuthenticated: state => {
