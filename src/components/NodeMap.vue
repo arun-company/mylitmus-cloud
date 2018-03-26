@@ -1,11 +1,11 @@
 <template>
-  <span class="">
-    <div class="map-area">
+  <span class="map" v-if="imageLink">
+    <div class="map-area" >
       <div class="progress-bar" v-if="!nodes" >
         <v-progress-circular  indeterminate :size="100" color="amber" :width="3"></v-progress-circular>
       </div>
     </div>
-    <svg width="100%" :height="svgHeight" ref="svg" v-if="$store.state.zone">
+    <svg  width="100%" :height="svgHeight" ref="svg" v-if="$store.state.zone">
       <image :xlink:href="imageLink" x="50%" y="50%" :width="imageDisplayWidth" :height="svgHeight" :transform="`translate(${-imageDisplayWidth/2}, ${-svgHeight/2})`" v-if="imageLink"></image>
       <node v-for="node in remappedNodes" :key="node.id" :node="node" :selected="selected" @click="onClick(node)"></node>
     </svg>

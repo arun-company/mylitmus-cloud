@@ -14,9 +14,6 @@
     <div class="w-container">
       <h1 class="heading">{{headerTitle}}</h1>
     </div>
-    <div class="div-block-5">
-      <div class="text-block-4">Map Area</div>
-    </div>
     <div class="div-block-9">
       <div class="div-block-2 w-inline-block zone-card" v-for="key in filteredItems" v-bind:key="key.id">
         <div @click="setZoneLocal(key)" class="text-block-3">{{ key.name }}</div>

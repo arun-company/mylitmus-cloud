@@ -4,7 +4,8 @@
         <div class="div-block-4">
           <div class="text-block-5">Home</div>
         </div>
-
+        <div class="div-block-4 search">
+          <input id="search-box" class="w-input" v-model="search" type="text" :placeholder="searchTitle"><a href="##" class="w-inline-block"><img src="public/images/search.333333.png" width="20" height="20" class="image"></a></div>
       </div>
       <div class="w-container">
         <h1 class="heading">{{headerTitle}}</h1>
@@ -17,7 +18,6 @@
       </div>
       <div>
         <div class="div-block-site">
-          <div class="div-block-10"><a href="#site.html" class="heading-3">Site - 00000</a></div>
           <div class="div-block-zone">
             <div class="div-block-10"><a href="#zone.html" class="heading-4">Zone - 00000</a></div>
             <div class="div-block-sensor">
@@ -99,9 +99,10 @@
     components: { EventGraph, TextCard, ServiceStatusBar },
     data () {
       this.$store.state.menuItems =  [
-          {id:1, name:'Dashboard', icon:'005-dashboard.png', path:'/', class:''},
-          {id:2, name:'Reporting', icon:'004-profit-report.png', path:'/home-reporting', class:'w--current'},
-          {id:3, name:'Settings', icon:'001-cogwheel.png', path:'/home-settings', class:''},
+          {id:1, name:'Dashboard', icon:'005-dashboard.png', path:'/zone', class:''},
+          {id:3, name:'Reporting', icon:'004-profit-report.png', path:'/zone-reporting', class:'w--current'},
+          {id:4, name:'Notifications', icon:'003-notifications-button.png', path:'/zone-notifications' , class:''},
+          {id:5, name:'Settings', icon:'001-cogwheel.png', path:'/zone-settings', class:''},
         ]
       return {
         search: '',

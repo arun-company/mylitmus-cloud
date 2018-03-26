@@ -18,6 +18,10 @@ import HomeSettings from '@/pages/HomeSettings'
 import SiteReporting from '@/pages/site/Reporting'
 import SiteSettings from '@/pages/site/Settings' 
 
+import ZoneReporting from '@/pages/zone/Reporting'
+import ZoneSettings from '@/pages/zone/Settings' 
+import ZoneNotifications from '@/pages/zone/Notifications' 
+
 import ViewAll from '@/pages/ViewAll'
 import Zone from '@/pages/Zone'
 import Site from '@/pages/Site'
@@ -60,6 +64,9 @@ const routes = [
 	{ path: '/home-settings', component: HomeSettings },
 	{ path: '/site-reporting', component: SiteReporting },
 	{ path: '/site-settings', component: SiteSettings },
+	{ path: '/zone-reporting', component: ZoneReporting },
+	{ path: '/zone-settings', component: ZoneSettings },
+	{ path: '/zone-notifications', component: ZoneNotifications },
 	{ path: '/login', component: Login },
 	{ path: '/dashboard', component: Dashboard },
 	{ path: '/site/:zoneid', component: Site },
