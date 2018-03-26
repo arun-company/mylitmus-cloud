@@ -1,5 +1,4 @@
 <template>
-<div class="text-block-4" style="width: 100%; height: 100%;">
   <span>
     <v-progress-linear v-bind:indeterminate="true" v-if="!nodes"></v-progress-linear>
     <svg width="100%" :height="svgHeight" ref="svg" v-if="$store.state.zone">
@@ -7,7 +6,6 @@
       <node v-for="node in remappedNodes" :key="node.id" :node="node" :selected="selected" @click="onClick(node)"></node>
     </svg>
   </span>
-</div>
 </template>
 
 <script>

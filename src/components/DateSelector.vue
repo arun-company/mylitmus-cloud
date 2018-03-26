@@ -4,7 +4,6 @@
     :close-on-content-click="false"
     v-model="menu"
     transition="scale-transition"
-    offset-y
     full-width
     :nudge-right="40"
     max-width="290px"
@@ -37,6 +36,7 @@ export default {
   data: () => ({
     menu: false,
     localDate: this.date,
+    
   }),
   watch: {
     localDate: function () {
