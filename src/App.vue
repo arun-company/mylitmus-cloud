@@ -1,5 +1,5 @@
 <template>
-  <v-app light>
+  <v-app none>
     <Toolbar :drawer.sync="drawer" v-if="$store.getters.isAuthenticated"></Toolbar>
     <div class="hidden">
     <zone-selector></zone-selector>

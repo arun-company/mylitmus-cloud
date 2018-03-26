@@ -1,5 +1,6 @@
 <template>
-  <span class="map" v-if="imageLink">
+<div class="text-block-4" style="width: 100%; height: 100%;" v-if="imageLink">
+  <span class="map" >
     <div class="map-area" >
       <div class="progress-bar" v-if="!nodes" >
         <v-progress-circular  indeterminate :size="100" color="amber" :width="3"></v-progress-circular>
@@ -10,6 +11,7 @@
       <node v-for="node in remappedNodes" :key="node.id" :node="node" :selected="selected" @click="onClick(node)"></node>
     </svg>
   </span>
+</div>
 </template>
 
 <script>

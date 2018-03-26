@@ -20,9 +20,7 @@
       <h1 class="heading">{{zonename}}</h1>
     </div>
     <div class="div-block-5">
-      <div class="text-block-4" style="width: 100%; height: 100%;">
         <node-map @onSelectNode="selectNode($event.id)"></node-map>
-      </div>
     </div>
   
     <div class="div-block-9">

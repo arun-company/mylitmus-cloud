@@ -880,7 +880,7 @@
       this.$store.state.menuItems =  [
           {id:1, name:'Dashboard', icon:'005-dashboard.png', path:'/view-all', class:'w--current'},
           {id:2, name:'Reporting', icon:'004-profit-report.png', path:'/home-reporting', class:''},
-          {id:3, name:'Settings', icon:'001-cogwheel.png', path:'/settings', class:''},
+          {id:3, name:'Settings', icon:'001-cogwheel.png', path:'/home-settings', class:''},
           {id:4, name:'View', icon:'001-two.png', path:'/' , class:''}, 
         ]
       return {
