@@ -14,6 +14,10 @@ import Login from '@/pages/Login'
 import SiteList from '@/pages/SiteList'
 import HomeReporting from '@/pages/HomeReporting'
 import HomeSettings from '@/pages/HomeSettings' 
+
+import SiteReporting from '@/pages/site/Reporting'
+import SiteSettings from '@/pages/site/Settings' 
+
 import ViewAll from '@/pages/ViewAll'
 import Zone from '@/pages/Zone'
 import Site from '@/pages/Site'
@@ -54,7 +58,8 @@ const routes = [
 	{ path: '/view-all', component: ViewAll },
 	{ path: '/home-reporting', component: HomeReporting },
 	{ path: '/home-settings', component: HomeSettings },
-	
+	{ path: '/site-reporting', component: SiteReporting },
+	{ path: '/site-settings', component: SiteSettings },
 	{ path: '/login', component: Login },
 	{ path: '/dashboard', component: Dashboard },
 	{ path: '/site/:zoneid', component: Site },
