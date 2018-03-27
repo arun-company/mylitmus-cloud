@@ -104,10 +104,9 @@
   import DateSelector from '@/components/DateSelector'
   import TextCard from '@/components/dashboard/TextCard'
   import ServiceStatusBar from '@/components/dashboard/ServiceStatusBar'
-  import MinMaxAverageGraph from '@/components/charts/MinMaxAverageGraph'
 
   export default {
-    components: {MinMaxAverageGraph, EventGraph, TextCard, ServiceStatusBar, DateSelector },
+    components: { EventGraph, TextCard, ServiceStatusBar, DateSelector },
     data () {
       this.$store.state.menuItems =  [
           {id:1, name:'Dashboard', icon:'005-dashboard.png', path:'/', class:''},

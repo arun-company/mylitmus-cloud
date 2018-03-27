@@ -24,8 +24,21 @@
     </div>
   
     <div class="div-block-9">
-      <div class="div-block-2 w-inline-block" v-for="(key,index) in filteredItems" v-bind:key="index" >
-        <div  @click="selectNode(key.id)" @click.stop="dialog = true" class="text-block-3">{{ key.name }}</div> 
+      <div class="div-block-2 w-inline-block sensor-card" v-for="(key,index) in filteredItems" v-bind:key="index"  @click="selectNode(key.id)" @click.stop="dialog = true"  >
+        <div class="text-block-3">{{ key.name }}</div>
+        <div class="div-block-8">
+          <div class="div-block-7"><img src="public/images/004-thermometer.svg" width="32" height="32" title="온도" class="image-2">
+            <div class="text-block-6">26°C</div>
+          </div>
+          <div class="div-block-7"><img src="public/images/005-humidity.svg" width="32" height="32" title="습도">
+            <div class="text-block-6">26%</div>
+          </div>
+          <div class="div-block-7"><img src="public/images/001-turn-notifications-on-button.svg" width="32" height="32" title="알림">
+            <div class="text-block-6">5개</div>
+          </div>
+          <div class="div-block-7"><img src="public/images/003-battery.svg" width="32" height="32" title="배터리 상태">
+          <img src="public/images/006-load.svg" width="32" height="32" title="센서 상태"></div>
+        </div>
       </div>
     </div>
 

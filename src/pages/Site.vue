@@ -15,8 +15,34 @@
       <h1 class="heading">{{headerTitle}}</h1>
     </div>
     <div class="div-block-9">
-      <div class="div-block-2 w-inline-block zone-card" v-for="key in filteredItems" v-bind:key="key.id">
-        <div @click="setZoneLocal(key)" class="text-block-3">{{ key.name }}</div>
+      <div class="div-block-2 w-inline-block zone-card" v-for="key in filteredItems" v-bind:key="key.id" @click="setZoneLocal(key)" >
+        <div class="text-block-3">{{ key.name }}</div>
+        <div class="div-block-8">
+          <div class="div-block-7"><img src="public/images/001-turn-notifications-on-button.svg" width="32" height="32" title="알림">
+            <div class="text-block-6">5개</div>
+          </div>
+        </div>
+        <div class="div-block-8">
+          <div class="div-block-7"><img src="public/images/004-thermometer.svg" width="32" height="32" title="온도 알림" class="image-2">
+            <div class="text-block-6">2개</div>
+          </div>
+          <div class="div-block-7"><img src="public/images/005-humidity.svg" width="32" height="32" title="습도 알림">
+            <div class="text-block-6">3개</div>
+          </div>
+        </div>
+        <div class="div-block-8">
+          <div class="div-block-7"><img src="public/images/001-wifi-modem.svg" width="32" height="32" title="센서">
+            <div class="text-block-6">12개</div>
+          </div>
+        </div>
+        <div class="div-block-8">
+          <div class="div-block-7"><img src="public/images/002-battery-1.svg" width="32" height="32" title="배터리 알림">
+            <div class="text-block-6">3개</div>
+          </div>
+          <div class="div-block-7"><img src="public/images/001-interface.svg" width="32" height="32" title="센서 알림">
+            <div class="text-block-6">3개</div>
+          </div>
+        </div>
       </div>
     </div>
     
@@ -63,17 +89,13 @@
     },
     methods: {
       setZoneLocal: function(zone) {
-        
         var self=this;
         self.$store.zone = null
         // self.$store.dispatch('setZone', { zoneId: zone.id, shouldClear: false})
         localStorage.setItem('zone', JSON.stringify(zone));
         localStorage.setItem('zoneid', zone.id);
         localStorage.setItem('zonename', zone.name);
-        
-        this.$router.push(`/zone`)
-        
-        
+        this.$router.push('/zone/'+  zone.name)
         return
       }
     }

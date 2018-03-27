@@ -5,7 +5,7 @@
     v-model="menu"
     transition="scale-transition"
     full-width
-    :nudge-right="40"
+    :nudge-right="-40"
     max-width="290px"
     min-width="290px"
   >
