@@ -22,44 +22,26 @@
     <div class="div-block-5">
         <node-map @onSelectNode="selectNode($event.id)"></node-map>
     </div>
-  
     <div class="div-block-9">
-      <div class="div-block-2 w-inline-block sensor-card" v-for="(key,index) in filteredItems" v-bind:key="index"  @click="selectNode(key.id)" @click.stop="dialog = true"  >
-        <div class="text-block-3">{{ key.name }}</div>
-        <div class="div-block-8">
-          <div class="div-block-7"><img src="public/images/004-thermometer.svg" width="32" height="32" title="온도" class="image-2">
-            <div class="text-block-6">26°C</div>
+      <template  v-for="(key,index) in filteredItems">
+          <div class="div-block-2 w-inline-block sensor-card" @click="selectNode(key.id)" @click.stop="dialog = true" >
+            <div class="text-block-3">{{ key.name }}</div>
+            <div class="div-block-8">
+              <div class="div-block-7"><img src="public/images/004-thermometer.svg" width="32" height="32" title="온도" class="image-2">
+                <div class="text-block-6">26°C</div>
+              </div>
+              <div class="div-block-7"><img src="public/images/005-humidity.svg" width="32" height="32" title="습도">
+                <div class="text-block-6">26%</div>
+              </div>
+              <div class="div-block-7"><img src="public/images/001-turn-notifications-on-button.svg" width="32" height="32" title="알림">
+                <div class="text-block-6">5개</div>
+              </div>
+              <div class="div-block-7"><img src="public/images/003-battery.svg" width="32" height="32" title="배터리 상태">
+              <img src="public/images/006-load.svg" width="32" height="32" title="센서 상태"></div>
+            </div>
           </div>
-          <div class="div-block-7"><img src="public/images/005-humidity.svg" width="32" height="32" title="습도">
-            <div class="text-block-6">26%</div>
-          </div>
-          <div class="div-block-7"><img src="public/images/001-turn-notifications-on-button.svg" width="32" height="32" title="알림">
-            <div class="text-block-6">5개</div>
-          </div>
-          <div class="div-block-7"><img src="public/images/003-battery.svg" width="32" height="32" title="배터리 상태">
-          <img src="public/images/006-load.svg" width="32" height="32" title="센서 상태"></div>
-        </div>
-      </div>
-    </div>
-
-    <div>
-    <v-layout>
-      <v-dialog
-        v-model="dialog"
-        :fullscreen="true"
-        transition="dialog-bottom-transition"
-      >
-        <v-card tile >
-          
-          <v-slide-y-transition mode="out-in">
-            <v-layout grid-list-lg text-xs-center>
-              <v-layout row wrap>
-                <v-flex xs10 offset-xs1 popup-box >
-                  <v-toolbar card color="primary">
-                    <v-btn icon @click.native="dialog = false">
-                      <v-icon>close</v-icon>
-                    </v-btn>
-                  </v-toolbar>
+          <div class="card-detail-1" >
+             <v-container v-if="key.name == activeItem">
                   <v-layout row wrap>
                     <v-progress-linear v-bind:indeterminate="true" v-if="loading.info"></v-progress-linear>
                     <v-flex xs4 v-for="info in node_info" :key="info ? info.key : null" v-if="card">
@@ -82,18 +64,90 @@
                     <highcharts :options="chartData.temperature"></highcharts>
                     <highcharts :options="chartData.humidity"></highcharts>
                   </v-card>
-                </v-flex>
-              </v-layout>
-            </v-layout>
-          </v-slide-y-transition>
-
-          <div style="flex: 1 1 auto;"/>
-        </v-card>
-      </v-dialog>
-      
-    
-    </v-layout>
-  </div>
+             </v-container>
+          </div>
+          <div class="card-detail-2" v-if="(index+1)%2 == 0 || (index+1) == filteredItems.length">
+               <v-container v-if="key.name == activeItem || (index%2 > 0 && filteredItems[index-1].name == activeItem)">
+                  <v-layout row wrap>
+                    <v-progress-linear v-bind:indeterminate="true" v-if="loading.info"></v-progress-linear>
+                    <v-flex xs4 v-for="info in node_info" :key="info ? info.key : null" v-if="card">
+                      <text-card size="4" :data="info ? { desc: info.key, value: info.value, subtitle: info.subtitle } : null"></text-card>
+                    </v-flex>
+                  </v-layout>
+                  <v-card class="mt-2" v-if="chartData.temperature && chartData.humidity">
+                    <duration-selector :duration.sync="duration" />
+                    <v-btn-toggle mandatory v-model="chartType" class="mt-2 mb-2">
+                      <v-btn flat value="column">
+                          <span>Column</span>
+                      </v-btn>
+                      <v-btn flat value="line">
+                          <span>Line</span>
+                      </v-btn>
+                      <v-btn flat value="scatter">
+                          <span>Scatter</span>
+                      </v-btn>
+                    </v-btn-toggle>
+                    <highcharts :options="chartData.temperature"></highcharts>
+                    <highcharts :options="chartData.humidity"></highcharts>
+                  </v-card>
+             </v-container>
+          </div>
+          <div class="card-detail-3" v-if="(index+1)%3 == 0 || (index+1) == filteredItems.length">
+             <v-container v-if="key.name == activeItem || (index%3 > 0 && filteredItems[index-1].name == activeItem) || (index%3 > 1 && filteredItems[index-2].name == activeItem)">
+                  <v-layout row wrap>
+                    <v-progress-linear v-bind:indeterminate="true" v-if="loading.info"></v-progress-linear>
+                    <v-flex xs4 v-for="info in node_info" :key="info ? info.key : null" v-if="card">
+                      <text-card size="4" :data="info ? { desc: info.key, value: info.value, subtitle: info.subtitle } : null"></text-card>
+                    </v-flex>
+                  </v-layout>
+                  <v-card class="mt-2" v-if="chartData.temperature && chartData.humidity">
+                    <duration-selector :duration.sync="duration" />
+                    <v-btn-toggle mandatory v-model="chartType" class="mt-2 mb-2">
+                      <v-btn flat value="column">
+                          <span>Column</span>
+                      </v-btn>
+                      <v-btn flat value="line">
+                          <span>Line</span>
+                      </v-btn>
+                      <v-btn flat value="scatter">
+                          <span>Scatter</span>
+                      </v-btn>
+                    </v-btn-toggle>
+                    <highcharts :options="chartData.temperature"></highcharts>
+                    <highcharts :options="chartData.humidity"></highcharts>
+                  </v-card>
+             </v-container>
+          </div>
+          <div class="card-detail-4" v-if="(index+1)%4 == 0 || (index+1) == filteredItems.length">
+             <v-container v-if="(key.name == activeItem) || ((index%4 > 0)  && (filteredItems[index-1].name == activeItem)) || (index%4 > 1 && filteredItems[index-2].name == activeItem) || (index%4 > 2 && filteredItems[index-3].name == activeItem)">
+                  <v-layout row wrap>
+                    <v-progress-linear v-bind:indeterminate="true" v-if="loading.info"></v-progress-linear>
+                    <v-flex xs4 v-for="info in node_info" :key="info ? info.key : null" v-if="card">
+                      <text-card size="4" :data="info ? { desc: info.key, value: info.value, subtitle: info.subtitle } : null"></text-card>
+                    </v-flex>
+                  </v-layout>
+                  <v-card class="mt-2" v-if="chartData.temperature && chartData.humidity">
+                    <duration-selector :duration.sync="duration" />
+                    <v-btn-toggle mandatory v-model="chartType" class="mt-2 mb-2">
+                      <v-btn flat value="column">
+                          <span>Column</span>
+                      </v-btn>
+                      <v-btn flat value="line">
+                          <span>Line</span>
+                      </v-btn>
+                      <v-btn flat value="scatter">
+                          <span>Scatter</span>
+                      </v-btn>
+                    </v-btn-toggle>
+                    <highcharts :options="chartData.temperature"></highcharts>
+                    <highcharts :options="chartData.humidity"></highcharts>
+                  </v-card>
+             </v-container>
+              
+            
+          </div>
+      </template>
+    </div>
   </div>
 </template>
 
@@ -134,6 +188,7 @@
           zonename: zonename,
           searchTitle: "Search sensors ...",
           items: [],
+          activeItem: "abc",
           node: null,
           measures: [],
           sensorTypes: [],
@@ -231,8 +286,7 @@
 		selectNode(id) {
 			this.chartData = {}
 			this.node = null
-
-
+    
 			if (id !== this.id) {
 				this.$router.push(`/zone/${id}`)
 			}
@@ -242,6 +296,12 @@
 			const NODE_API = `${API_BASE}/nodes/${id}`
 			axios.get(NODE_API).then(res => {
 				this.node = res.data
+        // if (res.data.name == this.activeItem) {
+        //   this.activeItem = null
+        //   return;
+        // }
+        this.activeItem = res.data.name 
+        
 			});
 			this.getMeasuresFromRemote(id)
 		},
