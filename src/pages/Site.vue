@@ -18,32 +18,31 @@
       <div class="div-block-2 w-inline-block zone-card" v-for="key in filteredItems" v-bind:key="key.id" @click="setZoneLocal(key)" >
         <div class="text-block-3">{{ key.name }}</div>
         <div class="div-block-8">
-          <div class="div-block-7"><img src="public/images/001-turn-notifications-on-button.svg" width="32" height="32" title="알림">
-            <div class="text-block-6">5개</div>
+          <div class="div-block-7 full"><img src="public/images/wireless-device.png" width="25" height="25" title="센서">
+            <div class="text-block-6">전체 센서 12</div>
           </div>
         </div>
         <div class="div-block-8">
-          <div class="div-block-7"><img src="public/images/004-thermometer.svg" width="32" height="32" title="온도 알림" class="image-2">
-            <div class="text-block-6">2개</div>
-          </div>
-          <div class="div-block-7"><img src="public/images/005-humidity.svg" width="32" height="32" title="습도 알림">
-            <div class="text-block-6">3개</div>
+          <div class="div-block-7"><img src="public/images/notifications.png" width="25" height="25" title="알림">
+            <div class="text-block-6">주의 0</div>
           </div>
         </div>
         <div class="div-block-8">
-          <div class="div-block-7"><img src="public/images/001-wifi-modem.svg" width="32" height="32" title="센서">
-            <div class="text-block-6">12개</div>
+          <div class="div-block-7"><img src="public/images/thermometer.png" width="25" height="25" title="온도 알림" class="image-2">
+            <div class="text-block-6">정상</div>
           </div>
-        </div>
-        <div class="div-block-8">
-          <div class="div-block-7"><img src="public/images/002-battery-1.svg" width="32" height="32" title="배터리 알림">
-            <div class="text-block-6">3개</div>
+          <div class="div-block-7"><img src="public/images/humidity.png" width="25" height="25" title="습도 알림">
+            <div class="text-block-6">정상</div>
           </div>
-          <div class="div-block-7"><img src="public/images/001-interface.svg" width="32" height="32" title="센서 알림">
-            <div class="text-block-6">3개</div>
+          <div class="div-block-7"><img src="public/images/battery.png" width="25" height="25" title="배터리 알림">
+            <div class="text-block-6">정상</div>
           </div>
-        </div>
+          <div class="div-block-7"><img src="public/images/working.png" width="25" height="25" title="센서 알림">
+            <div class="text-block-6">정상</div>
+          </div>
+        </div>  
       </div>
+      
     </div>
     
   

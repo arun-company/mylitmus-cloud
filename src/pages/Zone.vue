@@ -24,24 +24,23 @@
     </div>
     <div class="div-block-9">
       <template  v-for="(key,index) in filteredItems">
-          <div class="div-block-2 w-inline-block sensor-card" @click="selectNode(key.id)" @click.stop="dialog = true" >
+          <div class="div-block-2 w-inline-block sensor-card" @click="selectNode(key.id)" @click.stop="setActiveItem(key.name)" >
             <div class="text-block-3">{{ key.name }}</div>
             <div class="div-block-8">
-              <div class="div-block-7"><img src="public/images/004-thermometer.svg" width="32" height="32" title="온도" class="image-2">
+              <div class="div-block-7"><img src="public/images/thermometer.png" width="25" height="25" title="온도" class="image-2">
                 <div class="text-block-6">26°C</div>
               </div>
-              <div class="div-block-7"><img src="public/images/005-humidity.svg" width="32" height="32" title="습도">
+              <div class="div-block-7"><img src="public/images/humidity.png" width="20" height="20" title="습도">
                 <div class="text-block-6">26%</div>
               </div>
-              <div class="div-block-7"><img src="public/images/001-turn-notifications-on-button.svg" width="32" height="32" title="알림">
-                <div class="text-block-6">5개</div>
-              </div>
-              <div class="div-block-7"><img src="public/images/003-battery.svg" width="32" height="32" title="배터리 상태">
-              <img src="public/images/006-load.svg" width="32" height="32" title="센서 상태"></div>
+              <div class="div-block-7"><img src="public/images/battery.png" width="25" height="25" title="습도" class="image-3"><img src="public/images/working.png" width="25" height="25" title="습도" class="image-3"></div>
+            </div>
+            <div class="div-block-8">
+              <div class="div-block-7 zoneexpand" ><img v-bind:class="getRotateClass(activeItem, key.name)" src="public/images/expand.png" width="25" height="25" title="센서"></div>
             </div>
           </div>
-          <div class="card-detail-1" >
-             <v-container v-if="key.name == activeItem">
+          <div class="card-detail-1">
+             <v-container fluid v-if="key.name == activeItem">
                   <v-layout row wrap>
                     <v-progress-linear v-bind:indeterminate="true" v-if="loading.info"></v-progress-linear>
                     <v-flex xs4 v-for="info in node_info" :key="info ? info.key : null" v-if="card">
@@ -67,7 +66,7 @@
              </v-container>
           </div>
           <div class="card-detail-2" v-if="(index+1)%2 == 0 || (index+1) == filteredItems.length">
-               <v-container v-if="key.name == activeItem || (index%2 > 0 && filteredItems[index-1].name == activeItem)">
+               <v-container  fluid v-if="key.name == activeItem || (index%2 > 0 && filteredItems[index-1].name == activeItem)">
                   <v-layout row wrap>
                     <v-progress-linear v-bind:indeterminate="true" v-if="loading.info"></v-progress-linear>
                     <v-flex xs4 v-for="info in node_info" :key="info ? info.key : null" v-if="card">
@@ -93,7 +92,7 @@
              </v-container>
           </div>
           <div class="card-detail-3" v-if="(index+1)%3 == 0 || (index+1) == filteredItems.length">
-             <v-container v-if="key.name == activeItem || (index%3 > 0 && filteredItems[index-1].name == activeItem) || (index%3 > 1 && filteredItems[index-2].name == activeItem)">
+             <v-container fluid v-if="key.name == activeItem || (index%3 > 0 && filteredItems[index-1].name == activeItem) || (index%3 > 1 && filteredItems[index-2].name == activeItem)">
                   <v-layout row wrap>
                     <v-progress-linear v-bind:indeterminate="true" v-if="loading.info"></v-progress-linear>
                     <v-flex xs4 v-for="info in node_info" :key="info ? info.key : null" v-if="card">
@@ -119,7 +118,7 @@
              </v-container>
           </div>
           <div class="card-detail-4" v-if="(index+1)%4 == 0 || (index+1) == filteredItems.length">
-             <v-container v-if="(key.name == activeItem) || ((index%4 > 0)  && (filteredItems[index-1].name == activeItem)) || (index%4 > 1 && filteredItems[index-2].name == activeItem) || (index%4 > 2 && filteredItems[index-3].name == activeItem)">
+             <v-container fluid v-if="(key.name == activeItem) || ((index%4 > 0)  && (filteredItems[index-1].name == activeItem)) || (index%4 > 1 && filteredItems[index-2].name == activeItem) || (index%4 > 2 && filteredItems[index-3].name == activeItem)">
                   <v-layout row wrap>
                     <v-progress-linear v-bind:indeterminate="true" v-if="loading.info"></v-progress-linear>
                     <v-flex xs4 v-for="info in node_info" :key="info ? info.key : null" v-if="card">
@@ -143,8 +142,6 @@
                     <highcharts :options="chartData.humidity"></highcharts>
                   </v-card>
              </v-container>
-              
-            
           </div>
       </template>
     </div>
@@ -188,7 +185,7 @@
           zonename: zonename,
           searchTitle: "Search sensors ...",
           items: [],
-          activeItem: "abc",
+          activeItem: null,
           node: null,
           measures: [],
           sensorTypes: [],
@@ -284,9 +281,10 @@
         })
 		  },
 		selectNode(id) {
-			this.chartData = {}
+      this.chartData = {}
+      
 			this.node = null
-    
+  
 			if (id !== this.id) {
 				this.$router.push(`/zone/${id}`)
 			}
@@ -296,12 +294,6 @@
 			const NODE_API = `${API_BASE}/nodes/${id}`
 			axios.get(NODE_API).then(res => {
 				this.node = res.data
-        // if (res.data.name == this.activeItem) {
-        //   this.activeItem = null
-        //   return;
-        // }
-        this.activeItem = res.data.name 
-        
 			});
 			this.getMeasuresFromRemote(id)
 		},
@@ -405,14 +397,29 @@
 			const rule = this.alarmRules.find(rule => rule.name === event.alarmName) || {}
 			return rule.color || '#FFC4C4'
 		},
-      add_count(timeSeries) {
-        timeSeries.forEach(series => {
-          this.eventSeries.forEach(group => {
-            const foundEvent = series.alarmEvents.find(event => event.alarmName === group.name)
-            group.data.push(foundEvent ? [moment(series.measuredAt).valueOf(), foundEvent.nodeCount]: [moment(series.measuredAt).valueOf(), 0])
-          })
+    add_count(timeSeries) {
+      timeSeries.forEach(series => {
+        this.eventSeries.forEach(group => {
+          const foundEvent = series.alarmEvents.find(event => event.alarmName === group.name)
+          group.data.push(foundEvent ? [moment(series.measuredAt).valueOf(), foundEvent.nodeCount]: [moment(series.measuredAt).valueOf(), 0])
         })
+      })
+    },
+    setActiveItem(nodename) {
+      if (this.activeItem == nodename) {
+        this.activeItem = null
+        return
       }
+      this.activeItem = nodename
+    },
+    getRotateClass(activeItem, nodename) {
+      if (activeItem == nodename) {
+        return 'rotate'
+      } else {
+        return ''
+      }
+    }
+
     }
 
 
