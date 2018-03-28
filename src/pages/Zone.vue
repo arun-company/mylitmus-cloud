@@ -24,28 +24,29 @@
     </div>
     <div class="div-block-9">
       <template  v-for="(key,index) in filteredItems">
-          <div v-bind:class="getActiveClass(activeItem, key.name) + ' div-block-2 w-inline-block sensor-card'" @click="selectNode(key.id)" @click.stop="setActiveItem(key.name)" >
-            <div class="text-block-3">{{ key.name }}</div>
-            <div class="div-block-8">
-              <div class="div-block-7"><img src="public/images/thermometer.png" width="25" height="25" title="온도" class="image-2">
-                <div class="text-block-6">26°C</div>
+          <v-layout class="hidden">{{ alert= getAlertClass(key.currentMeasures)}} {{white=getWhiteClass(alert)}} {{activeSensor = alertSensorClass(key.activeAt)}}</v-layout>
+          <div v-bind:class="getActiveClass(activeItem, key.name) + ' ' + alert + ' div-block-2 w-inline-block sensor-card'" @click="selectNode(key.id)" @click.stop="setActiveItem(key.name)" >
+            <div v-bind:class="alert+' text-block-3'">{{ key.name }}</div>
+            <div v-bind:class="'div-block-8'">
+              <div class="div-block-7"><img v-bind:src="'public/images/thermometer'+white+'.png'" width="25" height="25" title="온도" class="image-2">
+                <div v-bind:class="alert + ' text-block-6'"> {{key.currentMeasures[0]?key.currentMeasures[0].value + key.currentMeasures[0].unit:"-"}}</div>
               </div>
-              <div class="div-block-7"><img src="public/images/humidity.png" width="20" height="20" title="습도">
-                <div class="text-block-6">26%</div>
+              <div class="div-block-7"><img v-bind:src="'public/images/humidity'+white+'.png'" width="20" height="20" title="습도">
+                <div v-bind:class="alert + ' text-block-6'"> {{key.currentMeasures[1]?key.currentMeasures[1].value + key.currentMeasures[1].unit:"-"}}</div>
               </div>
-              <div class="div-block-7"><img src="public/images/battery.png" width="25" height="25" title="습도" class="image-3"><img src="public/images/working.png" width="25" height="25" title="습도" class="image-3"></div>
+              <div class="div-block-7"><img v-bind:src="'public/images/battery'+white+'.png'" width="25" height="25" title="습도" class="image-3"><img v-bind:src="'public/images/working'+activeSensor+white+'.png'" width="25" height="25" title="습도" class="image-3"></div>
             </div>
             <div class="div-block-8">
-              <div class="div-block-7 zoneexpand" ><img v-bind:class="getActiveClass(activeItem, key.name)" src="public/images/expand.png" width="25" height="25" title="센서"></div>
+              <div class="div-block-7 zoneexpand" ><img v-bind:class="getActiveClass(activeItem, key.name)" v-bind:src="'public/images/expand'+white+'.png'" width="25" height="25" title="센서"></div>
             </div>
           </div>
           <div class="card-detail-1">
              <v-container fluid v-if="key.name == activeItem">
                   <v-layout row wrap>
                     <v-progress-linear v-bind:indeterminate="true" v-if="loading.info"></v-progress-linear>
-                    <v-flex xs4 v-for="info in node_info" :key="info ? info.key : null" v-if="card">
+                    <!-- <v-flex xs4 v-for="info in node_info" :key="info ? info.key : null" v-if="card">
                       <text-card size="4" :data="info ? { desc: info.key, value: info.value, subtitle: info.subtitle } : null"></text-card>
-                    </v-flex>
+                    </v-flex> -->
                   </v-layout>
                   <v-card class="mt-2" v-if="chartData.temperature && chartData.humidity">
                     <duration-selector :duration.sync="duration" />
@@ -69,9 +70,9 @@
                <v-container  fluid v-if="key.name == activeItem || (index%2 > 0 && filteredItems[index-1].name == activeItem)">
                   <v-layout row wrap>
                     <v-progress-linear v-bind:indeterminate="true" v-if="loading.info"></v-progress-linear>
-                    <v-flex xs4 v-for="info in node_info" :key="info ? info.key : null" v-if="card">
+                    <!-- <v-flex xs4 v-for="info in node_info" :key="info ? info.key : null" v-if="card">
                       <text-card size="4" :data="info ? { desc: info.key, value: info.value, subtitle: info.subtitle } : null"></text-card>
-                    </v-flex>
+                    </v-flex> -->
                   </v-layout>
                   <v-card class="mt-2" v-if="chartData.temperature && chartData.humidity">
                     <duration-selector :duration.sync="duration" />
@@ -95,9 +96,9 @@
              <v-container fluid v-if="key.name == activeItem || (index%3 > 0 && filteredItems[index-1].name == activeItem) || (index%3 > 1 && filteredItems[index-2].name == activeItem)">
                   <v-layout row wrap>
                     <v-progress-linear v-bind:indeterminate="true" v-if="loading.info"></v-progress-linear>
-                    <v-flex xs4 v-for="info in node_info" :key="info ? info.key : null" v-if="card">
+                    <!-- <v-flex xs4 v-for="info in node_info" :key="info ? info.key : null" v-if="card">
                       <text-card size="4" :data="info ? { desc: info.key, value: info.value, subtitle: info.subtitle } : null"></text-card>
-                    </v-flex>
+                    </v-flex> -->
                   </v-layout>
                   <v-card class="mt-2" v-if="chartData.temperature && chartData.humidity">
                     <duration-selector :duration.sync="duration" />
@@ -121,9 +122,9 @@
              <v-container fluid v-if="(key.name == activeItem) || ((index%4 > 0)  && (filteredItems[index-1].name == activeItem)) || (index%4 > 1 && filteredItems[index-2].name == activeItem) || (index%4 > 2 && filteredItems[index-3].name == activeItem)">
                   <v-layout row wrap>
                     <v-progress-linear v-bind:indeterminate="true" v-if="loading.info"></v-progress-linear>
-                    <v-flex xs4 v-for="info in node_info" :key="info ? info.key : null" v-if="card">
+                    <!-- <v-flex xs4 v-for="info in node_info" :key="info ? info.key : null" v-if="card">
                       <text-card size="4" :data="info ? { desc: info.key, value: info.value, subtitle: info.subtitle } : null"></text-card>
-                    </v-flex>
+                    </v-flex> -->
                   </v-layout>
                   <v-card class="mt-2" v-if="chartData.temperature && chartData.humidity">
                     <duration-selector :duration.sync="duration" />
@@ -418,6 +419,16 @@
       } else {
         return ''
       }
+    },
+    getAlertClass(checkValue) {
+      return (checkValue[0]&&checkValue[1])? '':'alerts'
+    },
+    getWhiteClass(alertClass){
+      return alertClass?".fff":""
+
+    },
+    alertSensorClass(activeDate) {
+      return new Date() - new Date(activeDate) > (12 * 3600 * 1000)?'-not':''
     }
 
     }
