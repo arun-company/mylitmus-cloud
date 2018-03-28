@@ -24,7 +24,7 @@
     </div>
     <div class="div-block-9">
       <template  v-for="(key,index) in filteredItems">
-          <div class="div-block-2 w-inline-block sensor-card" @click="selectNode(key.id)" @click.stop="setActiveItem(key.name)" >
+          <div v-bind:class="getActiveClass(activeItem, key.name) + ' div-block-2 w-inline-block sensor-card'" @click="selectNode(key.id)" @click.stop="setActiveItem(key.name)" >
             <div class="text-block-3">{{ key.name }}</div>
             <div class="div-block-8">
               <div class="div-block-7"><img src="public/images/thermometer.png" width="25" height="25" title="온도" class="image-2">
@@ -36,7 +36,7 @@
               <div class="div-block-7"><img src="public/images/battery.png" width="25" height="25" title="습도" class="image-3"><img src="public/images/working.png" width="25" height="25" title="습도" class="image-3"></div>
             </div>
             <div class="div-block-8">
-              <div class="div-block-7 zoneexpand" ><img v-bind:class="getRotateClass(activeItem, key.name)" src="public/images/expand.png" width="25" height="25" title="센서"></div>
+              <div class="div-block-7 zoneexpand" ><img v-bind:class="getActiveClass(activeItem, key.name)" src="public/images/expand.png" width="25" height="25" title="센서"></div>
             </div>
           </div>
           <div class="card-detail-1">
@@ -412,9 +412,9 @@
       }
       this.activeItem = nodename
     },
-    getRotateClass(activeItem, nodename) {
+    getActiveClass(activeItem, nodename) {
       if (activeItem == nodename) {
-        return 'rotate'
+        return 'active-sensor'
       } else {
         return ''
       }
