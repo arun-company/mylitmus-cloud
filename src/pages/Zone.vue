@@ -179,6 +179,7 @@
         if (localStorage.getItem('zonename'))
             zonename = localStorage.getItem('zonename')
         return {
+          title:'Hello World',
           zoneId : localStorage.getItem('zoneid'),
           search: '',
           sensors:[],
@@ -224,7 +225,7 @@
         filteredItems:function()
         {
           var self=this;
-          return this.items.filter(function(item){
+          return self.items.filter(function(item){
             if (item.name)
               return item.name.toLowerCase().indexOf(self.search.toLowerCase())>=0;
             

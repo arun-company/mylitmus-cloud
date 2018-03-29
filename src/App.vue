@@ -1,9 +1,6 @@
 <template>
   <v-app none>
     <Toolbar :drawer.sync="drawer" v-if="$store.getters.isAuthenticated"></Toolbar>
-    <div class="hidden">
-    <zone-selector></zone-selector>
-    </div>
     <div data-collapse="none" data-animation="over-right" data-duration="400" class="navbar w-nav">
       <a href="/" class="brand w-nav-brand">
         <div class="text-block-2">Litmus.Cloud</div>
@@ -19,17 +16,18 @@
 <script>
   import auth from '@/auth'
   import Toolbar from '@/components/Toolbar'
-  import ZoneSelector from '@/components/ZoneSelector'
+  // import ZoneSelector from '@/components/ZoneSelector'
 
   export default {
-    components: { Toolbar, ZoneSelector },
+    components: { Toolbar },
     data (state) {
       return {
         drawer: false,
-        title: 'Litmus --- Cloud Client',
+        title: 'Litmus - Cloud Client',
       }
     },
     created() {
+      document.title = this.title
       let litmus_js = document.createElement('script')
       litmus_js.setAttribute('src', 'public/js/webflow.js')
       document.head.appendChild(litmus_js)

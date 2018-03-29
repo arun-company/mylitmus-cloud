@@ -1,7 +1,7 @@
 <template>
     <div class="section">
     <div class="w-container">
-      <h1 class="heading">Organization Name</h1>
+      <h1 class="heading">{{headerTitle}}</h1>
     </div>
     <div class="reporting-all">
       <div class="div-block-reporting">
@@ -16,7 +16,7 @@
                 <div class="text-block-7">센서</div>
                 <div class="text-block-7">000개</div>
               </div>
-              <div class="div-block-13"><img src="public/images/alert_red.png" width="20" height="20" class="public/image-3">
+              <div class="div-block-13"><img src="public/images/alert_red.png" width="20" height="20" class="image-3">
                 <div class="text-block-7">000개</div>
               </div>
             </div>
@@ -33,7 +33,7 @@
                   <div class="text-block-7">센서</div>
                   <div class="text-block-7">000개</div>
                 </div>
-                <div class="div-block-13"><img src="public/images/alert_red.png" width="20" height="20" class="public/image-3">
+                <div class="div-block-13"><img src="public/images/alert_red.png" width="20" height="20" class="image-3">
                   <div class="text-block-7">000개</div>
                 </div>
               </div>
@@ -44,7 +44,7 @@
           </div>
           <div class="div-block-reporting">
             <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="public/image-3"></div>
+              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
             </div>
             <div class="content">
               <div class="text-content">Sensor  Summary Content</div>
@@ -66,7 +66,7 @@
           </div>
           <div class="div-block-reporting">
             <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="public/image-3"></div>
+              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
             </div>
             <div class="content">
               <div class="text-content">Sensor  Summary Content</div>
@@ -88,7 +88,7 @@
           </div>
           <div class="div-block-reporting">
             <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="public/image-3"></div>
+              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
             </div>
             <div class="content">
               <div class="text-content">Sensor  Summary Content</div>
@@ -117,7 +117,7 @@
                   <div class="text-block-7">센서</div>
                   <div class="text-block-7">000개</div>
                 </div>
-                <div class="div-block-13"><img src="public/images/alert_red.png" width="20" height="20" class="public/image-3">
+                <div class="div-block-13"><img src="public/images/alert_red.png" width="20" height="20" class="image-3">
                   <div class="text-block-7">000개</div>
                 </div>
               </div>
@@ -128,7 +128,7 @@
           </div>
           <div class="div-block-reporting">
             <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="public/image-3"></div>
+              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
             </div>
             <div class="content">
               <div class="text-content">Sensor  Summary Content</div>
@@ -150,7 +150,7 @@
           </div>
           <div class="div-block-reporting">
             <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="public/image-3"></div>
+              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
             </div>
             <div class="content">
               <div class="text-content">Sensor  Summary Content</div>
@@ -172,7 +172,7 @@
           </div>
           <div class="div-block-reporting">
             <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="public/image-3"></div>
+              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
             </div>
             <div class="content">
               <div class="text-content">Sensor  Summary Content</div>
@@ -201,7 +201,7 @@
                   <div class="text-block-7">센서</div>
                   <div class="text-block-7">000개</div>
                 </div>
-                <div class="div-block-13"><img src="public/images/alert_red.png" width="20" height="20" class="public/image-3">
+                <div class="div-block-13"><img src="public/images/alert_red.png" width="20" height="20" class="image-3">
                   <div class="text-block-7">000개</div>
                 </div>
               </div>
@@ -212,7 +212,7 @@
           </div>
           <div class="div-block-reporting">
             <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="public/image-3"></div>
+              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
             </div>
             <div class="content">
               <div class="text-content">Sensor  Summary Content</div>
@@ -234,7 +234,7 @@
           </div>
           <div class="div-block-reporting">
             <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="public/image-3"></div>
+              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
             </div>
             <div class="content">
               <div class="text-content">Sensor  Summary Content</div>
@@ -256,7 +256,7 @@
           </div>
           <div class="div-block-reporting">
             <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="public/image-3"></div>
+              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
             </div>
             <div class="content">
               <div class="text-content">Sensor  Summary Content</div>
@@ -290,7 +290,7 @@
                 <div class="text-block-7">센서</div>
                 <div class="text-block-7">000개</div>
               </div>
-              <div class="div-block-13"><img src="public/images/alert_red.png" width="20" height="20" class="public/image-3">
+              <div class="div-block-13"><img src="public/images/alert_red.png" width="20" height="20" class="image-3">
                 <div class="text-block-7">000개</div>
               </div>
             </div>
@@ -307,7 +307,7 @@
                   <div class="text-block-7">센서</div>
                   <div class="text-block-7">000개</div>
                 </div>
-                <div class="div-block-13"><img src="public/images/alert_red.png" width="20" height="20" class="public/image-3">
+                <div class="div-block-13"><img src="public/images/alert_red.png" width="20" height="20" class="image-3">
                   <div class="text-block-7">000개</div>
                 </div>
               </div>
@@ -318,7 +318,7 @@
           </div>
           <div class="div-block-reporting">
             <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="public/image-3"></div>
+              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
             </div>
             <div class="content">
               <div class="text-content">Sensor  Summary Content</div>
@@ -340,7 +340,7 @@
           </div>
           <div class="div-block-reporting">
             <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="public/image-3"></div>
+              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
             </div>
             <div class="content">
               <div class="text-content">Sensor  Summary Content</div>
@@ -362,7 +362,7 @@
           </div>
           <div class="div-block-reporting">
             <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="public/image-3"></div>
+              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
             </div>
             <div class="content">
               <div class="text-content">Sensor  Summary Content</div>
@@ -391,7 +391,7 @@
                   <div class="text-block-7">센서</div>
                   <div class="text-block-7">000개</div>
                 </div>
-                <div class="div-block-13"><img src="public/images/alert_red.png" width="20" height="20" class="public/image-3">
+                <div class="div-block-13"><img src="public/images/alert_red.png" width="20" height="20" class="image-3">
                   <div class="text-block-7">000개</div>
                 </div>
               </div>
@@ -402,7 +402,7 @@
           </div>
           <div class="div-block-reporting">
             <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="public/image-3"></div>
+              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
             </div>
             <div class="content">
               <div class="text-content">Sensor  Summary Content</div>
@@ -424,7 +424,7 @@
           </div>
           <div class="div-block-reporting">
             <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="public/image-3"></div>
+              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
             </div>
             <div class="content">
               <div class="text-content">Sensor  Summary Content</div>
@@ -446,7 +446,7 @@
           </div>
           <div class="div-block-reporting">
             <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="public/image-3"></div>
+              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
             </div>
             <div class="content">
               <div class="text-content">Sensor  Summary Content</div>
@@ -475,7 +475,7 @@
                   <div class="text-block-7">센서</div>
                   <div class="text-block-7">000개</div>
                 </div>
-                <div class="div-block-13"><img src="public/images/alert_red.png" width="20" height="20" class="public/image-3">
+                <div class="div-block-13"><img src="public/images/alert_red.png" width="20" height="20" class="image-3">
                   <div class="text-block-7">000개</div>
                 </div>
               </div>
@@ -486,7 +486,7 @@
           </div>
           <div class="div-block-reporting">
             <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="public/image-3"></div>
+              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
             </div>
             <div class="content">
               <div class="text-content">Sensor  Summary Content</div>
@@ -508,7 +508,7 @@
           </div>
           <div class="div-block-reporting">
             <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="public/image-3"></div>
+              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
             </div>
             <div class="content">
               <div class="text-content">Sensor  Summary Content</div>
@@ -530,7 +530,7 @@
           </div>
           <div class="div-block-reporting">
             <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="public/image-3"></div>
+              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
             </div>
             <div class="content">
               <div class="text-content">Sensor  Summary Content</div>
@@ -564,7 +564,7 @@
                 <div class="text-block-7">센서</div>
                 <div class="text-block-7">000개</div>
               </div>
-              <div class="div-block-13"><img src="public/images/alert_red.png" width="20" height="20" class="public/image-3">
+              <div class="div-block-13"><img src="public/images/alert_red.png" width="20" height="20" class="image-3">
                 <div class="text-block-7">000개</div>
               </div>
             </div>
@@ -581,7 +581,7 @@
                   <div class="text-block-7">센서</div>
                   <div class="text-block-7">000개</div>
                 </div>
-                <div class="div-block-13"><img src="public/images/alert_red.png" width="20" height="20" class="public/image-3">
+                <div class="div-block-13"><img src="public/images/alert_red.png" width="20" height="20" class="image-3">
                   <div class="text-block-7">000개</div>
                 </div>
               </div>
@@ -592,7 +592,7 @@
           </div>
           <div class="div-block-reporting">
             <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="public/image-3"></div>
+              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
             </div>
             <div class="content">
               <div class="text-content">Sensor  Summary Content</div>
@@ -614,7 +614,7 @@
           </div>
           <div class="div-block-reporting">
             <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="public/image-3"></div>
+              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
             </div>
             <div class="content">
               <div class="text-content">Sensor  Summary Content</div>
@@ -636,7 +636,7 @@
           </div>
           <div class="div-block-reporting">
             <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="public/image-3"></div>
+              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
             </div>
             <div class="content">
               <div class="text-content">Sensor  Summary Content</div>
@@ -665,7 +665,7 @@
                   <div class="text-block-7">센서</div>
                   <div class="text-block-7">000개</div>
                 </div>
-                <div class="div-block-13"><img src="public/images/alert_red.png" width="20" height="20" class="public/image-3">
+                <div class="div-block-13"><img src="public/images/alert_red.png" width="20" height="20" class="image-3">
                   <div class="text-block-7">000개</div>
                 </div>
               </div>
@@ -676,7 +676,7 @@
           </div>
           <div class="div-block-reporting">
             <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="public/image-3"></div>
+              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
             </div>
             <div class="content">
               <div class="text-content">Sensor  Summary Content</div>
@@ -698,7 +698,7 @@
           </div>
           <div class="div-block-reporting">
             <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="public/image-3"></div>
+              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
             </div>
             <div class="content">
               <div class="text-content">Sensor  Summary Content</div>
@@ -720,7 +720,7 @@
           </div>
           <div class="div-block-reporting">
             <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="public/image-3"></div>
+              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
             </div>
             <div class="content">
               <div class="text-content">Sensor  Summary Content</div>
@@ -749,7 +749,7 @@
                   <div class="text-block-7">센서</div>
                   <div class="text-block-7">000개</div>
                 </div>
-                <div class="div-block-13"><img src="public/images/alert_red.png" width="20" height="20" class="public/image-3">
+                <div class="div-block-13"><img src="public/images/alert_red.png" width="20" height="20" class="image-3">
                   <div class="text-block-7">000개</div>
                 </div>
               </div>
@@ -760,7 +760,7 @@
           </div>
           <div class="div-block-reporting">
             <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="public/image-3"></div>
+              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
             </div>
             <div class="content">
               <div class="text-content">Sensor  Summary Content</div>
@@ -782,7 +782,7 @@
           </div>
           <div class="div-block-reporting">
             <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="public/image-3"></div>
+              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
             </div>
             <div class="content">
               <div class="text-content">Sensor  Summary Content</div>
@@ -804,7 +804,7 @@
           </div>
           <div class="div-block-reporting">
             <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="public/image-3"></div>
+              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
             </div>
             <div class="content">
               <div class="text-content">Sensor  Summary Content</div>

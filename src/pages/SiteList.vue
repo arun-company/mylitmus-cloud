@@ -42,6 +42,7 @@
         open: this.drawer,
         headerTitle: 'Organization',
         searchTitle: 'Search sites ...',
+        title:'Hello World',
         items: [
           {id:1, name:"Default",description:""},
         ],
