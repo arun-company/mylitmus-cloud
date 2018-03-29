@@ -1,15 +1,22 @@
 <template>
-<div class="text-block-4" style="width: 100%; height: 100%;" v-if="imageLink">
-  <span class="map" >
-    <div class="map-area" >
-      <div class="progress-bar" v-if="!nodes" >
-        <v-progress-circular  indeterminate :size="100" color="amber" :width="3"></v-progress-circular>
+  <div class="text-block-4" style="width: 100%; height: 100%; min-height:300px;" v-if="imageLink">
+    <span class="map"> 
+  <div class="div-block-14">
+    <div class="map-calendar-block">
+      
+
+      
+      <div class="map-calendar-area">
+        <div class="progress-bar" v-if="!nodes" >
+          <v-progress-circular  indeterminate :size="100" color="amber" :width="3"></v-progress-circular>
+        </div>
       </div>
+      <svg  width="100%" :height="svgHeight" ref="svg" v-if="$store.state.zone">
+        <image :xlink:href="imageLink" x="50%" y="50%" :width="imageDisplayWidth" :height="svgHeight" :transform="`translate(${-imageDisplayWidth/2}, ${-svgHeight/2})`" v-if="imageLink"></image>
+        <node v-for="node in remappedNodes" :key="node.id" :node="node" :selected="selected" @click="onClick(node)"></node>
+      </svg>
     </div>
-    <svg  width="100%" :height="svgHeight" ref="svg" v-if="$store.state.zone">
-      <image :xlink:href="imageLink" x="50%" y="50%" :width="imageDisplayWidth" :height="svgHeight" :transform="`translate(${-imageDisplayWidth/2}, ${-svgHeight/2})`" v-if="imageLink"></image>
-      <node v-for="node in remappedNodes" :key="node.id" :node="node" :selected="selected" @click="onClick(node)"></node>
-    </svg>
+  </div>
   </span>
 </div>
 </template>

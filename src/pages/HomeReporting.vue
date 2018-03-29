@@ -10,30 +10,21 @@
         <h1 class="heading">{{headerTitle}}</h1>
       </div>
       <div class="w-container">
-      <div class="div-block-12">
-        <div class="div-block-14 block-inline">
-          <div>
-                <v-layout row wrap>
-                    <v-flex xs12 md6>
-                      <date-selector label="시작날짜" :date.sync="range.dateFrom" :allowed-dates="beforeToday"/>
-                    </v-flex>
-                    <v-flex xs12 md6>
-                      <date-selector label="종료날짜" :date.sync="range.dateTo" :allowed-dates="afterDateFrom" at-the-end="true" />
-                    </v-flex>
-                </v-layout>
+        <div class="div-block-14">
+          <div class="map-calendar-block">
+            <div class="map-calendar-area">
+                <date-selector label="날짜" :date.sync="range.dateFrom" :allowed-dates="beforeToday"/>
+            </div>
           </div>
-        </div>
       </div>
       <div>
         <div class="div-block-site">
-          <div class="div-block-10"><a href="#site.html" class="heading-3">Site - 00000</a></div>
-          <div class="div-block-zone">
-            <div class="div-block-10"><a href="#zone.html" class="heading-4">Zone - 00000</a></div>
+        <div class="div-block-10"><a href="#site" class="heading-3">Default</a></div> 
+                 
+          <div v-for="(zone) in zones" class="div-block-zone">
+            <div class="div-block-10"><a href="#zone.html" class="heading-4">{{zone.name}}</a></div>
             <div class="div-block-sensor">
-              <div class="div-block-10"><a href="#zone.html" class="heading-4">Sensor - 00000</a></div>
-              <div class="content">
-                <div class="text-content">Sensor Reporting List</div>
-              </div>
+
             </div>
             <div class="div-block-sensor">
               <div class="div-block-10"><a href="#zone.html" class="heading-4">Sensor - 00000</a></div>
@@ -48,27 +39,9 @@
               </div>
             </div>
           </div>
-          <div class="div-block-zone">
-            <div class="div-block-10"><a href="#zone.html" class="heading-4">Zone - 00000</a></div>
-            <div class="div-block-sensor">
-              <div class="div-block-10"><a href="#zone.html" class="heading-4">Sensor - 00000</a></div>
-              <div class="content">
-                <div class="text-content">Sensor Reporting List</div>
-              </div>
-            </div>
-            <div class="div-block-sensor">
-              <div class="div-block-10"><a href="#zone.html" class="heading-4">Sensor - 00000</a></div>
-              <div class="content">
-                <div class="text-content">Sensor Reporting List</div>
-              </div>
-            </div>
-            <div class="div-block-sensor">
-              <div class="div-block-10"><a href="#zone.html" class="heading-4">Sensor - 00000</a></div>
-              <div class="content">
-                <div class="text-content">Sensor Reporting List</div>
-              </div>
-            </div>
-          </div>
+
+
+
           <div class="div-block-zone">
             <div class="div-block-10"><a href="#zone.html" class="heading-4">Zone - 00000</a></div>
             <div class="div-block-sensor">
@@ -118,6 +91,7 @@
           dateFrom: moment().startOf('day').format(),
           dateTo: moment().endOf('day').format(),
         },
+        zones:[],
         search: '',
         open: this.drawer,
         headerTitle: 'Reporting',
@@ -136,7 +110,12 @@
       }
     },
     mounted () {
-      // this.$store.dispatch('setMenuItems', this.menuItems)
+      this.zones = JSON.parse(localStorage.getItem('zones'))
+      for(var i=0; i < this.zones.length; i++) {
+        console.log(JSON.parse(localStorage.getItem('detail_zone'+this.zones[i].id)));
+        console.log(this.zones[i]);
+        // this.zones[this.zones[i].id] = JSON.parse(localStorage.getItem('zone_detail'+this.zones[i].id))
+      }
     },
     methods: {
        beforeToday (date) {

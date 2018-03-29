@@ -837,6 +837,7 @@
   import EventGraph from '@/components/charts/EventGraph'
   import TextCard from '@/components/dashboard/TextCard'
   import ServiceStatusBar from '@/components/dashboard/ServiceStatusBar'
+  import { ZONES_API, ZONE_INFO_API, API_BASE } from '@/global'
 
   export default {
     components: { EventGraph, TextCard, ServiceStatusBar },
@@ -852,6 +853,7 @@
         open: this.drawer,
         headerTitle: 'Organization',
         searchTitle: 'Search sites ...',
+        detail_zone: [],
         items: [
           {id:1, name:"Default",description:""},
         ],
@@ -867,6 +869,46 @@
     },
     mounted () {
       // this.$store.dispatch('setMenuItems', this.menuItems)
+      this.getAllZones()
+    },
+    methods: {
+      setZoneLocal: function(zone) {
+        var self=this;
+        // self.$store.zone = null
+        // self.$store.dispatch('setZone', { zoneId: zone.id, shouldClear: false})
+        localStorage.setItem('zone', JSON.stringify(zone));
+        localStorage.setItem('zoneid', zone.id);
+        localStorage.setItem('zonename', zone.name);
+        this.$router.push('/zone/'+  zone.name)
+        return
+      },
+
+      getAllZones () {
+        // this.zones = this.$store.state.zones
+          axios.get(ZONES_API).then(res => {
+          this.zones = res.data;
+
+          localStorage.setItem('zones', JSON.stringify(this.zones))
+          // this.zones = JSON.parse(localStorage.getItem('zones'));
+          for(var i=0; i < res.data.length; i++) {
+              var id = res.data[i].id
+              var zone = `${API_BASE}/zones/`+ id
+              var node = zone + '/nodes'
+              axios.all([
+                  axios.get(zone),
+                  axios.get(node)
+              ]).then(response => {
+                this.detail_zone[id] = response[0].data
+                this.detail_zone[id].nodes = response[1].data
+
+                localStorage.setItem('detail_zone' + response[0].data.id, JSON.stringify({'data':response[0].data,'nodes':response[1].data}))
+              })
+            }
+          })
+      },
+      getZoneDetail(id) {
+       
+      }
     }
   }
 </script>

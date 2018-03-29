@@ -16,7 +16,7 @@
       prepend-icon="event"
       readonly
     ></v-text-field>
-    <v-date-picker v-model="localDate" no-title scrollable actions :allowed-dates="allowedDates">
+    <!-- <v-date-picker v-model="localDate" no-title scrollable actions :allowed-dates="allowedDates">
       <template scope="{ save, cancel }">
         <v-card-actions>
           <v-spacer></v-spacer>
@@ -24,7 +24,8 @@
           <v-btn flat color="primary" @click="save">OK</v-btn>
         </v-card-actions>
       </template>
-    </v-date-picker>
+    </v-date-picker> -->
+     <v-date-picker color="green lighten-1"  v-model="localDate"></v-date-picker>
   </v-menu>
 </template>
 
