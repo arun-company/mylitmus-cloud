@@ -1,5 +1,5 @@
 <template>
-  <v-app none>
+  <v-app light>
     <Toolbar :drawer.sync="drawer" v-if="$store.getters.isAuthenticated"></Toolbar>
     <div data-collapse="none" data-animation="over-right" data-duration="400" class="navbar w-nav">
       <a href="/" class="brand w-nav-brand">

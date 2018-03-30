@@ -18,7 +18,7 @@
       <div class="progress-bar" v-if="! zones">
         <v-progress-circular  indeterminate color="red" size="80"  :width="10"></v-progress-circular>
       </div>
-      <div class="div-block-2 w-inline-block zone-card" v-for="key in filteredItems" v-bind:key="key.id" @click="setZoneLocal(key)" >
+      <div class="div-block-2 w-inline-block zone-card" v-for="key in filteredItems" v-bind:key="key.id" @click="setZoneLocal(key)">
         <div class="text-block-3">{{ key.name }}</div>
         <!-- Zone Information -->
         

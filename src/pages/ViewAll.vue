@@ -5,7 +5,8 @@
     </div>
     <div class="reporting-all">
       <div class="div-block-reporting">
-        <div class="div-block-10"><a href="site.html" class="heading-3">Site - 00000</a>
+        <!-- SITE DETAIL -->
+        <div class="div-block-10"><a href="#" class="heading-3">Default</a>
           <div class="div-block-alerts">
             <div class="div-block-13">
               <div class="text-block-7">존</div>
@@ -22,11 +23,9 @@
             </div>
           </div>
         </div>
-        <div class="content">
-          <div class="text-content">Site Summary Content</div>
-        </div>
-        <div class="div-block-reporting">
-          <div class="div-block-10"><a href="zone.html" class="heading-4">Zone - 00000</a>
+        <div v-for="zone in zones" v-bind:key="zone.id" class="div-block-reporting">
+          <!-- ZONE NAME AND DETAIL -->
+          <div  class="div-block-10"><a href="#zone" class="heading-4">{{zone.name}}</a>
             <div class="div-block-alerts">
               <div class="div-block-13">
                 <div class="div-block-13">
@@ -39,787 +38,21 @@
               </div>
             </div>
           </div>
+          <!-- ZONE SUMERIZE -->
           <div class="content">
             <div class="text-content">Zone Summary Content</div>
           </div>
-          <div class="div-block-reporting">
-            <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
+          <!-- LOOP SENSOR -->
+          <div v-if="getSensors(zone.id)" v-for="sensor in getSensors(zone.id).nodes" v-bind:key="sensor.id" class="div-block-reporting">
+            <!-- sensor: {{sensor}} -->
+            <div class="div-block-10"><a href="zone.html" class="heading-4">{{sensor.name}}</a>
+              <div class="div-block-"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
             </div>
             <div class="content">
-              <div class="text-content">Sensor  Summary Content</div>
+              <div class="text-content">{{sensor}}</div>
               <div class="div-block-12">
                 <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="div-block-reporting">
-            <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
-            </div>
-            <div class="content">
-              <div class="text-content">Sensor  Summary Content</div>
-              <div class="div-block-12">
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="div-block-reporting">
-            <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
-            </div>
-            <div class="content">
-              <div class="text-content">Sensor  Summary Content</div>
-              <div class="div-block-12">
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="div-block-reporting">
-          <div class="div-block-10"><a href="zone.html" class="heading-4">Zone - 00000</a>
-            <div class="div-block-alerts">
-              <div class="div-block-13">
-                <div class="div-block-13">
-                  <div class="text-block-7">센서</div>
-                  <div class="text-block-7">000개</div>
-                </div>
-                <div class="div-block-13"><img src="public/images/alert_red.png" width="20" height="20" class="image-3">
-                  <div class="text-block-7">000개</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="content">
-            <div class="text-content">Zone Summary Content</div>
-          </div>
-          <div class="div-block-reporting">
-            <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
-            </div>
-            <div class="content">
-              <div class="text-content">Sensor  Summary Content</div>
-              <div class="div-block-12">
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="div-block-reporting">
-            <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
-            </div>
-            <div class="content">
-              <div class="text-content">Sensor  Summary Content</div>
-              <div class="div-block-12">
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="div-block-reporting">
-            <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
-            </div>
-            <div class="content">
-              <div class="text-content">Sensor  Summary Content</div>
-              <div class="div-block-12">
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="div-block-reporting">
-          <div class="div-block-10"><a href="zone.html" class="heading-4">Zone - 00000</a>
-            <div class="div-block-alerts">
-              <div class="div-block-13">
-                <div class="div-block-13">
-                  <div class="text-block-7">센서</div>
-                  <div class="text-block-7">000개</div>
-                </div>
-                <div class="div-block-13"><img src="public/images/alert_red.png" width="20" height="20" class="image-3">
-                  <div class="text-block-7">000개</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="content">
-            <div class="text-content">Zone Summary Content</div>
-          </div>
-          <div class="div-block-reporting">
-            <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
-            </div>
-            <div class="content">
-              <div class="text-content">Sensor  Summary Content</div>
-              <div class="div-block-12">
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="div-block-reporting">
-            <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
-            </div>
-            <div class="content">
-              <div class="text-content">Sensor  Summary Content</div>
-              <div class="div-block-12">
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="div-block-reporting">
-            <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
-            </div>
-            <div class="content">
-              <div class="text-content">Sensor  Summary Content</div>
-              <div class="div-block-12">
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="div-block-reporting">
-        <div class="div-block-10"><a href="site.html" class="heading-3">Site - 00000</a>
-          <div class="div-block-alerts">
-            <div class="div-block-13">
-              <div class="text-block-7">존</div>
-              <div class="text-block-7">00곳</div>
-            </div>
-            <div class="div-block-13">
-              <div class="div-block-13">
-                <div class="text-block-7">센서</div>
-                <div class="text-block-7">000개</div>
-              </div>
-              <div class="div-block-13"><img src="public/images/alert_red.png" width="20" height="20" class="image-3">
-                <div class="text-block-7">000개</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="content">
-          <div class="text-content">Site Summary Content</div>
-        </div>
-        <div class="div-block-reporting">
-          <div class="div-block-10"><a href="zone.html" class="heading-4">Zone - 00000</a>
-            <div class="div-block-alerts">
-              <div class="div-block-13">
-                <div class="div-block-13">
-                  <div class="text-block-7">센서</div>
-                  <div class="text-block-7">000개</div>
-                </div>
-                <div class="div-block-13"><img src="public/images/alert_red.png" width="20" height="20" class="image-3">
-                  <div class="text-block-7">000개</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="content">
-            <div class="text-content">Zone Summary Content</div>
-          </div>
-          <div class="div-block-reporting">
-            <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
-            </div>
-            <div class="content">
-              <div class="text-content">Sensor  Summary Content</div>
-              <div class="div-block-12">
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="div-block-reporting">
-            <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
-            </div>
-            <div class="content">
-              <div class="text-content">Sensor  Summary Content</div>
-              <div class="div-block-12">
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="div-block-reporting">
-            <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
-            </div>
-            <div class="content">
-              <div class="text-content">Sensor  Summary Content</div>
-              <div class="div-block-12">
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="div-block-reporting">
-          <div class="div-block-10"><a href="zone.html" class="heading-4">Zone - 00000</a>
-            <div class="div-block-alerts">
-              <div class="div-block-13">
-                <div class="div-block-13">
-                  <div class="text-block-7">센서</div>
-                  <div class="text-block-7">000개</div>
-                </div>
-                <div class="div-block-13"><img src="public/images/alert_red.png" width="20" height="20" class="image-3">
-                  <div class="text-block-7">000개</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="content">
-            <div class="text-content">Zone Summary Content</div>
-          </div>
-          <div class="div-block-reporting">
-            <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
-            </div>
-            <div class="content">
-              <div class="text-content">Sensor  Summary Content</div>
-              <div class="div-block-12">
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="div-block-reporting">
-            <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
-            </div>
-            <div class="content">
-              <div class="text-content">Sensor  Summary Content</div>
-              <div class="div-block-12">
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="div-block-reporting">
-            <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
-            </div>
-            <div class="content">
-              <div class="text-content">Sensor  Summary Content</div>
-              <div class="div-block-12">
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="div-block-reporting">
-          <div class="div-block-10"><a href="zone.html" class="heading-4">Zone - 00000</a>
-            <div class="div-block-alerts">
-              <div class="div-block-13">
-                <div class="div-block-13">
-                  <div class="text-block-7">센서</div>
-                  <div class="text-block-7">000개</div>
-                </div>
-                <div class="div-block-13"><img src="public/images/alert_red.png" width="20" height="20" class="image-3">
-                  <div class="text-block-7">000개</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="content">
-            <div class="text-content">Zone Summary Content</div>
-          </div>
-          <div class="div-block-reporting">
-            <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
-            </div>
-            <div class="content">
-              <div class="text-content">Sensor  Summary Content</div>
-              <div class="div-block-12">
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="div-block-reporting">
-            <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
-            </div>
-            <div class="content">
-              <div class="text-content">Sensor  Summary Content</div>
-              <div class="div-block-12">
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="div-block-reporting">
-            <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
-            </div>
-            <div class="content">
-              <div class="text-content">Sensor  Summary Content</div>
-              <div class="div-block-12">
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="div-block-reporting">
-        <div class="div-block-10"><a href="site.html" class="heading-3">Site - 00000</a>
-          <div class="div-block-alerts">
-            <div class="div-block-13">
-              <div class="text-block-7">존</div>
-              <div class="text-block-7">00곳</div>
-            </div>
-            <div class="div-block-13">
-              <div class="div-block-13">
-                <div class="text-block-7">센서</div>
-                <div class="text-block-7">000개</div>
-              </div>
-              <div class="div-block-13"><img src="public/images/alert_red.png" width="20" height="20" class="image-3">
-                <div class="text-block-7">000개</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="content">
-          <div class="text-content">Site Summary Content</div>
-        </div>
-        <div class="div-block-reporting">
-          <div class="div-block-10"><a href="zone.html" class="heading-4">Zone - 00000</a>
-            <div class="div-block-alerts">
-              <div class="div-block-13">
-                <div class="div-block-13">
-                  <div class="text-block-7">센서</div>
-                  <div class="text-block-7">000개</div>
-                </div>
-                <div class="div-block-13"><img src="public/images/alert_red.png" width="20" height="20" class="image-3">
-                  <div class="text-block-7">000개</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="content">
-            <div class="text-content">Zone Summary Content</div>
-          </div>
-          <div class="div-block-reporting">
-            <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
-            </div>
-            <div class="content">
-              <div class="text-content">Sensor  Summary Content</div>
-              <div class="div-block-12">
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="div-block-reporting">
-            <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
-            </div>
-            <div class="content">
-              <div class="text-content">Sensor  Summary Content</div>
-              <div class="div-block-12">
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="div-block-reporting">
-            <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
-            </div>
-            <div class="content">
-              <div class="text-content">Sensor  Summary Content</div>
-              <div class="div-block-12">
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="div-block-reporting">
-          <div class="div-block-10"><a href="zone.html" class="heading-4">Zone - 00000</a>
-            <div class="div-block-alerts">
-              <div class="div-block-13">
-                <div class="div-block-13">
-                  <div class="text-block-7">센서</div>
-                  <div class="text-block-7">000개</div>
-                </div>
-                <div class="div-block-13"><img src="public/images/alert_red.png" width="20" height="20" class="image-3">
-                  <div class="text-block-7">000개</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="content">
-            <div class="text-content">Zone Summary Content</div>
-          </div>
-          <div class="div-block-reporting">
-            <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
-            </div>
-            <div class="content">
-              <div class="text-content">Sensor  Summary Content</div>
-              <div class="div-block-12">
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="div-block-reporting">
-            <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
-            </div>
-            <div class="content">
-              <div class="text-content">Sensor  Summary Content</div>
-              <div class="div-block-12">
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="div-block-reporting">
-            <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
-            </div>
-            <div class="content">
-              <div class="text-content">Sensor  Summary Content</div>
-              <div class="div-block-12">
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="div-block-reporting">
-          <div class="div-block-10"><a href="zone.html" class="heading-4">Zone - 00000</a>
-            <div class="div-block-alerts">
-              <div class="div-block-13">
-                <div class="div-block-13">
-                  <div class="text-block-7">센서</div>
-                  <div class="text-block-7">000개</div>
-                </div>
-                <div class="div-block-13"><img src="public/images/alert_red.png" width="20" height="20" class="image-3">
-                  <div class="text-block-7">000개</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="content">
-            <div class="text-content">Zone Summary Content</div>
-          </div>
-          <div class="div-block-reporting">
-            <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
-            </div>
-            <div class="content">
-              <div class="text-content">Sensor  Summary Content</div>
-              <div class="div-block-12">
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="div-block-reporting">
-            <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
-            </div>
-            <div class="content">
-              <div class="text-content">Sensor  Summary Content</div>
-              <div class="div-block-12">
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="div-block-reporting">
-            <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - 00000</a>
-              <div class="div-block-alerts"><img src="public/images/alert_red.png" width="20" height="20" class="image-3"></div>
-            </div>
-            <div class="content">
-              <div class="text-content">Sensor  Summary Content</div>
-              <div class="div-block-12">
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="text-block-3">Sensor 5</div>
+                  <div class="text-block-3">{{sensor.currentMeasures}}</div>
                 </div>
               </div>
             </div>
@@ -850,10 +83,11 @@
         ]
       return {
         search: '',
+        zones:[],
         open: this.drawer,
         headerTitle: 'Organization',
         searchTitle: 'Search sites ...',
-        detail_zone: [],
+        detail_zone: this.$store.state.detail_zone,
         items: [
           {id:1, name:"Default",description:""},
         ],
@@ -863,9 +97,10 @@
     {
       filteredItems:function()
       {
-        var self=this;
+        var self=this
         return this.items.filter(function(item){return item.name.toLowerCase().indexOf(self.search.toLowerCase())>=0;});
       }
+      
     },
     mounted () {
       // this.$store.dispatch('setMenuItems', this.menuItems)
@@ -882,32 +117,35 @@
         this.$router.push('/zone/'+  zone.name)
         return
       },
-
+      getSensors(zoneId) {
+          if (localStorage.getItem('detail_zone'+zoneId))
+            return JSON.parse(localStorage.getItem('detail_zone'+zoneId))
+          return []
+      },
       getAllZones () {
-        // this.zones = this.$store.state.zones
           axios.get(ZONES_API).then(res => {
           this.zones = res.data;
-
           localStorage.setItem('zones', JSON.stringify(this.zones))
           // this.zones = JSON.parse(localStorage.getItem('zones'));
+
           for(var i=0; i < res.data.length; i++) {
               var id = res.data[i].id
-              var zone = `${API_BASE}/zones/`+ id
-              var node = zone + '/nodes'
-              axios.all([
-                  axios.get(zone),
-                  axios.get(node)
-              ]).then(response => {
-                this.detail_zone[id] = response[0].data
-                this.detail_zone[id].nodes = response[1].data
-
-                localStorage.setItem('detail_zone' + response[0].data.id, JSON.stringify({'data':response[0].data,'nodes':response[1].data}))
-              })
+              if (localStorage.getItem('detail_zone'+ id)){
+                this.$store.state.detail_zone[id] = JSON.parse(localStorage.getItem('detail_zone'+ id))
+              } else {
+                var zone = `${API_BASE}/zones/`+ id
+                var node = zone + '/nodes'
+                axios.all([
+                    axios.get(zone),
+                    axios.get(node)
+                ]).then(response => {
+                  this.$store.state.detail_zone[id] = response[0].data
+                  this.$store.state.detail_zone[id].nodes = response[1].data
+                  localStorage.setItem('detail_zone' + response[0].data.id, JSON.stringify({'data':response[0].data,'nodes':response[1].data}))
+                })
+              }
             }
           })
-      },
-      getZoneDetail(id) {
-       
       }
     }
   }

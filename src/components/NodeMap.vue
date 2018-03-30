@@ -3,9 +3,6 @@
     <span class="map"> 
   <div class="div-block-14">
     <div class="map-calendar-block">
-      
-
-      
       <div class="map-calendar-area">
         <div class="progress-bar" v-if="!nodes" >
           <v-progress-circular  indeterminate :size="100" color="amber" :width="3"></v-progress-circular>

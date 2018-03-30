@@ -20,46 +20,12 @@
       <div>
         <div class="div-block-site">
         <div class="div-block-10"><a href="#site" class="heading-3">Default</a></div> 
-                 
-          <div v-for="(zone) in zones" class="div-block-zone">
-            <div class="div-block-10"><a href="#zone.html" class="heading-4">{{zone.name}}</a></div>
-            <div class="div-block-sensor">
-
-            </div>
-            <div class="div-block-sensor">
-              <div class="div-block-10"><a href="#zone.html" class="heading-4">Sensor - 00000</a></div>
+          <div v-for="(zone) in zones"  v-bind:key="zone.id" class="div-block-reporting">
+            <div class="div-block-10"><a href="#zone" class="heading-4">{{zone.name}}</a></div>
+            <div v-if="getSensors(zone.id)" v-for="sensor in getSensors(zone.id).nodes" v-bind:key="sensor.id"  class="div-block-reporting">
+              <div class="div-block-10"><a href="#" class="heading-4">{{sensor.name}}</a><a href="#" class="div-block-alerts w-inline-block"><img src="public/images/plus.png" width="20" height="20" class="image-3"></a></div>
               <div class="content">
-                <div class="text-content">Sensor Reporting List</div>
-              </div>
-            </div>
-            <div class="div-block-sensor">
-              <div class="div-block-10"><a href="#zone.html" class="heading-4">Sensor - 00000</a></div>
-              <div class="content">
-                <div class="text-content">Sensor Reporting List</div>
-              </div>
-            </div>
-          </div>
-
-
-
-          <div class="div-block-zone">
-            <div class="div-block-10"><a href="#zone.html" class="heading-4">Zone - 00000</a></div>
-            <div class="div-block-sensor">
-              <div class="div-block-10"><a href="#zone.html" class="heading-4">Sensor - 00000</a></div>
-              <div class="content">
-                <div class="text-content">Sensor Reporting List</div>
-              </div>
-            </div>
-            <div class="div-block-sensor">
-              <div class="div-block-10"><a href="#zone.html" class="heading-4">Sensor - 00000</a></div>
-              <div class="content">
-                <div class="text-content">Sensor Reporting List</div>
-              </div>
-            </div>
-            <div class="div-block-sensor">
-              <div class="div-block-10"><a href="#zone.html" class="heading-4">Sensor - 00000</a></div>
-              <div class="content">
-                <div class="text-content">Sensor Reporting List</div>
+                <div class="text-content">{{sensor}}</div>
               </div>
             </div>
           </div>
@@ -77,7 +43,7 @@
   import DateSelector from '@/components/DateSelector'
   import TextCard from '@/components/dashboard/TextCard'
   import ServiceStatusBar from '@/components/dashboard/ServiceStatusBar'
-
+  import { ZONES_API, ZONE_INFO_API, API_BASE } from '@/global'
   export default {
     components: { EventGraph, TextCard, ServiceStatusBar, DateSelector },
     data () {
@@ -110,12 +76,7 @@
       }
     },
     mounted () {
-      this.zones = JSON.parse(localStorage.getItem('zones'))
-      for(var i=0; i < this.zones.length; i++) {
-        console.log(JSON.parse(localStorage.getItem('detail_zone'+this.zones[i].id)));
-        console.log(this.zones[i]);
-        // this.zones[this.zones[i].id] = JSON.parse(localStorage.getItem('zone_detail'+this.zones[i].id))
-      }
+      this.getAllZones()
     },
     methods: {
        beforeToday (date) {
@@ -124,6 +85,36 @@
       afterDateFrom (date) {
         return this.range.dateFrom && moment(date).isAfter(moment(this.range.dateFrom)) && this.beforeToday(date)
       },
+      getSensors(zoneId) {
+          if (localStorage.getItem('detail_zone'+zoneId))
+            return JSON.parse(localStorage.getItem('detail_zone'+zoneId))
+          return []
+      },
+      getAllZones () {
+          axios.get(ZONES_API).then(res => {
+          this.zones = res.data;
+          localStorage.setItem('zones', JSON.stringify(this.zones))
+          // this.zones = JSON.parse(localStorage.getItem('zones'));
+
+          for(var i=0; i < res.data.length; i++) {
+              var id = res.data[i].id
+              if (localStorage.getItem('detail_zone'+ id)){
+                this.$store.state.detail_zone[id] = JSON.parse(localStorage.getItem('detail_zone'+ id))
+              } else {
+                var zone = `${API_BASE}/zones/`+ id
+                var node = zone + '/nodes'
+                axios.all([
+                    axios.get(zone),
+                    axios.get(node)
+                ]).then(response => {
+                  this.$store.state.detail_zone[id] = response[0].data
+                  this.$store.state.detail_zone[id].nodes = response[1].data
+                  localStorage.setItem('detail_zone' + response[0].data.id, JSON.stringify({'data':response[0].data,'nodes':response[1].data}))
+                })
+              }
+            }
+          })
+      }
     }
   }
 </script>

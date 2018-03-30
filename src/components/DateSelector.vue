@@ -1,20 +1,15 @@
 <template>
   <v-menu
-    lazy
     :close-on-content-click="false"
     v-model="menu"
-    transition="scale-transition"
+    transition="slide-y-transition"
     full-width
-    :nudge-right="-40"
-    max-width="290px"
-    min-width="290px"
   >
     <v-text-field
       slot="activator"
       :label="label"
       v-model="localDate"
       prepend-icon="event"
-      readonly
     ></v-text-field>
     <!-- <v-date-picker v-model="localDate" no-title scrollable actions :allowed-dates="allowedDates">
       <template scope="{ save, cancel }">
@@ -25,7 +20,9 @@
         </v-card-actions>
       </template>
     </v-date-picker> -->
-     <v-date-picker color="green lighten-1"  v-model="localDate"></v-date-picker>
+     <v-date-picker color="green lighten-1"  full-width
+      landscape
+      v-model="localDate"></v-date-picker>
   </v-menu>
 </template>
 
