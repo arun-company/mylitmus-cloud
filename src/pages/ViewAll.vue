@@ -6,7 +6,7 @@
     </div>
     <div class="reporting-all">
       <div class="div-block-reporting">
-        <div class="div-block-10"><router-link to="/" class="heading-3">Site -Dafult</router-link>
+        <div class="div-block-10"><router-link to="/site" class="heading-3">Site -Dafult</router-link>
           <div class="div-block-alerts">
             <div class="div-block-13">
               <div class="text-block-7">존</div>
@@ -36,7 +36,7 @@
         </div>  
         <!-- END OF SITE DETAIL -->
         <div v-for="zone in zones" class="div-block-reporting">
-          <div class="div-block-10"><a @click="setZoneLocal(zone)" class="heading-4">Zone - {{zone.name}}</a>
+          <div class="div-block-10"><a href="#" @click="setZoneLocal(zone)" class="heading-4">Zone - {{zone.name}}</a>
             <div class="div-block-alerts">
               <div class="div-block-13">
                 <div class="div-block-13">
