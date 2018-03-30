@@ -50,56 +50,60 @@
             </div>
           </div>
           <!-- END OF ZONE -->
-          <div v-if="getSensors(zone.id)" v-for="sensor in getSensors(zone.id).nodes" v-bind:key="sensor.id" class="content">
-            <v-layout class="hidden">{{ alert= getAlertClass(sensor.currentMeasures)}} {{white=getWhiteClass(alert)}} {{activeSensor = alertSensorClass(sensor.activeAt)}}</v-layout>
-            <div class="div-block-12">
-              <div class="div-block-11">
-                <a v-bind:class="alert + ' div-block-2 viewall w-inline-block'">
-                  <div v-bind:class="'text-block-3 viewall ' + alert">{{sensor.name}}</div>
-                  <div class="div-block-8">
-                    <div class="div-block-7"><img v-bind:src="'public/images/battery'+white+'.png'" width="20" height="20" title="습도" class="image-3"><img v-bind:src="'public/images/working'+activeSensor+white+'.png'" width="20" height="20" title="습도" class="image-3"></div>
+          <template  v-if="tempZone=getSensors(zone.id)">
+              <!-- {{tempZone}} -->
+              <div v-for="sensor in tempZone.nodes" v-bind:key="sensor.id" class="content">
+                <v-layout class="hidden">{{ alert= getAlertClass(sensor.currentMeasures)}} {{white=getWhiteClass(alert)}} {{activeSensor = alertSensorClass(sensor.activeAt)}}</v-layout>
+                <div class="div-block-12">
+                  <div class="div-block-11">
+                    <a v-bind:class="alert + ' div-block-2 viewall w-inline-block'">
+                      <div v-bind:class="'text-block-3 viewall ' + alert">{{sensor.name}}</div>
+                      <div class="div-block-8">
+                        <div class="div-block-7"><img v-bind:src="'public/images/battery'+white+'.png'" width="20" height="20" title="습도" class="image-3"><img v-bind:src="'public/images/working'+activeSensor+white+'.png'" width="20" height="20" title="습도" class="image-3"></div>
+                      </div>
+                    </a>
                   </div>
-                </a>
-              </div>
-              <div class="div-block-11">
-                <div class="div-block-16 half">
-                  <div class="div-block-17"><img src="public/images/thermometer.png" width="20" height="20"></div>
-                  <div class="div-block-17 right">
-                    <div class="text-block-9">최고 26°C</div>
+                  <div class="div-block-11">
+                    <div class="div-block-16 half">
+                      <div class="div-block-17"><img src="public/images/thermometer.png" width="20" height="20"></div>
+                      <div class="div-block-17 right">
+                        <div class="text-block-9">최고 {{tempZone.settings[0].max_value}}℃</div>
+                      </div>
+                      <div class="div-block-17">
+                        <div class="text-block-8">{{getTemperature(sensor.currentMeasures)}}</div>
+                      </div>
+                      <div class="div-block-17 right">
+                        <div class="text-block-9">최저 {{tempZone.settings[0].min_value}}℃</div>
+                      </div>
+                    </div>
+                    <div class="div-block-16 half">
+                      <div class="div-block-17"><img src="public/images/humidity.png" width="20" height="20"></div>
+                      <div class="div-block-17 right">
+                        <div class="text-block-9">최고  {{tempZone.settings[1].max_value}}%</div>
+                      </div>
+                      <div class="div-block-17">
+                        <div class="text-block-8">{{getHumidity(sensor.currentMeasures)}}</div>
+                      </div>
+                      <div class="div-block-17 right">
+                        <div class="text-block-9">최저 {{tempZone.settings[1].min_value}}%</div>
+                      </div>
+                    </div>
                   </div>
-                  <div class="div-block-17">
-                    <div class="text-block-8">{{getTemperature(sensor.currentMeasures)}}</div>
+                  <div class="div-block-11">
+                    <div class="div-block-16"></div>
                   </div>
-                  <div class="div-block-17 right">
-                    <div class="text-block-9">최저 26°C</div>
+                  <div class="div-block-11">
+                    <div class="div-block-16"></div>
                   </div>
                 </div>
-                <div class="div-block-16 half">
-                  <div class="div-block-17"><img src="public/images/humidity.png" width="20" height="20"></div>
-                  <div class="div-block-17 right">
-                    <div class="text-block-9">최고 26%</div>
-                  </div>
-                  <div class="div-block-17">
-                    <div class="text-block-8">{{getHumidity(sensor.currentMeasures)}}</div>
-                  </div>
-                  <div class="div-block-17 right">
-                    <div class="text-block-9">최저 26%</div>
-                  </div>
-                </div>
               </div>
-              <div class="div-block-11">
-                <div class="div-block-16"></div>
-              </div>
-              <div class="div-block-11">
-                <div class="div-block-16"></div>
-              </div>
-            </div>
-          </div>
-          <div class="content">
-            
-          </div>
+          </template>
+          
+        
+
           </div>
           <!-- END OF SENSOR -->
+          
       </div>
     </div>
   </div>
@@ -124,6 +128,7 @@
           {id:4, name:'View', icon:'001-two.png', path:'/' , class:''}, 
         ]
       return {
+        tempZone:'',
         search: '',
         zones:[],
         open: this.drawer,
