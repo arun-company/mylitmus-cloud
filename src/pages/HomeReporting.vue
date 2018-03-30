@@ -4,7 +4,6 @@
         <div class="div-block-4">
           <div class="text-block-5">Home</div>
         </div>
-
       </div>
       <div class="w-container">
         <h1 class="heading">{{headerTitle}}</h1>
@@ -19,8 +18,8 @@
       </div>
       <div>
         <div class="div-block-site">
-        <div class="div-block-10"><a href="#site" class="heading-3">Default</a></div> 
-          <div v-for="(zone) in zones"  v-bind:key="zone.id" class="div-block-reporting">
+          <div class="div-block-10"><a href="#site" class="heading-3">Default</a></div> 
+          <!-- <div v-for="(zone) in zones"  v-bind:key="zone.id" class="div-block-reporting">
             <div class="div-block-10"><a href="#zone" class="heading-4">{{zone.name}}</a></div>
             <div v-if="getSensors(zone.id)" v-for="sensor in getSensors(zone.id).nodes" v-bind:key="sensor.id"  class="div-block-reporting">
               <div class="div-block-10"><a href="#" class="heading-4">{{sensor.name}}</a><a href="#" class="div-block-alerts w-inline-block"><img src="public/images/plus.png" width="20" height="20" class="image-3"></a></div>
@@ -28,7 +27,7 @@
                 <div class="text-content">{{sensor}}</div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
       </div> 

@@ -11,11 +11,27 @@
         <h1 class="heading">{{headerTitle}}</h1>
       </div>
       
-      <div class="div-block-9">
-         <router-link to="/site" class="div-block-2 w-inline-block" v-for="(key, index) in filteredItems">
-          <div class="text-block-3">{{ key.name }}</div>
-          <div class="text-block-4">{{ key.description }}</div>
-        </router-link>
+      <div class="div-block-15">
+        <div class="div-block-9">
+          <router-link to="/site" class="div-block-2 alerts w-inline-block" v-for="(key, index) in filteredItems">
+            <div class="text-block-3 alerts">{{ key.name }}</div>
+            <div class="div-block-8">
+              <div class="div-block-7 site"><img src="public/images/call.fff.png" width="20" height="20" title="센서">
+                <div class="text-block-6 alerts">(0666) 7777-8888</div>
+              </div>
+            </div>
+            <div class="div-block-8">
+              <div class="div-block-7 site"><img src="public/images/email.fff.png" width="20" height="20" title="센서">
+                <div class="text-block-6 alerts">alias-alias@email.com</div>
+              </div>
+            </div>
+            <div class="div-block-8">
+              <div class="div-block-7 site"><img src="public/images/location.fff.png" width="20" height="20" title="센서">
+                <div class="text-block-6 alerts">전라남도 진안군 성삼읍 </div>
+              </div>
+            </div>
+          </router-link>
+        </div>
       </div>
     </div>
 </template>
