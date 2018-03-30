@@ -22,9 +22,9 @@
         <div class="text-block-3">{{ key.name }}</div>
         <!-- Zone Information -->
         
-        <v-progress-circular v-if="! zoneDetail[key.id]" indeterminate class="color-red" size="50"  style="{color:red}" :width="3"></v-progress-circular>
+        <!-- <v-progress-circular v-if="! zoneDetail[key.id]" :width="3"></v-progress-circular> -->
         
-        <div v-if="(zoneDetail && zoneDetail[key.id])">
+        <div>
           <div class="div-block-8">
             <div class="div-block-7 full"><img src="public/images/wireless-device.png" width="25" height="25" title="센서">
               <div class="text-block-6">전체 센서 12</div>
@@ -58,10 +58,6 @@
 <script type="text/javascript">
   import axios from 'axios'
   import moment from 'moment'
-
-  // import EventGraph from '@/components/charts/EventGraph'
-  // import TextCard from '@/components/dashboard/TextCard'
-  // import ServiceStatusBar from '@/components/dashboard/ServiceStatusBar'
   // import ZoneIdMixin from '@/mixins/ZoneIdMixin'
   import { ZONES_API, ZONE_INFO_API, API_BASE } from '@/global'
   export default {
@@ -101,9 +97,7 @@
       },
     },
     watch: {
-    	'this.zoneDetail': function () {
-        console.log('update');
-    	}
+    	
     },
     mounted () {
       this.getAllZones()
@@ -119,28 +113,34 @@
         this.$router.push('/zone/'+  zone.name)
         return
       },
-
-      getAllZones () {
-        // this.zones = this.$store.state.zones
-          axios.get(ZONES_API).then(res => {
-           this.zones = res.data;
-           localStorage.setItem('zones', JSON.stringify(this.zones))
-            this.zones = JSON.parse(localStorage.getItem('zones'));
-            for(var i=0; i < this.zones.length; i++) {
-              this.getZoneDetail(this.zones[i].id)
-            }
-          })
+      getSensors(zoneId) {
+          if (localStorage.getItem('detail_zone'+zoneId))
+            return JSON.parse(localStorage.getItem('detail_zone'+zoneId))
+          return []
       },
-      getZoneDetail(id) {
-        var zone = `${API_BASE}/zones/`+id
-        var node = zone + '/nodes'
-        axios.all([
-            axios.get(zone),
-            axios.get(node)
-        ]).then(res => {
-          this.zoneDetail[id] = res[0].data
-          this.zoneDetail[id].node = res[1].data
-          localStorage.setItem('zoneDetail', JSON.stringify(this.zoneDetail))
+      getAllZones () {
+          axios.get(ZONES_API).then(res => {
+          this.zones = res.data;
+          localStorage.setItem('zones', JSON.stringify(this.zones))
+          // this.zones = JSON.parse(localStorage.getItem('zones'));
+
+          for(var i=0; i < res.data.length; i++) {
+            var id = res.data[i].id
+            if (localStorage.getItem('detail_zone'+ id)){
+              this.$store.state.detail_zone[id] = JSON.parse(localStorage.getItem('detail_zone'+ id))
+            } else {
+              var zone = `${API_BASE}/zones/`+ id
+              var node = zone + '/nodes'
+              axios.all([
+                  axios.get(zone),
+                  axios.get(node)
+              ]).then(response => {
+                this.$store.state.detail_zone[id] = response[0].data
+                this.$store.state.detail_zone[id].nodes = response[1].data
+                localStorage.setItem('detail_zone' + response[0].data.id, JSON.stringify({'data':response[0].data,'nodes':response[1].data}))
+              })
+            }
+          }
         })
       }
     }

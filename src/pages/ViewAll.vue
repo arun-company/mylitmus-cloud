@@ -129,23 +129,23 @@
           // this.zones = JSON.parse(localStorage.getItem('zones'));
 
           for(var i=0; i < res.data.length; i++) {
-              var id = res.data[i].id
-              if (localStorage.getItem('detail_zone'+ id)){
-                this.$store.state.detail_zone[id] = JSON.parse(localStorage.getItem('detail_zone'+ id))
-              } else {
-                var zone = `${API_BASE}/zones/`+ id
-                var node = zone + '/nodes'
-                axios.all([
-                    axios.get(zone),
-                    axios.get(node)
-                ]).then(response => {
-                  this.$store.state.detail_zone[id] = response[0].data
-                  this.$store.state.detail_zone[id].nodes = response[1].data
-                  localStorage.setItem('detail_zone' + response[0].data.id, JSON.stringify({'data':response[0].data,'nodes':response[1].data}))
-                })
-              }
+            var id = res.data[i].id
+            if (localStorage.getItem('detail_zone'+ id)){
+              this.$store.state.detail_zone[id] = JSON.parse(localStorage.getItem('detail_zone'+ id))
+            } else {
+              var zone = `${API_BASE}/zones/`+ id
+              var node = zone + '/nodes'
+              axios.all([
+                  axios.get(zone),
+                  axios.get(node)
+              ]).then(response => {
+                this.$store.state.detail_zone[id] = response[0].data
+                this.$store.state.detail_zone[id].nodes = response[1].data
+                localStorage.setItem('detail_zone' + response[0].data.id, JSON.stringify({'data':response[0].data,'nodes':response[1].data}))
+              })
             }
-          })
+          }
+        })
       }
     }
   }

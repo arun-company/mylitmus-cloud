@@ -38,6 +38,7 @@
       nodes: null,
       selected: null,
       checkbox: false,
+      zone:null
     }),
     components: { Node },
     watch: {
@@ -73,7 +74,9 @@
         return !this.infoExists || this.orientation === 'landscape' ? SVG_DEFAULT_HEIGHT : imageDisplayHeight
       },
       imageLink () {
-        return this.$store.state.zone.floor_map
+        var zoneId = localStorage.getItem('zoneid');
+        var zone = JSON.parse(localStorage.getItem('detail_zone'+zoneId))
+        return zone.data.floor_map
         
       },
       imageDisplayWidth () {
