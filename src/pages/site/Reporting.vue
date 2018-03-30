@@ -15,22 +15,15 @@
         <h1 class="heading">{{headerTitle}}</h1>
       </div>
       <div class="w-container">
-      <div class="div-block-12">
-        <div class="div-block-14 block-inline">
-          <div>
-                <v-layout row wrap>
-                    <v-flex xs12 md6>
-                      <date-selector label="시작날짜" :date.sync="range.dateFrom" :allowed-dates="beforeToday"/>
-                    </v-flex>
-                    <v-flex xs12 md6>
-                      <date-selector label="종료날짜" :date.sync="range.dateTo" :allowed-dates="afterDateFrom" at-the-end="true" />
-                    </v-flex>
-                </v-layout>
+        <div class="div-block-14">
+          <div class="map-calendar-block">
+            <div class="map-calendar-area">
+                <date-selector label="날짜" :date.sync="range.dateFrom" :allowed-dates="beforeToday"/>
+            </div>
           </div>
         </div>
-      </div>
       <div>
-        <div class="div-block-site">
+        <div v-if="0" class="div-block-site">
           <div class="div-block-zone">
             <div class="div-block-10"><a href="#zone.html" class="heading-4">Zone - 00000</a></div>
             <div class="div-block-sensor">
@@ -140,6 +133,11 @@
     },
     mounted () {
       // this.$store.dispatch('setMenuItems', this.menuItems)
+    },
+    methods: {
+      beforeToday (date) {
+        return moment(date).isBefore(moment())
+      },
     }
   }
 </script>

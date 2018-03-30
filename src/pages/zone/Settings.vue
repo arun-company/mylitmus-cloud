@@ -31,7 +31,7 @@
       this.$store.state.menuItems =  [
           {id:1, name:'Dashboard', icon:'005-dashboard.png', path:'/zone', class:''},
           {id:3, name:'Reporting', icon:'004-profit-report.png', path:'/zone-reporting', class:''},
-          {id:4, name:'Notifications', icon:'003-notifications-button.png', path:'/zone-notifications' , class:''},
+          // {id:4, name:'Notifications', icon:'003-notifications-button.png', path:'/zone-notifications' , class:''},
           {id:5, name:'Settings', icon:'001-cogwheel.png', path:'/zone-settings', class:'w--current'},
         ]
       return {

@@ -11,13 +11,15 @@
         <h1 class="heading">{{headerTitle}}</h1>
       </div>
       <div class="w-container">
-      <div class="div-block-12">
         <div class="div-block-14">
-          <div>캘린더</div>
+          <div class="map-calendar-block">
+            <div class="map-calendar-area">
+                <date-selector label="날짜" :date.sync="range.dateFrom" :allowed-dates="beforeToday"/>
+            </div>
+          </div>
         </div>
-      </div>
       <div>
-        <div class="div-block-site">
+        <div class="div-block-site" v-if="0">
           <div class="div-block-zone">
             <div class="div-block-10"><a href="#zone.html" class="heading-4">Zone - 00000</a></div>
             <div class="div-block-sensor">
@@ -94,17 +96,22 @@
   import EventGraph from '@/components/charts/EventGraph'
   import TextCard from '@/components/dashboard/TextCard'
   import ServiceStatusBar from '@/components/dashboard/ServiceStatusBar'
+  import DateSelector from '@/components/DateSelector'
 
   export default {
-    components: { EventGraph, TextCard, ServiceStatusBar },
+    components: { EventGraph, TextCard, ServiceStatusBar, DateSelector},
     data () {
       this.$store.state.menuItems =  [
           {id:1, name:'Dashboard', icon:'005-dashboard.png', path:'/zone', class:''},
           {id:3, name:'Reporting', icon:'004-profit-report.png', path:'/zone-reporting', class:'w--current'},
-          {id:4, name:'Notifications', icon:'003-notifications-button.png', path:'/zone-notifications' , class:''},
+          // {id:4, name:'Notifications', icon:'003-notifications-button.png', path:'/zone-notifications' , class:''},
           {id:5, name:'Settings', icon:'001-cogwheel.png', path:'/zone-settings', class:''},
         ]
       return {
+        range: {
+          dateFrom: moment().startOf('day').format(),
+          dateTo: moment().endOf('day').format(),
+        },
         search: '',
         open: this.drawer,
         headerTitle: 'Reporting',
@@ -124,6 +131,11 @@
     },
     mounted () {
       // this.$store.dispatch('setMenuItems', this.menuItems)
+    },
+    mehtods:{
+      beforeToday (date) {
+        return moment(date).isBefore(moment())
+      },
     }
   }
 </script>

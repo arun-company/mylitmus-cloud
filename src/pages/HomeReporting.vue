@@ -15,10 +15,10 @@
                 <date-selector label="날짜" :date.sync="range.dateFrom" :allowed-dates="beforeToday"/>
             </div>
           </div>
-      </div>
+        </div>
       <div>
         <div class="div-block-site">
-          <div class="div-block-10"><a href="#site" class="heading-3">Default</a></div> 
+          <!-- <div class="div-block-10"><a href="#site" class="heading-3">Default</a></div>  -->
           <!-- <div v-for="(zone) in zones"  v-bind:key="zone.id" class="div-block-reporting">
             <div class="div-block-10"><a href="#zone" class="heading-4">{{zone.name}}</a></div>
             <div v-if="getSensors(zone.id)" v-for="sensor in getSensors(zone.id).nodes" v-bind:key="sensor.id"  class="div-block-reporting">
