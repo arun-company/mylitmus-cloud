@@ -380,8 +380,9 @@
 				},
 				series: [{
 				name: seriesTitle,
-				color,
-					data: measures.map(measure => [moment(measure.measuredAt).valueOf(), toFixedNumber(measure.value, 2)])
+        color,
+        measures:{},
+        data: measures.map(measure => [moment(measure.measuredAt).valueOf(), toFixedNumber(measure.value, 2)])
 				}]
 			}
 		},

@@ -19,39 +19,42 @@
         <div class="progress-bar" v-if="! zones">
           <v-progress-circular  indeterminate color="red" size="80"  :width="10"></v-progress-circular>
         </div>
-        <div class="div-block-2 w-inline-block zone-card" v-for="key in filteredItems" v-bind:key="key.id" @click="setZoneLocal(key)">
-          <div class="text-block-3">{{ key.name }}</div>
-          <!-- Zone Information -->
-          
-          <!-- <v-progress-circular v-if="! zoneDetail[key.id]" :width="3"></v-progress-circular> -->
-          
-          <div>
-            <div class="div-block-8">
-              <div class="div-block-7 full"><img src="public/images/wireless-device.png" width="25" height="25" title="센서">
-                <div class="text-block-6">전체 센서 12</div>
+        <template v-for="zone in filteredItems">
+            <div  v-if="tempZone=getZoneDetail(zone.id)" v-bind:key="tempZone.data.id" @click="setZoneLocal(zone)" v-bind:class="getClassAlert(tempZone.data) + ' div-block-2 w-inline-block zone-card'" >
+              <div class="hidden">{{alert = getClassAlert(tempZone.data)}}{{white=getWhiteClass(alert)}}</div>
+              <div v-bind:class="alert + ' text-block-3'">{{ tempZone.data.name }}</div>
+              
+              <!-- Zone Information --> 
+              <!-- <v-progress-circular v-if="! zoneDetail[key.id]" :width="3"></v-progress-circular> -->
+              
+              <div>
+                <div class="div-block-8">
+                  <div class="div-block-7 full"><img v-bind:src="'public/images/wireless-device'+white+'.png'" width="25" height="25" title="센서">
+                    <div v-bind:class="alert + ' text-block-6'">전체 센서 {{ tempZone.data.totalNodes }}</div>
+                  </div>
+                </div>
+                <div class="div-block-8">
+                  <div class="div-block-7"><img v-bind:src="'public/images/notifications'+white+'.png'" width="25" height="25" title="알림">
+                    <div v-bind:class="alert + ' text-block-6'">주의 {{ tempZone.data.totalNodes  - tempZone.data.activeNodes }}</div>
+                  </div>
+                </div>
+                <div class="div-block-8">
+                  <div class="div-block-7"><img v-bind:src="'public/images/thermometer'+white+'.png'" width="25" height="25" title="온도 알림" class="image-2">
+                    <div v-bind:class="alert + ' text-block-6'">정상</div>
+                  </div>
+                  <div class="div-block-7"><img v-bind:src="'public/images/humidity'+white+'.png'" width="25" height="25" title="습도 알림">
+                    <div v-bind:class="alert + ' text-block-6'">정상</div>
+                  </div>
+                  <div class="div-block-7"><img v-bind:src="'public/images/battery'+white+'.png'" width="25" height="25" title="배터리 알림">
+                    <div v-bind:class="alert + ' text-block-6'">정상</div>
+                  </div>
+                  <div class="div-block-7"><img v-bind:src="'public/images/working'+white+'.png'" width="25" height="25" title="센서 알림">
+                    <div v-bind:class="alert + ' text-block-6'">정상</div>
+                  </div>
+                </div>  
               </div>
             </div>
-            <div class="div-block-8">
-              <div class="div-block-7"><img src="public/images/notifications.png" width="25" height="25" title="알림">
-                <div class="text-block-6">주의 0</div>
-              </div>
-            </div>
-            <div class="div-block-8">
-              <div class="div-block-7"><img src="public/images/thermometer.png" width="25" height="25" title="온도 알림" class="image-2">
-                <div class="text-block-6">정상</div>
-              </div>
-              <div class="div-block-7"><img src="public/images/humidity.png" width="25" height="25" title="습도 알림">
-                <div class="text-block-6">정상</div>
-              </div>
-              <div class="div-block-7"><img src="public/images/battery.png" width="25" height="25" title="배터리 알림">
-                <div class="text-block-6">정상</div>
-              </div>
-              <div class="div-block-7"><img src="public/images/working.png" width="25" height="25" title="센서 알림">
-                <div class="text-block-6">정상</div>
-              </div>
-            </div>  
-          </div>
-        </div>
+        </template>
       </div>
     </div>
     </div>
@@ -107,8 +110,6 @@
     methods: {
       setZoneLocal: function(zone) {
         var self=this;
-        // self.$store.zone = null
-        // self.$store.dispatch('setZone', { zoneId: zone.id, shouldClear: false})
         localStorage.setItem('zone', JSON.stringify(zone));
         localStorage.setItem('zoneid', zone.id);
         localStorage.setItem('zonename', zone.name);
@@ -144,7 +145,18 @@
             }
           }
         })
-      }
+      },
+      getZoneDetail(zoneId) {
+          if (localStorage.getItem('detail_zone'+zoneId))
+            return JSON.parse(localStorage.getItem('detail_zone'+zoneId))
+          return []
+      },
+      getClassAlert(zone) {
+          return zone.activeNodes == zone.totalNodes? "":"alerts";
+      },
+      getWhiteClass(alertClass){
+        return alertClass?".fff":""
+      },
     }
   }
 </script>
