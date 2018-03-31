@@ -2,7 +2,15 @@
     <div class="section">
       <div class="div-block-3">
         <div class="div-block-4">
-          <div class="text-block-5">Home</div>
+          <router-link class="link" to="/">
+            Home
+          </router-link>
+        <div class="text-block-5">&gt;</div>
+          <router-link to="/site" class="link">
+            Default
+          </router-link>
+        <div class="text-block-5">&gt;</div>
+        <div v-if="zonename" class="text-block-5">{{zonename}}</div>
         </div>
         <div class="div-block-4 search">
           <input id="search-box" class="w-input" v-model="search" type="text" :placeholder="searchTitle"><a href="##" class="w-inline-block"><img src="public/images/search.333333.png" width="20" height="20" class="image"></a></div>
@@ -14,7 +22,7 @@
         <div class="div-block-14">
           <div class="map-calendar-block">
             <div class="map-calendar-area">
-                <date-selector label="날짜" :date.sync="range.dateFrom" :allowed-dates="beforeToday"/>
+                <date-selector label="날짜" :date.sync="range.dateFrom" />
             </div>
           </div>
         </div>
@@ -112,13 +120,18 @@
           dateFrom: moment().startOf('day').format(),
           dateTo: moment().endOf('day').format(),
         },
+        sensorTypes: [],
         search: '',
         open: this.drawer,
         headerTitle: 'Reporting',
         searchTitle: 'Search sites ...',
+        zonename: localStorage.getItem('zonename'),
         items: [
           {id:1, name:"Default",description:""},
         ],
+        duration: '-24h',
+        chartType: 'line',
+        chartData: { 'temperature': null, 'humidity': null },
       }
     },
     computed:
@@ -133,8 +146,15 @@
       // this.$store.dispatch('setMenuItems', this.menuItems)
     },
     mehtods:{
+      getMinMax(uid, minmax) {
+			const sensorType = this.sensorTypes.find(element => element.sensorType.uid === uid) || {}
+			return sensorType[minmax] || 0
+		  },
       beforeToday (date) {
         return moment(date).isBefore(moment())
+      },
+      afterDateFrom (date) {
+        return this.range.dateFrom && moment(date).isAfter(moment(this.range.dateFrom)) && this.beforeToday(date)
       },
     }
   }

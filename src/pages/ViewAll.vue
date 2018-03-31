@@ -90,10 +90,42 @@
                     </div>
                   </div>
                   <div class="div-block-11">
-                    <div class="div-block-16"></div>
+                    <div class="div-block-16">
+                          <v-card class="mt-2" v-if="chartData.temperature">
+                          <duration-selector :duration.sync="duration" />
+                          <v-btn-toggle mandatory v-model="chartType" class="mt-2 mb-2">
+                            <v-btn flat value="column">
+                                <span>Column</span>
+                            </v-btn>
+                            <v-btn flat value="line">
+                                <span>Line</span>
+                            </v-btn>
+                            <v-btn flat value="scatter">
+                                <span>Scatter</span>
+                            </v-btn>
+                          </v-btn-toggle>
+                          <highcharts :options="chartData.temperature"></highcharts>
+                        </v-card>
+                    </div>
                   </div>
                   <div class="div-block-11">
-                    <div class="div-block-16"></div>
+                    <div class="div-block-16">
+                      <v-card class="mt-2" v-if="chartData.humidity">
+                          <duration-selector :duration.sync="duration" />
+                          <v-btn-toggle mandatory v-model="chartType" class="mt-2 mb-2">
+                            <v-btn flat value="column">
+                                <span>Column</span>
+                            </v-btn>
+                            <v-btn flat value="line">
+                                <span>Line</span>
+                            </v-btn>
+                            <v-btn flat value="scatter">
+                                <span>Scatter</span>
+                            </v-btn>
+                          </v-btn-toggle>
+                          <highcharts :options="chartData.humidity"></highcharts>
+                        </v-card>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -151,6 +183,7 @@
     },
     mounted () {
       this.getAllZones()
+      this.getSensorTypes()
     },
     methods: {
       setZoneLocal: function(zone) {
@@ -217,6 +250,72 @@
         }
         return '-'
       },
+      getSensorTypes() {     
+        this.chartData = {}
+        const SENSOR_MIN_MAX_API = `${API_BASE}/zones/${this.zoneId}/sensorTypes`;
+        axios.get(SENSOR_MIN_MAX_API).then(res => {
+          this.sensorTypes = res.data
+        })
+		  },
+      chart_data(title, yAxisTitle, color, min, max, unit, seriesTitle, measures, sensorType) {
+			// TODO 알람이 과거에는 존재하고 현재 없어진 경우, plotband subtitle에는 표시되지 않는 이슈가 있다.
+			return {
+				chart: { type: this.chartType, zoomType: 'x' },
+				title: { text: title },
+				subtitle: {
+				  text: this.alarmRules.filter(rule => rule.sensorType.uid === sensorType).map(rule => `<span style="background-color: ${rule.color || '#FFC4C4'}; margin: 2px;">${rule.name}</span>`).join(''),
+				  useHTML: true,
+				  verticalAlign: 'bottom'
+        },
+				xAxis: {
+					type: 'datetime',
+					dateTimeLabelFormats: {
+						day: '%b %e일'
+					},
+				  plotBands: this.getPlotBands(sensorType),
+				},
+			    yAxis: {
+			      title: { text: yAxisTitle },
+				  min, max
+				},
+			    tooltip: { valueSuffix: unit },
+			    legend: {
+			      layout: 'vertical',
+			      align: 'right',
+			      verticalAlign: 'middle',
+			      borderWidth: 0
+				},
+				plotOptions: {
+				  scatter: {
+            marker: {
+                radius: 2,
+                states: {
+                    hover: {
+                        enabled: true,
+                    }
+                }
+            },
+            states: {
+                hover: {
+                    marker: {
+                        enabled: false
+                    }
+                }
+            },
+            tooltip: {
+                headerFormat: '<b>{point.key}</b><br>',
+                pointFormat: '{series.name} {point.y}{unit}'
+            }
+        	}
+				},
+				series: [{
+				name: seriesTitle,
+        color,
+        measures:{},
+        data: measures.map(measure => [moment(measure.measuredAt).valueOf(), toFixedNumber(measure.value, 2)])
+				}]
+			}
+		},
 
     }
   }
