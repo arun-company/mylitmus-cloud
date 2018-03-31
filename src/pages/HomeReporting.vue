@@ -11,7 +11,7 @@
       <div class="w-container">
         <div class="div-block-14">
           <div class="map-calendar-block">
-            <div class="map-calendar-area">
+            <div class="">
                 <date-selector label="날짜" :date.sync="range.dateFrom" :allowed-dates="beforeToday"/>
             </div>
           </div>
@@ -50,6 +50,7 @@
           {id:1, name:'Dashboard', icon:'005-dashboard.png', path:'/', class:''},
           {id:2, name:'Reporting', icon:'004-profit-report.png', path:'/home-reporting', class:'w--current'},
           {id:3, name:'Settings', icon:'001-cogwheel.png', path:'/home-settings', class:''},
+          {id:4, name:'View', icon:'003-signs.png', path:'/view-all' , class:''},
         ]
       return {
         range: {

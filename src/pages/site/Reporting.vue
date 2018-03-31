@@ -17,7 +17,7 @@
       <div class="w-container">
         <div class="div-block-14">
           <div class="map-calendar-block">
-            <div class="map-calendar-area">
+            <div class="">
                 <date-selector label="날짜" :date.sync="range.dateFrom" :allowed-dates="beforeToday"/>
             </div>
           </div>

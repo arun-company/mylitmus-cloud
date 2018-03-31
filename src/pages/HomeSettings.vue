@@ -32,6 +32,7 @@
           {id:1, name:'Dashboard', icon:'005-dashboard.png', path:'/', class:''},
           {id:2, name:'Reporting', icon:'004-profit-report.png', path:'/home-reporting', class:''},
           {id:3, name:'Settings', icon:'001-cogwheel.png', path:'/home-settings', class:'w--current'},
+          {id:4, name:'View', icon:'003-signs.png', path:'/view-all' , class:''},
         ]
       return {
         search: '',
