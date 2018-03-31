@@ -21,38 +21,38 @@
         </div>
         <template v-for="zone in filteredItems">
             <div  v-if="tempZone=getZoneDetail(zone.id)" v-bind:key="tempZone.data.id" @click="setZoneLocal(zone)" v-bind:class="getClassAlert(tempZone.data) + ' div-block-2 w-inline-block zone-card'" >
-              <div class="hidden">{{alert = getClassAlert(tempZone.data)}}{{white=getWhiteClass(alert)}}</div>
+              <div class="hidden">{{alert = getClassAlert(tempZone.data)}}{{white=getWhiteClass(alert)}} {{sensorClass= alertSensorClass(alert)}} {{error = tempZone.data.totalNodes - tempZone.data.activeNodes}}</div>
               <div v-bind:class="alert + ' text-block-3'">{{ tempZone.data.name }}</div>
+                <div class="div-block-8">
+                  <div class="div-block-7 full"><img v-bind:src="'public/images/wireless-device'+white+'.png'" width="20" height="20" title="센서">
+                    <div v-bind:class="alert +' text-block-6'">전체 센서 {{tempZone.data.totalNodes}}</div>
+                  </div>
+                </div>
+                <div class="div-block-8">
+                  <div v-if="alert" class="div-block-7"><img v-bind:src="'public/images/alert'+white+'.png'" width="20" height="20" title="센서">
+                    <div v-bind:class="alert +' text-block-6'">센서 {{tempZone.data.totalNodes - tempZone.data.activeNodes}}</div>
+                  </div>
+                  <div class="div-block-7"><img v-bind:src="'public/images/notifications'+alert+white+'.png'" width="20" height="20" title="알림">
+                    <div v-bind:class="alert +' text-block-6'">주의  {{error * 4}}</div>
+                  </div>
+                </div>
+                <div class="div-block-8">
+                  <div class="div-block-7"><img  v-bind:src="'public/images/thermometer'+alert+white+'.png'" width="20" height="20" title="온도 알림" class="image-2">
+                    <div v-bind:class="alert +' text-block-6'">{{error?error:"OK"}}</div>
+                  </div>
+                  <div class="div-block-7"><img  v-bind:src="'public/images/humidity'+alert+white+'.png'" width="20" height="20" title="습도 알림">
+                    <div v-bind:class="alert +' text-block-6'">{{error?error:"OK"}}</div>
+                  </div>
+                  <div class="div-block-7"><img  v-bind:src="'public/images/battery'+alert+white+'.png'" width="20" height="20" title="배터리 알림">
+                    <div v-bind:class="alert +' text-block-6'">{{error?error:"OK"}}</div>
+                  </div>
+                  <div class="div-block-7"><img  v-bind:src="'public/images/working'+sensorClass+white+'.png'" width="20" height="20" title="센서 알림">
+                    <div v-bind:class="alert +' text-block-6'">{{error?error:"OK"}}</div>
+                  </div>
+                </div>
               
               <!-- Zone Information --> 
               <!-- <v-progress-circular v-if="! zoneDetail[key.id]" :width="3"></v-progress-circular> -->
-              
-              <div>
-                <div class="div-block-8">
-                  <div class="div-block-7 full"><img v-bind:src="'public/images/wireless-device'+white+'.png'" width="25" height="25" title="센서">
-                    <div v-bind:class="alert + ' text-block-6'">전체 센서 {{ tempZone.data.totalNodes }}</div>
-                  </div>
-                </div>
-                <div class="div-block-8">
-                  <div class="div-block-7"><img v-bind:src="'public/images/notifications'+white+'.png'" width="25" height="25" title="알림">
-                    <div v-bind:class="alert + ' text-block-6'">주의 {{ tempZone.data.totalNodes  - tempZone.data.activeNodes }}</div>
-                  </div>
-                </div>
-                <div class="div-block-8">
-                  <div class="div-block-7"><img v-bind:src="'public/images/thermometer'+white+'.png'" width="25" height="25" title="온도 알림" class="image-2">
-                    <div v-bind:class="alert + ' text-block-6'">정상</div>
-                  </div>
-                  <div class="div-block-7"><img v-bind:src="'public/images/humidity'+white+'.png'" width="25" height="25" title="습도 알림">
-                    <div v-bind:class="alert + ' text-block-6'">정상</div>
-                  </div>
-                  <div class="div-block-7"><img v-bind:src="'public/images/battery'+white+'.png'" width="25" height="25" title="배터리 알림">
-                    <div v-bind:class="alert + ' text-block-6'">정상</div>
-                  </div>
-                  <div class="div-block-7"><img v-bind:src="'public/images/working'+white+'.png'" width="25" height="25" title="센서 알림">
-                    <div v-bind:class="alert + ' text-block-6'">정상</div>
-                  </div>
-                </div>  
-              </div>
             </div>
         </template>
       </div>
@@ -157,6 +157,9 @@
       getWhiteClass(alertClass){
         return alertClass?".fff":""
       },
+      alertSensorClass(alert) {
+        return alert?"-not":""
+      }
     }
   }
 </script>
