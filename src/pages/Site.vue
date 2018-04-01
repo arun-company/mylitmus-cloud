@@ -154,7 +154,7 @@
       getClassAlert(zone) {
           return zone.activeNodes == zone.totalNodes? "":"alerts";
       },
-      getWhiteClass(alertClass){
+      getWhiteClass(alertClass) {
         return alertClass?".fff":""
       },
       alertSensorClass(alert) {
