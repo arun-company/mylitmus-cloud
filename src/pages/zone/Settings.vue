@@ -20,43 +20,54 @@
       </div>
       <div class="w-container">
       <div class="reporting-all">
-      <v-container grid-list-lg text-xs-center>
-        <v-layout row wrap v-for="i in [1,2,3,4,5]" v-bind:key="i">
-          <template v-for="setting in settings">
-            <v-flex xs12 sm6 md3 :key="setting.sensorType.name">
-              <v-text-field :key="setting.sensorType.name"
-                  :label="setting.sensorType.name + ' 상한'"
-                  :value="setting.min_value"
-                  :suffix="setting.sensorType.unit"
-              ></v-text-field>
+        <v-progress-linear v-bind:indeterminate="true" v-if="!settings"></v-progress-linear>
+        <v-container grid-list-lg text-xs-center v-if="sensors" v-for="sensor in sensors" v-bind:key="sensor.id">
+          {{sensor.name}}
+          <v-layout row wrap>
+            <template v-for="setting in settings">
+              <v-flex xs12 sm6 md3 :key="setting.sensorType.name+'_mix'">
+                <v-text-field :key="setting.sensorType.name"
+                    :label="setting.sensorType.name + ' 상한'"
+                    :value="setting.min_value"
+                    :suffix="setting.sensorType.unit"
+                ></v-text-field>
+              </v-flex>
+              <v-flex xs12 sm6 md3 :key="setting.sensorType.name +'_max'">              
+                <v-text-field :key="setting.sensorType.name"
+                    :label="setting.sensorType.name + ' 하한'"
+                    :value="setting.max_value"
+                    :suffix="setting.sensorType.unit"
+                ></v-text-field>
+              </v-flex>
+            </template>
+            <v-progress-linear v-bind:indeterminate="true" v-if="!settings"></v-progress-linear>
+          </v-layout>
+          <v-layout row wrap>
+            <v-flex xs12 md6 v-for="rule in alarmRules" :key="rule.name">
+              <v-card>
+                <v-card-title primary-title>
+                  <v-layout align-content-space-between>
+                    <v-flex>
+                      <div
+                        class="headline"
+                        :style="{
+                          'border-bottom': `5px solid ${rule.color || '#FFC4C4'}`
+                        }">{{ rule.name }}
+                      </div>
+                      <div class="name"> {{ rule.sensorType.name }} </div>
+                    </v-flex>
+                    <v-flex>
+                      <h2 class="value">
+                        {{ rule.rule.split('value ')[1] }}{{ rule.sensorType.unit }}
+                      </h2>
+                    </v-flex>
+                  </v-layout>
+                </v-card-title>
+              </v-card>
             </v-flex>
-            <v-flex xs12 sm6 md3 :key="setting.sensorType.name">              
-              <v-text-field :key="setting.sensorType.name"
-                  :label="setting.sensorType.name + ' 하한'"
-                  :value="setting.max_value"
-                  :suffix="setting.sensorType.unit"
-              ></v-text-field>
-            </v-flex>
-          </template>
-          <v-progress-linear v-bind:indeterminate="true" v-if="!settings"></v-progress-linear>
+          <v-progress-linear v-bind:indeterminate="true" v-if="!alarmRules"></v-progress-linear>
         </v-layout>
-      </v-container>
-
-        <!-- <div class="div-block-reporting" v-for="i in [1,2,3,4,5]">
-          <div class="div-block-10"><a href="zone.html" class="heading-4">Setting Sensor</a></div>
-          <div class="content">
-            <div class="div-block-12">
-              <template v-for="setting in settings">
-                <div  class="div-block-11">
-                  <div class="div-block-18">{{setting.sensorType.name + ' 상한'}} : {{setting.min_value}}</div>
-                </div>
-                <div class="div-block-11">
-                  <div class="div-block-18">{{setting.sensorType.name + ' 하한'}}: {{setting.max_value}}</div>
-                </div>
-              </template>
-            </div>
-          </div>
-        </div> -->
+        </v-container>
       </div>
       </div>
               
@@ -90,7 +101,9 @@
         items: [
           
         ],
-        settings:null
+        settings:null,
+        sensors:null,
+        alarmRules:null
       }
     },
     computed:
@@ -104,9 +117,19 @@
       getSettings () {
         var zondId = localStorage.getItem('zoneid');
         const SENSORTYPES_API = `${API_BASE}/v1/zones/${zondId}/sensorTypes`
-        axios.get(SENSORTYPES_API).then(res => {
-          this.settings = res.data
+        const ZONESENSOR = `${API_BASE}/v1/zones/${zondId}/nodes`
+        const RULES_API = `${API_BASE}/zones/${zondId}/alarmRules`
+        axios.all([
+            axios.get(ZONESENSOR),
+            axios.get(SENSORTYPES_API),
+            axios.get(RULES_API),
+        ]).then(
+        res => {
+          this.sensors = res[0].data
+          this.settings = res[1].data
+          this.alarmRules = res[2].data.alarmRules
         })
+      
       }
 
     }
