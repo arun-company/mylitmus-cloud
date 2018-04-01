@@ -247,7 +247,8 @@
       chart_data(title, yAxisTitle, color, min, max, unit, seriesTitle, measures, sensorType) {
 			// TODO 알람이 과거에는 존재하고 현재 없어진 경우, plotband subtitle에는 표시되지 않는 이슈가 있다.
 			return {
-				chart: { type: this.chartType, zoomType: 'x' },
+        chart: { type: this.chartType, zoomType: 'x' ,
+        height: 160 },
 				title: { text: ''},
 				subtitle: {
 				  text: this.alarmRules.filter(rule => rule.sensorType.uid === sensorType).map(rule => `<span style="background-color: ${rule.color || '#FFC4C4'}; margin: 2px;">${rule.name}</span>`).join(''),
