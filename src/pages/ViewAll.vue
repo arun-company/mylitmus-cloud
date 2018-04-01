@@ -260,7 +260,7 @@
 					dateTimeLabelFormats: {
 						day: '%b %e일'
 					},
-				  plotBands: this.getPlotBands(sensorType),
+				  // plotBands: this.getPlotBands(sensorType),
 				},
 			    yAxis: {
 			      title: null,

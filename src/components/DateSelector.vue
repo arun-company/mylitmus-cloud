@@ -20,10 +20,10 @@
         </v-card-actions>
       </template>
     </v-date-picker> -->
-     <v-date-picker color="green lighten-1"  full-width
-      landscape
+     <v-date-picker 
       locale="ko-kr"
-      v-model="localDate"></v-date-picker>
+      v-model="localDate">
+      </v-date-picker>
   </v-menu>
 </template>
 
@@ -31,10 +31,11 @@
 import moment from 'moment'
 
 export default {
-  props: ['date', 'label', 'allowedDates', 'atTheEnd'],
+  props: ['date', 'label', 'allowedDates', 'atTheEnd','title-date-format'],
   data: () => ({
     menu: false,
     localDate: this.date,
+    'title-date-format':'dd-mm-yy'
     
   }),
   watch: {

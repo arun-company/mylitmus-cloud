@@ -1,8 +1,8 @@
 <template>
-  <div class="text-block-4" style="width: 100%; height: 100%; min-height:300px;" v-if="imageLink">
-    <span class="map"> 
-  <div class="div-block-14">
-    <div class="map-calendar-block">
+  <div style="width: 100%; ; min-height:300px;" v-if="imageLink">
+    <span> 
+  <div class="div-block-14" >
+    <div  style="max-width: 480px; height:auto"> 
       <div class="map-calendar-area">
         <div class="progress-bar" v-if="!nodes" >
           <v-progress-circular  indeterminate :size="100" color="amber" :width="3"></v-progress-circular>

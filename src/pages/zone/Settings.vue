@@ -20,7 +20,29 @@
       </div>
       <div class="w-container">
       <div class="reporting-all">
-        <div class="div-block-reporting" v-for="i in [1,2,3,4,5]">
+      <v-container grid-list-lg text-xs-center>
+        <v-layout row wrap v-for="i in [1,2,3,4,5]" v-bind:key="i">
+          <template v-for="setting in settings">
+            <v-flex xs12 sm6 md3 :key="setting.sensorType.name">
+              <v-text-field :key="setting.sensorType.name"
+                  :label="setting.sensorType.name + ' 상한'"
+                  :value="setting.min_value"
+                  :suffix="setting.sensorType.unit"
+              ></v-text-field>
+            </v-flex>
+            <v-flex xs12 sm6 md3 :key="setting.sensorType.name">              
+              <v-text-field :key="setting.sensorType.name"
+                  :label="setting.sensorType.name + ' 하한'"
+                  :value="setting.max_value"
+                  :suffix="setting.sensorType.unit"
+              ></v-text-field>
+            </v-flex>
+          </template>
+          <v-progress-linear v-bind:indeterminate="true" v-if="!settings"></v-progress-linear>
+        </v-layout>
+      </v-container>
+
+        <!-- <div class="div-block-reporting" v-for="i in [1,2,3,4,5]">
           <div class="div-block-10"><a href="zone.html" class="heading-4">Setting Sensor</a></div>
           <div class="content">
             <div class="div-block-12">
@@ -34,7 +56,7 @@
               </template>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
       </div>
               
