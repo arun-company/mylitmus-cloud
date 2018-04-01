@@ -331,8 +331,9 @@ body {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
-  max-height: 1000px;
+  max-height: 720px;
   max-width: 98%;
+  min-width: 50%;
   margin: 1%;
   padding: 10px;
   -webkit-box-orient: vertical;
@@ -340,14 +341,14 @@ body {
   -webkit-flex-direction: column;
   -ms-flex-direction: column;
   flex-direction: column;
-  -webkit-box-pack: start;
-  -webkit-justify-content: flex-start;
-  -ms-flex-pack: start;
-  justify-content: flex-start;
-  -webkit-box-align: center;
-  -webkit-align-items: center;
-  -ms-flex-align: center;
-  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: stretch;
+  -webkit-align-items: stretch;
+  -ms-flex-align: stretch;
+  align-items: stretch;
   border-radius: 5px;
   background-color: #f3f3f3;
   box-shadow: 1px 1px 3px 0 #7a7a7a;
@@ -813,6 +814,11 @@ body {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
   -webkit-box-pack: center;
   -webkit-justify-content: center;
   -ms-flex-pack: center;
@@ -933,7 +939,7 @@ body {
     padding: 5px 10px;
   }
   .map-calendar-block {
-    max-height: 800px;
+    max-height: 480px;
     max-width: 97%;
     margin: 1.5%;
   }
@@ -1005,7 +1011,7 @@ body {
     width: 100%;
   }
   .map-calendar-block {
-    max-height: 600px;
+    max-height: 240px;
     max-width: 98%;
     margin: 1%;
     padding: 5px;
@@ -1067,7 +1073,7 @@ body {
     align-content: flex-start;
   }
   .map-calendar-block {
-    max-height: 400px;
+    max-height: 240px;
     max-width: 100%;
     margin: 2% 0%;
   }

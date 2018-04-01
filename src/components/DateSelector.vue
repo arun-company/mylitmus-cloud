@@ -22,6 +22,7 @@
     </v-date-picker> -->
      <v-date-picker 
       locale="ko-kr"
+       full-width
       v-model="localDate">
       </v-date-picker>
   </v-menu>
