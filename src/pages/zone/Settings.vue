@@ -20,54 +20,67 @@
       </div>
       <div class="w-container">
       <div class="reporting-all">
-        <v-progress-linear v-bind:indeterminate="true" v-if="!settings"></v-progress-linear>
-        <v-container grid-list-lg text-xs-center v-if="sensors" v-for="sensor in sensors" v-bind:key="sensor.id">
-          {{sensor.name}}
-          <v-layout row wrap>
-            <template v-for="setting in settings">
-              <v-flex xs12 sm6 md3 :key="setting.sensorType.name+'_mix'">
-                <v-text-field :key="setting.sensorType.name"
-                    :label="setting.sensorType.name + ' 상한'"
-                    :value="setting.min_value"
-                    :suffix="setting.sensorType.unit"
-                ></v-text-field>
-              </v-flex>
-              <v-flex xs12 sm6 md3 :key="setting.sensorType.name +'_max'">              
-                <v-text-field :key="setting.sensorType.name"
-                    :label="setting.sensorType.name + ' 하한'"
-                    :value="setting.max_value"
-                    :suffix="setting.sensorType.unit"
-                ></v-text-field>
-              </v-flex>
-            </template>
-            <v-progress-linear v-bind:indeterminate="true" v-if="!settings"></v-progress-linear>
-          </v-layout>
-          <v-layout row wrap>
-            <v-flex xs12 md6 v-for="rule in alarmRules" :key="rule.name">
-              <v-card>
-                <v-card-title primary-title>
-                  <v-layout align-content-space-between>
-                    <v-flex>
-                      <div
-                        class="headline"
-                        :style="{
-                          'border-bottom': `5px solid ${rule.color || '#FFC4C4'}`
-                        }">{{ rule.name }}
-                      </div>
-                      <div class="name"> {{ rule.sensorType.name }} </div>
-                    </v-flex>
-                    <v-flex>
-                      <h2 class="value">
-                        {{ rule.rule.split('value ')[1] }}{{ rule.sensorType.unit }}
-                      </h2>
-                    </v-flex>
-                  </v-layout>
-                </v-card-title>
-              </v-card>
-            </v-flex>
-          <v-progress-linear v-bind:indeterminate="true" v-if="!alarmRules"></v-progress-linear>
-        </v-layout>
-        </v-container>
+        <div class="div-block-reporting"  v-if="sensors" v-for="sensor in sensors" v-bind:key="sensor.id">
+           <v-progress-linear v-bind:indeterminate="true" v-if="!settings"></v-progress-linear>
+          <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - {{sensor.name}}</a></div>
+          <div class="content">
+            <div class="text-content">Sensor Settings</div>
+            <div class="div-block-12">
+               <template v-for="setting in settings">
+                 <div class="div-block-11">
+                <v-flex :key="setting.sensorType.name+'_mix'">
+                  <v-text-field :key="setting.sensorType.name"
+                      :label="setting.sensorType.name + ' 상한'"
+                      :value="setting.min_value"
+                      :suffix="setting.sensorType.unit"
+                  ></v-text-field>
+                </v-flex>
+                </div>
+                <div class="div-block-11">
+                <v-flex :key="setting.sensorType.name +'_max'">              
+                  <v-text-field :key="setting.sensorType.name"
+                      :label="setting.sensorType.name + ' 하한'"
+                      :value="setting.max_value"
+                      :suffix="setting.sensorType.unit"
+                  ></v-text-field>
+                </v-flex>
+                </div>
+              </template>
+              
+               
+              
+            </div>
+          </div>
+          <div class="content">
+            <div class="text-content">Sensor Notificaitons</div>
+            <div class="div-block-12">
+              <div class="div-block-11"  v-for="rule in alarmRules" :key="rule.name">
+                <!-- <div class="div-block-18" > -->
+                  <v-card>
+                      <v-card-title primary-title>
+                        <v-layout align-content-space-between>
+                          <v-flex>
+                            <div
+                              class="headline"
+                              :style="{
+                                'border-bottom': `5px solid ${rule.color || '#FFC4C4'}`
+                              }">{{ rule.name }}
+                            </div>
+                            <div class="name"> {{ rule.sensorType.name }} </div>
+                          </v-flex>
+                          <v-flex>
+                            <h2 class="value">
+                              {{ rule.rule.split('value ')[1] }}{{ rule.sensorType.unit }}
+                            </h2>
+                          </v-flex>
+                        </v-layout>
+                      </v-card-title>
+                    </v-card>
+                <!-- </div> -->
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
       </div>
               

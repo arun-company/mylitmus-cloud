@@ -20,7 +20,7 @@
       </div>
       <div class="w-container">
         <div class="div-block-14">
-          <div class="map-calendar-block">
+          <div class="calendar-block">
             <div class="">
                 <date-selector label="날짜" :date.sync="range.dateFrom" />
             </div>
