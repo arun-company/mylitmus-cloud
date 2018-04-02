@@ -1,51 +1,20 @@
 <template>
-    <div class="section">
-    <div class="w-container">
-      <h1 class="heading">{{headerTitle}}</h1>
-    </div>
-    <div class="reporting-all">
-      <div class="div-block-reporting">
-        <div class="div-block-10"><router-link to="/site" class="heading-3">Site -Dafult</router-link>
-          <div class="div-block-alerts">
-            <div class="div-block-13">
-              <div class="text-block-7">존</div>
-              <div class="text-block-7">00곳</div>
-            </div>
-            <div class="div-block-13">
-              <div class="div-block-13">
-                <div class="text-block-7">센서</div>
-                <div class="text-block-7">000개</div>
-              </div>
-              <div class="div-block-13"><img src="public/images/alert_red.png" width="20" height="20" class="image-3">
-                <div class="text-block-7">000개</div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="content">
-          <div class="div-block-7 view-all"><img src="public/images/call.png" width="20" height="20" title="센서">
-            <div class="text-block-6">(0666) 7777-8888</div>
-          </div>
-          <div class="div-block-7 view-all"><img src="public/images/email.png" width="20" height="20" title="센서">
-            <div class="text-block-6">alias-alias@email.com</div>
-          </div>
-          <div class="div-block-7 view-all address"><img src="public/images/location.png" width="20" height="20" title="센서">
-            <div class="text-block-6">전라남도 진안군 성삼읍</div>
-          </div>
-        </div>  
-        <!-- END OF SITE DETAIL -->
-        <div v-for="zone in zones" class="div-block-reporting" v-bind:key="zone.name">
-          
-          <zone-component v-bind:zoneid="zone.id" v-bind:zonename="zone.name"></zone-component>
-          <!-- END OF ZONE -->
-          </div>
-          
+
+    <div class="div-block-11 graph">
+      <div class="div-block-16">
+          <template class="" v-if="chartData.temperature">
+            <highcharts :options="chartData.temperature"></highcharts>
+          </template>
+      </div>
+       <div class="div-block-16">
+          <template class="" v-if="chartData.humidity">
+            <highcharts :options="chartData.humidity"></highcharts>
+          </template>
       </div>
     </div>
-  </div>
 </template>
 
-<script type="text/javascript">
+<script>
   import axios from 'axios'
   import moment from 'moment'
 
@@ -55,70 +24,53 @@
   // import ServiceStatusBar from '@/components/dashboard/ServiceStatusBar'
   import { toFixedNumber } from '@/util'
   import { ZONES_API, ZONE_INFO_API, API_BASE } from '@/global'
-
   export default {
-    components: { ZoneComponent },
+    props: ['sensorid','zoneid'],
+    watch: {
+      
+    },
     data () {
-      this.$store.state.menuItems =  [
-          {id:1, name:'Dashboard', icon:'005-dashboard.png', path:'/', class:''},
-          {id:2, name:'Reporting', icon:'004-profit-report.png', path:'/home-reporting', class:''},
-          {id:3, name:'Settings', icon:'001-cogwheel.png', path:'/home-settings', class:''},
-          {id:4, name:'View', icon:'003-signs.png', path:'/view-all' , class:'w--current'},
-
-        ]
       return {
-         // measures:{},
-        measures : [],
-        tempZone:'',
-        search: '',
-        zones:[],
-        open: this.drawer,
-        headerTitle: 'Organization',
-        searchTitle: 'Search sites ...',
-        detail_zone: [],
-        items: [
-          {id:1, name:"Default",description:""},
-        ],
-        sensorTypes: [{"sensorType":{"name":"온도","uid":"temperature","unit":"℃"},"min_value":5.0,"max_value":40.0},{"sensorType":{"name":"습도","uid":"humidity","unit":"%"},"min_value":0.0,"max_value":100.0}],
         alarmEvents: [],
         alarmRules: [],
-        loading: { list: true, info: false },
+        measures : [],
+        sensorTypes: [{"sensorType":{"name":"온도","uid":"temperature","unit":"℃"},"min_value":5.0,"max_value":40.0},{"sensorType":{"name":"습도","uid":"humidity","unit":"%"},"min_value":0.0,"max_value":100.0}],
         duration: '-24h',
         chartType: 'line',
         chartData: { 'temperature': null, 'humidity': null },
+        
+        
       }
     },
-    computed:
-    {
-      filteredItems:function()
-      {
-        var self=this
-        return this.items.filter(function(item){return item.name.toLowerCase().indexOf(self.search.toLowerCase())>=0;});
-      },
-      getNodes : function () {
-        return this.nodes
-      },
-      getNode3 : function() {
-        if (this.nodeAll[3])
-          return this.nodeAll[3]
-        else return []
-      }
-      
+     created() {
+     
     },
     mounted () {
-      // this.getChartTemperature()
-      this.getAllZones()      
+          // var NODES = `${API_BASE}/zones/`+ this.zoneid + '/nodes'
+          // axios.get(NODES).then(response => {
+          //     this.sensors = response.data
+          // })
+	    
+			const NODE_MEASURES_API = `${API_BASE}/nodes/${this.sensorid}/measures`
+			// const EVENTS_API = `${API_BASE}/zones/${this.zoneId}/alarmEvents`
+			// const RULES_API = `${API_BASE}/zones/${this.zoneId}/alarmRules`
+			axios.all([
+				axios.get(NODE_MEASURES_API, { params: { dateFrom: this.duration }}),
+				// axios.get(EVENTS_API, { params: { dateFrom: this.duration }}),
+				// axios.get(RULES_API),
+			]).then(res => {
+				this.measures = res[0].data.measures
+				// this.alarmEvents = res[1].data.filter(event => event.nodeId === id)
+				// this.alarmRules = res[2].data.alarmRules
+				this.chartData.temperature = this.chart_data('온도', '온도 (℃)', '#ee513b', this.getMinMax('temperature', 'min_value'), this.getMinMax('temperature', 'max_value'), '℃', '온도', this.measures.filter(measure => measure.sensorType.uid === 'temperature'), 'temperature')
+				this.chartData.humidity = this.chart_data('습도', '습도 (%)', '#9badff', this.getMinMax('humidity', 'min_value'), this.getMinMax('humidity', 'max_value'), '%', '습도', this.measures.filter(measure => measure.sensorType.uid === 'humidity'), 'humidity')
+				
+			});
+     
     },
     methods: {
-      getChartTemperature: function(nodeId) {
-            nodeId = 1000005
-            var NODE_MESEARED = `${API_BASE}/nodes/${nodeId}/measures?dateFrom=-24h`
-            axios.get(NODE_MESEARED).then(response => {
-              this.measures= response.data    
-              this.getChartData()
-            })
-          
-      },
+
+      
       setZoneLocal: function(zone) {
         var self=this;
         localStorage.setItem('zone', JSON.stringify(zone));
@@ -127,43 +79,7 @@
         this.$router.push('/zone/'+  zone.name)
         return
       },
-      getSensors(zoneId) {
-          var NODES = `${API_BASE}/zones/`+ zoneId + '/nodes'
-          axios.get(NODES).then(response => {
-              return response.data
-          })
 
-      },
-      getAllZones () {
-          axios.get(ZONES_API).then(res => {
-          this.zones = res.data;
-          localStorage.setItem('zones', JSON.stringify(this.zones))
-          // this.zones = JSON.parse(localStorage.getItem('zones'));
-
-          // for(var i=0; i < res.data.length; i++) {
-            
-          //   var id = res.data[i].id
-          //   // if (localStorage.getItem('detail_zone'+ id)){
-          //   //   this.$store.state.detail_zone[id] = JSON.parse(localStorage.getItem('detail_zone'+ id))
-          //   // } else {
-          //     var ZONE_DETAIL = `${API_BASE}/zones/`+ id
-          //     var NODES = ZONE_DETAIL + '/nodes'
-          //     // var sensorType = zone + '/sensorTypes';
-          //     axios.all([
-          //         axios.get(ZONE_DETAIL),
-          //         axios.get(NODES),
-          //         // axios.get(sensorType)
-          //     ]).then(response => {
-          //       this.detail_zone[id] = response[0].data
-          //       this.nodes  = response[1].data
-          //       this.nodeAll[id] = response[1].data
-          //       localStorage.setItem('detail_zone' + response[0].data.id, JSON.stringify({'data':response[0].data,'nodes':response[1].data}))
-          //     })
-          //   // }
-          //   if (i==2) break;
-          // }
-        })
-      },
       getAlertClass(checkValue) {
          return (checkValue[0]&&checkValue[1])? '':'alerts'
       },
@@ -187,7 +103,7 @@
       },
       getSensorTypes() {     
         this.chartData = {}
-        const SENSOR_MIN_MAX_API = `${API_BASE}/zones/3/sensorTypes`;
+        const SENSOR_MIN_MAX_API = `${API_BASE}/zones/${zoneid}/sensorTypes`;
         axios.get(SENSOR_MIN_MAX_API).then(res => {
           this.sensorTypes = res.data
         })
@@ -251,8 +167,6 @@
 			})
 			return bands
 		},
-
-
     }
   }
 </script>
