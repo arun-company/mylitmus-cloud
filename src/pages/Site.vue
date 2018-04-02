@@ -20,7 +20,7 @@
           <v-progress-circular  indeterminate color="red" size="80"  :width="10"></v-progress-circular>
         </div>
         <template v-for="zone in filteredItems">
-            <div  v-if="tempZone=getZoneDetail(zone.id)" v-bind:key="tempZone.data.id" @click="setZoneLocal(zone)" v-bind:class="getClassAlert(tempZone.data) + ' div-block-2 w-inline-block zone-card'" >
+            <div  v-if="tempZone=getZoneDetail(zone.id)" @click="setZoneLocal(zone)" v-bind:class="getClassAlert(tempZone.data) + ' div-block-2 w-inline-block zone-card'" v-bind:key="zone.id" >
               <div class="hidden">{{alert = getClassAlert(tempZone.data)}}{{white=getWhiteClass(alert)}} {{sensorClass= alertSensorClass(alert)}} {{error = tempZone.data.totalNodes - tempZone.data.activeNodes}}</div>
               <div v-bind:class="alert + ' text-block-3'">{{ tempZone.data.name }}</div>
                 <div class="div-block-8">

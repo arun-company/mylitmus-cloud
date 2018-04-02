@@ -23,9 +23,9 @@
         <node-map @onSelectNode="selectNode($event.id)"></node-map>
     </div>
     <div class="div-block-9">
-      <template  v-for="(key,index) in filteredItems">
-          <v-layout class="hidden">{{ alert= getAlertClass(key.currentMeasures)}} {{white=getWhiteClass(alert)}} {{activeSensor = alertSensorClass(key.activeAt)}}</v-layout>
-          <div v-bind:class="getActiveClass(activeItem, key.name) + ' ' + alert + ' div-block-2 w-inline-block sensor-card'" @click="selectNode(key.id)" @click.stop="setActiveItem(key.name)" >
+      <template  v-for="(key,index) in filteredItems"> 
+          <v-layout class="hidden" v-bind:key="index+1">{{ alert= getAlertClass(key.currentMeasures)}} {{white=getWhiteClass(alert)}} {{activeSensor = alertSensorClass(key.activeAt)}}</v-layout>  
+          <div v-bind:class="getActiveClass(activeItem, key.name) + ' ' + alert + ' div-block-2 w-inline-block sensor-card'" @click="selectNode(key.id)" @click.stop="setActiveItem(key.name)" v-bind:key="index+2">
             <div v-bind:class="alert+' text-block-3'">{{ key.name }}</div>
             <div v-bind:class="'div-block-8'">
               <div class="div-block-7"><img v-bind:src="'public/images/thermometer'+white+'.png'" width="25" height="25" title="온도" class="image-2">
@@ -40,7 +40,7 @@
               <div class="div-block-7 zoneexpand" ><img v-bind:class="getActiveClass(activeItem, key.name)" v-bind:src="'public/images/expand'+white+'.png'" width="25" height="25" title="센서"></div>
             </div>
           </div>
-          <div class="card-detail-1">
+          <div class="card-detail-1" v-bind:key="index+3">
              <v-container fluid v-if="key.name == activeItem">
                   <v-layout row wrap>
                     <v-progress-linear v-bind:indeterminate="true" v-if="loading.info"></v-progress-linear>
@@ -66,7 +66,7 @@
                   </v-card>
              </v-container>
           </div>
-          <div class="card-detail-2" v-if="(index+1)%2 == 0 || (index+1) == filteredItems.length">
+          <div class="card-detail-2" v-if="(index+1)%2 == 0 || (index+1) == filteredItems.length" v-bind:key="index+4">
                <v-container  fluid v-if="key.name == activeItem || (index%2 > 0 && filteredItems[index-1].name == activeItem)">
                   <v-layout row wrap>
                     <v-progress-linear v-bind:indeterminate="true" v-if="loading.info"></v-progress-linear>
@@ -92,7 +92,7 @@
                   </v-card>
              </v-container>
           </div>
-          <div class="card-detail-3" v-if="(index+1)%3 == 0 || (index+1) == filteredItems.length">
+          <div class="card-detail-3" v-if="(index+1)%3 == 0 || (index+1) == filteredItems.length" v-bind:key="index+5">
              <v-container fluid v-if="key.name == activeItem || (index%3 > 0 && filteredItems[index-1].name == activeItem) || (index%3 > 1 && filteredItems[index-2].name == activeItem)">
                   <v-layout row wrap>
                     <v-progress-linear v-bind:indeterminate="true" v-if="loading.info"></v-progress-linear>
@@ -118,7 +118,7 @@
                   </v-card>
              </v-container>
           </div>
-          <div class="card-detail-4" v-if="(index+1)%4 == 0 || (index+1) == filteredItems.length">
+          <div class="card-detail-4" v-if="(index+1)%4 == 0 || (index+1) == filteredItems.length" v-bind:key="index+6">
              <v-container fluid v-if="(key.name == activeItem) || ((index%4 > 0)  && (filteredItems[index-1].name == activeItem)) || (index%4 > 1 && filteredItems[index-2].name == activeItem) || (index%4 > 2 && filteredItems[index-3].name == activeItem)">
                   <v-layout row wrap>
                     <v-progress-linear v-bind:indeterminate="true" v-if="loading.info"></v-progress-linear>

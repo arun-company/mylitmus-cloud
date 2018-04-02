@@ -1,15 +1,16 @@
 <template>
   <v-menu
     :close-on-content-click="false"
+    full-width
     v-model="menu"
     transition="slide-y-transition"
-    full-width
   >
     <v-text-field
       slot="activator"
       :label="label"
       v-model="localDate"
       prepend-icon="event"
+      
     ></v-text-field>
     <!-- <v-date-picker v-model="localDate" no-title scrollable actions :allowed-dates="allowedDates">
       <template scope="{ save, cancel }">
@@ -22,7 +23,7 @@
     </v-date-picker> -->
      <v-date-picker 
       locale="ko-kr"
-       full-width
+      full-width
       v-model="localDate">
       </v-date-picker>
   </v-menu>
@@ -36,8 +37,7 @@ export default {
   data: () => ({
     menu: false,
     localDate: this.date,
-    'title-date-format':'dd-mm-yy'
-    
+
   }),
   watch: {
     localDate: function () {

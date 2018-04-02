@@ -34,7 +34,7 @@
           </div>
         </div>  
         <!-- END OF SITE DETAIL -->
-        <div v-for="zone in zones" class="div-block-reporting">
+        <div v-for="zone in zones" class="div-block-reporting" v-bind:key="zone.name">
           <div class="div-block-10"><a href="#" @click="setZoneLocal(zone)" class="heading-4">Zone - {{zone.name}}</a>
             <div class="div-block-alerts">
               <div class="div-block-13">
@@ -49,9 +49,10 @@
             </div>
           </div>
           <!-- END OF ZONE -->
-          <template  v-if="tempZone=getSensors(zone.id)">
+           <v-progress-linear v-bind:indeterminate="true" v-if="!nodes"></v-progress-linear>
+          <template>
               <!-- {{tempZone}} -->
-                <div v-for="sensor in tempZone.nodes" v-bind:key="sensor.id" class="content">
+                <div  v-for="sensor in nodes" v-bind:key="sensor.id" class="content">
                   <v-layout class="hidden">{{ alert= getAlertClass(sensor.currentMeasures)}} {{white=getWhiteClass(alert)}} {{activeSensor = alertSensorClass(sensor.activeAt)}}</v-layout>
                   <div class="div-block-12">
                     <div class="div-block-11 card">
@@ -68,25 +69,25 @@
                             <img v-bind:src="'public/images/thermometer'+alert+white+'.png'"  width="20" height="20" title="온도">
                           </div>
                           <div class="div-block-17 right">
-                            <div v-bind:class="alert + ' text-block-9'">최고 {{tempZone.settings[0].max_value}}℃</div>
+                            <div v-bind:class="alert + ' text-block-9'">최고 - ℃</div>
                           </div>
                           <div class="div-block-17">
                             <div v-bind:class="alert + ' text-block-8 alerts'">{{getTemperature(sensor.currentMeasures)}}</div>
                           </div>
                           <div class="div-block-17 right">
-                            <div v-bind:class="alert + ' text-block-9'">최저 {{tempZone.settings[0].min_value}}℃</div>
+                            <div v-bind:class="alert + ' text-block-9'">최저 -℃</div>
                           </div>
                         </div>
                         <div class="div-block-16 partial">
                           <div class="div-block-17"><img src="public/images/humidity.fff.png" width="20" height="20" title="습도"></div>
                           <div class="div-block-17 right">
-                            <div v-bind:class="alert + ' text-block-9'">최고 {{tempZone.settings[1].max_value}}%</div>
+                            <div v-bind:class="alert + ' text-block-9'">최고 -%</div>
                           </div>
                           <div class="div-block-17">
                             <div v-bind:class="alert + ' text-block-8'">{{getHumidity(sensor.currentMeasures)}}</div>
                           </div>
                           <div class="div-block-17 right">
-                            <div v-bind:class="alert + ' text-block-9'">최저 {{tempZone.settings[1].min_value}}%</div>
+                            <div v-bind:class="alert + ' text-block-9'">최저 -%</div>
                           </div>
                         </div>
                       </div>
@@ -108,9 +109,6 @@
                   </div>
               </div>
           </template>
-          
-        
-
           </div>
           <!-- END OF SENSOR -->
           
@@ -148,7 +146,7 @@
         open: this.drawer,
         headerTitle: 'Organization',
         searchTitle: 'Search sites ...',
-        detail_zone: this.$store.state.detail_zone,
+        detail_zone: [],
         items: [
           {id:1, name:"Default",description:""},
         ],
@@ -159,6 +157,7 @@
         duration: '-24h',
         chartType: 'line',
         chartData: { 'temperature': null, 'humidity': null },
+        nodes : []
       }
     },
     computed:
@@ -184,9 +183,11 @@
         return
       },
       getSensors(zoneId) {
-          if (localStorage.getItem('detail_zone'+zoneId))
-            return JSON.parse(localStorage.getItem('detail_zone'+zoneId))
-          return []
+          var NODES = `${API_BASE}/zones/`+ zoneId + '/nodes'
+          axios.get(NODES).then(response => {
+              return response.data
+          })
+
       },
       getAllZones () {
           axios.get(ZONES_API).then(res => {
@@ -196,23 +197,23 @@
 
           for(var i=0; i < res.data.length; i++) {
             var id = res.data[i].id
-            if (localStorage.getItem('detail_zone'+ id)){
-              this.$store.state.detail_zone[id] = JSON.parse(localStorage.getItem('detail_zone'+ id))
-            } else {
-              var zone = `${API_BASE}/zones/`+ id
-              var node = zone + '/nodes'
-              var sensorType = zone + '/sensorTypes';
-              https://mylitmus.cloud/v1/v1/zones/2/sensorTypes
+            // if (localStorage.getItem('detail_zone'+ id)){
+            //   this.$store.state.detail_zone[id] = JSON.parse(localStorage.getItem('detail_zone'+ id))
+            // } else {
+              var ZONE_DETAIL = `${API_BASE}/zones/`+ id
+              var NODES = ZONE_DETAIL + '/nodes'
+              // var sensorType = zone + '/sensorTypes';
               axios.all([
-                  axios.get(zone),
-                  axios.get(node),
-                  axios.get(sensorType)
+                  axios.get(ZONE_DETAIL),
+                  axios.get(NODES),
+                  // axios.get(sensorType)
               ]).then(response => {
-                this.$store.state.detail_zone[id] = response[0].data
-                this.$store.state.detail_zone[id].nodes = response[1].data
-                localStorage.setItem('detail_zone' + response[0].data.id, JSON.stringify({'data':response[0].data,'nodes':response[1].data, 'settings':response[2].data}))
+                this.detail_zone[id] = response[0].data
+                this.nodes  = response[1].data
+                localStorage.setItem('detail_zone' + response[0].data.id, JSON.stringify({'data':response[0].data,'nodes':response[1].data}))
               })
-            }
+            // }
+            break;
           }
         })
       },
