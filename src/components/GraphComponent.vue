@@ -1,15 +1,18 @@
 <template>
-
     <div class="div-block-11 graph">
-      <div class="div-block-16">
-          <template class="" v-if="chartData.temperature">
-            <highcharts :options="chartData.temperature"></highcharts>
-          </template>
+      <div class="div-block-11 graph">
+        <div class="div-block-16 graph">
+            <template class="" v-if="chartData.temperature">
+              <highcharts :options="chartData.temperature"></highcharts>
+            </template>
+        </div>
       </div>
-       <div class="div-block-16">
-          <template class="" v-if="chartData.humidity">
-            <highcharts :options="chartData.humidity"></highcharts>
-          </template>
+      <div class="div-block-11 graph">
+        <div class="div-block-16 graph">
+            <template class="" v-if="chartData.humidity">
+              <highcharts :options="chartData.humidity"></highcharts>
+            </template>
+        </div>
       </div>
     </div>
 </template>

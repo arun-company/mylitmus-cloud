@@ -27,7 +27,7 @@
             <div class="text-content">Sensor Settings</div>
             <div class="div-block-12">
                <template v-for="setting in settings">
-                 <div class="div-block-11">
+                <div class="div-block-11">
                 <v-flex :key="setting.sensorType.name+'_mix'">
                   <v-text-field :key="setting.sensorType.name"
                       :label="setting.sensorType.name + ' 상한'"
@@ -55,28 +55,24 @@
             <div class="text-content">Sensor Notificaitons</div>
             <div class="div-block-12">
               <div class="div-block-11"  v-for="rule in alarmRules" :key="rule.name">
-                <!-- <div class="div-block-18" > -->
+                <div class="div-block-18" >
                   <v-card>
                       <v-card-title primary-title>
                         <v-layout align-content-space-between>
-                          <v-flex>
-                            <div
-                              class="headline"
+                          <div class="notification-name-block">
+                              <div class="notification-name-block-title"
                               :style="{
-                                'border-bottom': `5px solid ${rule.color || '#FFC4C4'}`
-                              }">{{ rule.name }}
+                                'border-bottom': `4px solid ${rule.color || '#FFC4C4'}`}">{{ rule.name }}
                             </div>
-                            <div class="name"> {{ rule.sensorType.name }} </div>
-                          </v-flex>
-                          <v-flex>
-                            <h2 class="value">
+                            <div style="font-size:12px; line-height: 20px;">  {{ rule.sensorType.name }} </div>
+                          </div>
+                            <div class="text-block-8 notification">
                               {{ rule.rule.split('value ')[1] }}{{ rule.sensorType.unit }}
-                            </h2>
-                          </v-flex>
+                            </div>
                         </v-layout>
                       </v-card-title>
                     </v-card>
-                <!-- </div> -->
+                </div>
               </div>
             </div>
           </div>

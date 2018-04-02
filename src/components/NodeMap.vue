@@ -1,7 +1,6 @@
 <template>
-<div class="div-block-15">
       <div class="div-block-14" v-if="imageLink">
-        <div class="calendar-block">
+        <div class="map-block">
         <div class="progress-bar" v-if="!nodes" >
           <v-progress-circular  indeterminate :size="100" color="amber" :width="3"></v-progress-circular>
         </div>
@@ -11,7 +10,6 @@
         </svg>
     </div>
   </div>
-</div>
 </template>
 
 <script>
