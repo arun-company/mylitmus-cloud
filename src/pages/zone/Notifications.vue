@@ -185,7 +185,7 @@
         axios.get(ALARMS_API).then(res => {
           this.alarmRules = res.data.alarmRules
           this.eventSeries = this.alarmRules.map(rule => ({
-            name: rule.name, data: [], color: rule.color,
+            name: rule.name, data: [], color: rule.color?rule.color:"#FFC4C4",
           }))
           if (this.eventSeries.length < 1) {
             this.alarmRules = null

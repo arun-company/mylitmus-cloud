@@ -42,31 +42,31 @@
                             <img v-bind:src="'public/images/thermometer'+white+'.png'"  width="20" height="20" title="온도">
                           </div>
                           <div class="div-block-17 right">
-                            <div v-bind:class="alert + ' text-block-9'">최고 -</div>
+                            <div v-if="minmax" v-bind:class="alert + ' text-block-9'">최고 {{minmax.max_temp}}</div>
                           </div>
                           <div class="div-block-17">
                             <div v-bind:class="alert + ' text-block-8'">{{getTemperature(sensor.currentMeasures)}}</div>
                           </div>
                           <div class="div-block-17 right">
-                            <div v-bind:class="alert + ' text-block-9'">최저 -</div>
+                            <div v-if="minmax"  v-bind:class="alert + ' text-block-9'">최저 {{minmax.min_temp}}</div>
                           </div>
                         </div>
                         <div class="div-block-16 partial">
                           <div class="div-block-17 center">
                             <img v-bind:src="'public/images/humidity'+white+'.png'" width="20" height="20" title="습도"></div>
                           <div class="div-block-17 right">
-                            <div v-bind:class="alert + ' text-block-9'">최고 -</div>
+                            <div v-if="minmax" v-bind:class="alert + ' text-block-9'">최고 {{minmax.max_humidity}}</div>
                           </div>
                           <div class="div-block-17">
                             <div v-bind:class="alert + ' text-block-8'">{{getHumidity(sensor.currentMeasures)}}</div>
                           </div>
                           <div class="div-block-17 right">
-                            <div v-bind:class="alert + ' text-block-9'">최저 -</div>
+                            <div v-if="minmax" v-bind:class="alert + ' text-block-9'">최저 {{minmax.min_humidity}}</div>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <graph-component v-bind:sensorid="sensor.id"></graph-component>
+                    <graph-component @sendGraphData="updateMaxValue($event)" v-bind:sensorid="sensor.id"></graph-component>
                   </div>
               </div>
           </template>
@@ -91,7 +91,8 @@
       return {
         sensors : [],
         zone:null,
-        zone_loading: true
+        zone_loading: true,
+        minmax:null
       }
     },
      created() {
@@ -111,7 +112,9 @@
           });
     },
     methods: {
-
+      updateMaxValue(minMax) {
+          this.minmax = minMax
+      },
       getHumidity(currentMeasures) {
         if (currentMeasures && currentMeasures[1]) {
             return currentMeasures[1].value + currentMeasures[1].unit

@@ -69,7 +69,22 @@
 				this.chartData.temperature = this.chart_data('온도', '온도 (℃)', '#ee513b', this.getMinMax('temperature', 'min_value'), this.getMinMax('temperature', 'max_value'), '℃', '온도', this.measures.filter(measure => measure.sensorType.uid === 'temperature'), 'temperature')
         this.chartData.humidity = this.chart_data('습도', '습도 (%)', '#9badff', this.getMinMax('humidity', 'min_value'), this.getMinMax('humidity', 'max_value'), '%', '습도', this.measures.filter(measure => measure.sensorType.uid === 'humidity'), 'humidity')
         this.loading = false
-				
+        var humidity = this.measures.filter(measure => measure.sensorType.uid === 'humidity');
+        var temperature = this.measures.filter(measure => measure.sensorType.uid === 'temperature');
+        temperature.splice(0, 4);
+        var maxHumi="-"
+        var minHumi="-"
+        if (humidity && humidity.length > 4) {
+           maxHumi = Math.max.apply(Math,humidity.map(function(o){ if (o.value==null) return 1; return o.value;})) + "%"
+           minHumi = Math.min.apply(Math,humidity.map(function(o){ if (o.value==null)return 1; return o.value;})) + "%"
+        }
+          var maxTemp="-"
+          var minTemp="-"
+        if (temperature && temperature.length > 4) {
+            maxTemp = Math.max.apply(Math,temperature.map(function(o){return o.value;})) + "℃"
+            minTemp = Math.min.apply(Math,temperature.map(function(o){return o.value;})) + "℃"
+        }   
+        this.$emit('sendGraphData', {'min_temp': minTemp,'max_temp': maxTemp, 'min_humidity': minHumi, 'max_humidity': maxHumi})
 			});
      
     },

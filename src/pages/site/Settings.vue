@@ -56,7 +56,7 @@
       }
     },
     mounted () {
-      // this.$store.dispatch('setMenuItems', this.menuItems)
+
     }
   }
 </script>

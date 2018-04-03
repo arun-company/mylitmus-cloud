@@ -138,7 +138,6 @@
           this.settings = res[1].data
           this.alarmRules = res[2].data.alarmRules
         })
-      
       }
 
     }
