@@ -1,8 +1,7 @@
 <template>
   <div>
     <v-progress-linear v-bind:indeterminate="true" v-if="zone_loading"></v-progress-linear>
-    <div v-if="zone" class="div-block-10"><a href="#" @click="setZoneLocal({id:zoneid, name:zonename})" class="heading-4">Zone - {{zonename}}</a>
-            
+          <div v-if="zone" class="div-block-10"><a href="#" @click="setZoneLocal({id:zoneid, name:zonename})" class="heading-4">Zone - {{zonename}}</a>
             <div class="div-block-alerts">
               <div class="div-block-13">
                 <div class="div-block-13">
@@ -23,53 +22,8 @@
                 <div class="text-block-6">평균 습도 {{getHumidity(zone.currentMeasures)}}</div>
               </div>
           </div>
-          <template>
-                <div  v-for="sensor in sensors" v-bind:key="sensor.id" class="content">
-                  <v-layout class="hidden">{{ alert= getAlertClass(sensor.currentMeasures)}} {{white=getWhiteClass(alert)}} {{activeSensor = alertSensorClass(sensor.activeAt)}}</v-layout>
-                  <div class="div-block-12">
-                    <div class="div-block-11 card">
-                      <div v-bind:class="alert + ' div-block-2 viewall w-inline-block'">
-                        <div class="div-block-16 partial cardtitle">
-                          <div v-bind:class="alert + ' text-block-3 viewall'">{{sensor.name}}</div>
-                          <div class="div-block-8">
-                            <div class="div-block-7 ">
-                              <img v-bind:src="'public/images/battery'+white+'.png'" width="20" height="20" title="배터리" class="image-3">
-                              <img v-bind:src="'public/images/working'+activeSensor+white+'.png'" width="20" height="20" title="센서 작동 상태" class="image-3"></div>
-                          </div>
-                        </div>
-                        <div class="div-block-16 partial">
-                          <div class="div-block-17 center">
-                            <img v-bind:src="'public/images/thermometer'+white+'.png'"  width="20" height="20" title="온도">
-                          </div>
-                          <div class="div-block-17 right">
-                            <div v-if="minmax" v-bind:class="alert + ' text-block-9'">최고 {{minmax.max_temp}}</div>
-                          </div>
-                          <div class="div-block-17">
-                            <div v-bind:class="alert + ' text-block-8'">{{getTemperature(sensor.currentMeasures)}}</div>
-                          </div>
-                          <div class="div-block-17 right">
-                            <div v-if="minmax"  v-bind:class="alert + ' text-block-9'">최저 {{minmax.min_temp}}</div>
-                          </div>
-                        </div>
-                        <div class="div-block-16 partial">
-                          <div class="div-block-17 center">
-                            <img v-bind:src="'public/images/humidity'+white+'.png'" width="20" height="20" title="습도"></div>
-                          <div class="div-block-17 right">
-                            <div v-if="minmax" v-bind:class="alert + ' text-block-9'">최고 {{minmax.max_humidity}}</div>
-                          </div>
-                          <div class="div-block-17">
-                            <div v-bind:class="alert + ' text-block-8'">{{getHumidity(sensor.currentMeasures)}}</div>
-                          </div>
-                          <div class="div-block-17 right">
-                            <div v-if="minmax" v-bind:class="alert + ' text-block-9'">최저 {{minmax.min_humidity}}</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <graph-component @sendGraphData="updateMaxValue($event)" v-bind:sensorid="sensor.id"></graph-component>
-                  </div>
-              </div>
-          </template>
+          <sensor-card-component v-for="sensor in sensors"  v-bind:sensor="sensor" v-bind:key="sensor.id"  @sendGraphData="updateMaxValue($event)"></sensor-card-component>
+          <!-- <sensor-card-component v-for="sensor in sensors" v-bind:key="JSON.stringtify(sensor)"  @sendGraphData="updateMaxValue($event)"></sensor-card-component> -->
   </div>
 </template>
 
@@ -79,10 +33,11 @@
 
   import EventGraph from '@/components/charts/EventGraph'
   import GraphComponent from '@/components/GraphComponent'
+  import SensorCardComponent from '@/components/SensorCardComponent'
   import { toFixedNumber } from '@/util'
   import { ZONES_API, ZONE_INFO_API, API_BASE } from '@/global'
   export default {
-    components: { GraphComponent },
+    components: { GraphComponent, SensorCardComponent },
     props: ['zonename','zoneid'],
     watch: {
       

@@ -24,9 +24,9 @@
     </div>
     <div class="div-block-9">
       <template  v-for="(key,index) in filteredItems"> 
-          <v-layout class="hidden">{{ alert= getAlertClass(key.currentMeasures)}} {{white=getWhiteClass(alert)}} {{activeSensor = alertSensorClass(key.activeAt)}}</v-layout>  
-          <div v-bind:class="getActiveClass(activeItem, key.name) + ' ' + alert + ' div-block-2 w-inline-block sensor-card'" @click="selectNode(key.id)" @click.stop="setActiveItem(key.name)">
-            <div v-bind:class="alert+' text-block-3'">{{ key.name }}</div>
+          <v-layout v-bind:key="index+'_0'" class="hidden">{{ alert= getAlertClass(key.currentMeasures)}} {{white=getWhiteClass(alert)}} {{activeSensor = alertSensorClass(key.activeAt)}}</v-layout>  
+          <div v-bind:class="getActiveClass(activeItem, key.id) + ' ' + alert + ' div-block-2 w-inline-block sensor-card'" @click="selectNode(key.id)" @click.stop="setActiveItem(key.id)" v-bind:key="index+'_a'">
+            <div v-bind:class="alert+' text-block-3'">{{ key.id }}</div>
             <div v-bind:class="'div-block-8'">
               <div class="div-block-7"><img v-bind:src="'public/images/thermometer'+white+'.png'" width="20" height="20" title="온도" class="image-2">
                 <div v-bind:class="alert + ' text-block-6'"> {{key.currentMeasures[0]?key.currentMeasures[0].value + key.currentMeasures[0].unit:"-"}}</div>
@@ -37,11 +37,11 @@
               <div class="div-block-7"><img v-bind:src="'public/images/battery'+white+'.png'" width="20" height="20" title="습도" class="image-3"><img v-bind:src="'public/images/working'+activeSensor+white+'.png'" width="20" height="20" title="습도" class="image-3"></div>
             </div>
             <div class="div-block-8">
-              <div class="div-block-7 zoneexpand" ><img v-bind:class="getActiveClass(activeItem, key.name)" v-bind:src="'public/images/expand'+white+'.png'" width="20" height="20" title="센서"></div>
+              <div class="div-block-7 zoneexpand" ><img v-bind:class="getActiveClass(activeItem, key.id)" v-bind:src="'public/images/expand'+white+'.png'" width="20" height="20" title="센서"></div>
             </div>
           </div>
-          <div class="card-detail-1">
-             <v-container fluid v-if="key.name == activeItem">
+          <div class="card-detail-1" v-bind:key="index+'_b'">
+             <v-container fluid v-if="key.id == activeItem">
                   <v-layout row wrap>
                     <v-progress-linear v-bind:indeterminate="true" v-if="loading.info"></v-progress-linear>
                   </v-layout>
@@ -63,8 +63,8 @@
                   </v-card>
              </v-container>
           </div>
-          <div class="card-detail-2" v-if="(index+1)%2 == 0 || (index+1) == filteredItems.length" >
-               <v-container  fluid v-if="key.name == activeItem || (index%2 > 0 && filteredItems[index-1].name == activeItem)">
+          <div class="card-detail-2" v-if="(index+1)%2 == 0 || (index+1) == filteredItems.length" v-bind:key="index+'_c'">
+               <v-container  fluid v-if="key.id == activeItem || (index%2 > 0 && filteredItems[index-1].id == activeItem)">
                   <v-layout row wrap>
                     <v-progress-linear v-bind:indeterminate="true" v-if="loading.info"></v-progress-linear>
                   </v-layout>
@@ -86,8 +86,8 @@
                   </v-card>
              </v-container>
           </div>
-          <div class="card-detail-3" v-if="(index+1)%3 == 0 || (index+1) == filteredItems.length">
-             <v-container fluid v-if="key.name == activeItem || (index%3 > 0 && filteredItems[index-1].name == activeItem) || (index%3 > 1 && filteredItems[index-2].name == activeItem)">
+          <div class="card-detail-3" v-if="(index+1)%3 == 0 || (index+1) == filteredItems.length" v-bind:key="index+'_d'">
+             <v-container fluid v-if="key.id == activeItem || (index%3 > 0 && filteredItems[index-1].id == activeItem) || (index%3 > 1 && filteredItems[index-2].id == activeItem)">
                   <v-layout row wrap>
                     <v-progress-linear v-bind:indeterminate="true" v-if="loading.info"></v-progress-linear>
                   </v-layout>
@@ -109,8 +109,8 @@
                   </v-card>
              </v-container>
           </div>
-          <div class="card-detail-4" v-if="(index+1)%4 == 0 || (index+1) == filteredItems.length">
-             <v-container fluid v-if="(key.name == activeItem) || ((index%4 > 0)  && (filteredItems[index-1].name == activeItem)) || (index%4 > 1 && filteredItems[index-2].name == activeItem) || (index%4 > 2 && filteredItems[index-3].name == activeItem)">
+          <div class="card-detail-4" v-if="(index+1)%4 == 0 || (index+1) == filteredItems.length" v-bind:key="index+'_e'">
+             <v-container fluid v-if="(key.id == activeItem) || ((index%4 > 0)  && (filteredItems[index-1].id == activeItem)) || (index%4 > 1 && filteredItems[index-2].id == activeItem) || (index%4 > 2 && filteredItems[index-3].id == activeItem)">
                   <v-layout row wrap>
                     <v-progress-linear v-bind:indeterminate="true" v-if="loading.info"></v-progress-linear>
                   </v-layout>
@@ -194,6 +194,8 @@
       watch: {
         '$store.state.zone': function () {
           this.getSensorTypes()
+          this.getMeasuresFromRemote(this.id)
+          this.setActiveItem(this.id)
         },
         id: function () {
           this.selectNode(this.id)
@@ -205,9 +207,9 @@
           this.getMeasuresFromRemote(this.id)
         },
       },
-      id: function () {
-			  this.selectNode(this.id)
-		  },
+      // id: function () {
+			//   this.selectNode(this.id)
+		  // },
       computed:
       {
         filteredItems:function()
@@ -232,7 +234,9 @@
       },
       mounted () {
         this.$store.dispatch('setZone', { zoneId: this.zoneId, shouldClear: false})
-    	  this.getSummaryValue()
+        this.getSummaryValue()
+        this.getMeasuresFromRemote(this.id)
+        this.setActiveItem(this.id)
       },
       methods: {
     	getSummaryValue () {
@@ -284,8 +288,9 @@
 			const NODE_API = `${API_BASE}/nodes/${id}`
 			axios.get(NODE_API).then(res => {
 				this.node = res.data
-			});
-			this.getMeasuresFromRemote(id)
+      });
+      this.getMeasuresFromRemote(id)
+      
 		},
 		getMeasuresFromRemote(id) {
       // var zoneid = localStorage.getItem('zoneid')
@@ -396,15 +401,15 @@
         })
       })
     },
-    setActiveItem(nodename) {
-      if (this.activeItem == nodename) {
-        this.activeItem = null
-        return
-      }
-      this.activeItem = nodename
+    setActiveItem(nodeId) {
+      // if (this.activeItem == nodeId) {
+      //   this.activeItem = null
+      //   return
+      // }
+      this.activeItem = nodeId
     },
-    getActiveClass(activeItem, nodename) {
-      if (activeItem == nodename) {
+    getActiveClass(activeItem, nodeId) {
+      if (activeItem == nodeId) {
         return 'active-sensor'
       } else {
         return ''

@@ -14,9 +14,7 @@
       <div class="w-container">
         <h1 class="heading">{{headerTitle}}</h1>
       </div>
-      
       <div class="div-block-9">
-      
       </div>
     </div>
 </template>
