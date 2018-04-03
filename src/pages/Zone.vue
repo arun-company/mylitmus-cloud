@@ -24,8 +24,8 @@
     </div>
     <div class="div-block-9">
       <template  v-for="(key,index) in filteredItems"> 
-          <v-layout class="hidden" v-bind:key="index+1">{{ alert= getAlertClass(key.currentMeasures)}} {{white=getWhiteClass(alert)}} {{activeSensor = alertSensorClass(key.activeAt)}}</v-layout>  
-          <div v-bind:class="getActiveClass(activeItem, key.name) + ' ' + alert + ' div-block-2 w-inline-block sensor-card'" @click="selectNode(key.id)" @click.stop="setActiveItem(key.name)" v-bind:key="index+2">
+          <v-layout class="hidden">{{ alert= getAlertClass(key.currentMeasures)}} {{white=getWhiteClass(alert)}} {{activeSensor = alertSensorClass(key.activeAt)}}</v-layout>  
+          <div v-bind:class="getActiveClass(activeItem, key.name) + ' ' + alert + ' div-block-2 w-inline-block sensor-card'" @click="selectNode(key.id)" @click.stop="setActiveItem(key.name)">
             <div v-bind:class="alert+' text-block-3'">{{ key.name }}</div>
             <div v-bind:class="'div-block-8'">
               <div class="div-block-7"><img v-bind:src="'public/images/thermometer'+white+'.png'" width="25" height="25" title="온도" class="image-2">
@@ -40,13 +40,10 @@
               <div class="div-block-7 zoneexpand" ><img v-bind:class="getActiveClass(activeItem, key.name)" v-bind:src="'public/images/expand'+white+'.png'" width="25" height="25" title="센서"></div>
             </div>
           </div>
-          <div class="card-detail-1" v-bind:key="index+3">
+          <div class="card-detail-1">
              <v-container fluid v-if="key.name == activeItem">
                   <v-layout row wrap>
                     <v-progress-linear v-bind:indeterminate="true" v-if="loading.info"></v-progress-linear>
-                    <!-- <v-flex xs4 v-for="info in node_info" :key="info ? info.key : null" v-if="card">
-                      <text-card size="4" :data="info ? { desc: info.key, value: info.value, subtitle: info.subtitle } : null"></text-card>
-                    </v-flex> -->
                   </v-layout>
                   <v-card class="mt-2" v-if="chartData.temperature && chartData.humidity">
                     <duration-selector :duration.sync="duration" />
@@ -66,13 +63,10 @@
                   </v-card>
              </v-container>
           </div>
-          <div class="card-detail-2" v-if="(index+1)%2 == 0 || (index+1) == filteredItems.length" v-bind:key="index+4">
+          <div class="card-detail-2" v-if="(index+1)%2 == 0 || (index+1) == filteredItems.length" >
                <v-container  fluid v-if="key.name == activeItem || (index%2 > 0 && filteredItems[index-1].name == activeItem)">
                   <v-layout row wrap>
                     <v-progress-linear v-bind:indeterminate="true" v-if="loading.info"></v-progress-linear>
-                    <!-- <v-flex xs4 v-for="info in node_info" :key="info ? info.key : null" v-if="card">
-                      <text-card size="4" :data="info ? { desc: info.key, value: info.value, subtitle: info.subtitle } : null"></text-card>
-                    </v-flex> -->
                   </v-layout>
                   <v-card class="mt-2" v-if="chartData.temperature && chartData.humidity">
                     <duration-selector :duration.sync="duration" />
@@ -92,13 +86,10 @@
                   </v-card>
              </v-container>
           </div>
-          <div class="card-detail-3" v-if="(index+1)%3 == 0 || (index+1) == filteredItems.length" v-bind:key="index+5">
+          <div class="card-detail-3" v-if="(index+1)%3 == 0 || (index+1) == filteredItems.length">
              <v-container fluid v-if="key.name == activeItem || (index%3 > 0 && filteredItems[index-1].name == activeItem) || (index%3 > 1 && filteredItems[index-2].name == activeItem)">
                   <v-layout row wrap>
                     <v-progress-linear v-bind:indeterminate="true" v-if="loading.info"></v-progress-linear>
-                    <!-- <v-flex xs4 v-for="info in node_info" :key="info ? info.key : null" v-if="card">
-                      <text-card size="4" :data="info ? { desc: info.key, value: info.value, subtitle: info.subtitle } : null"></text-card>
-                    </v-flex> -->
                   </v-layout>
                   <v-card class="mt-2" v-if="chartData.temperature && chartData.humidity">
                     <duration-selector :duration.sync="duration" />
@@ -118,13 +109,10 @@
                   </v-card>
              </v-container>
           </div>
-          <div class="card-detail-4" v-if="(index+1)%4 == 0 || (index+1) == filteredItems.length" v-bind:key="index+6">
+          <div class="card-detail-4" v-if="(index+1)%4 == 0 || (index+1) == filteredItems.length">
              <v-container fluid v-if="(key.name == activeItem) || ((index%4 > 0)  && (filteredItems[index-1].name == activeItem)) || (index%4 > 1 && filteredItems[index-2].name == activeItem) || (index%4 > 2 && filteredItems[index-3].name == activeItem)">
                   <v-layout row wrap>
                     <v-progress-linear v-bind:indeterminate="true" v-if="loading.info"></v-progress-linear>
-                    <!-- <v-flex xs4 v-for="info in node_info" :key="info ? info.key : null" v-if="card">
-                      <text-card size="4" :data="info ? { desc: info.key, value: info.value, subtitle: info.subtitle } : null"></text-card>
-                    </v-flex> -->
                   </v-layout>
                   <v-card class="mt-2" v-if="chartData.temperature && chartData.humidity">
                     <duration-selector :duration.sync="duration" />
@@ -167,7 +155,7 @@
         this.$store.state.menuItems =  [
           {id:1, name:'Dashboard', icon:'005-dashboard.png', path:'/zone', class:'w--current'},
           {id:3, name:'Reporting', icon:'004-profit-report.png', path:'/zone-reporting', class:''},
-          // {id:4, name:'Notifications', icon:'003-notifications-button.png', path:'/zone-notifications' , class:''},
+          {id:4, name:'Notifications', icon:'notificationsalerts.fff.png', path:'/zone-notifications' , class:''},
           {id:5, name:'Settings', icon:'001-cogwheel.png', path:'/zone-settings', class:''},
         ]
         events_grouped_by_id: [];
