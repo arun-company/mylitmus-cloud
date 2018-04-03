@@ -2,6 +2,7 @@
     <div class="div-block-11 graph">
       <div class="div-block-11 graph">
         <div class="div-block-16 graph">
+          <v-progress-linear v-bind:indeterminate="true" v-if="loading"></v-progress-linear>
             <template class="" v-if="chartData.temperature">
               <highcharts :options="chartData.temperature"></highcharts>
             </template>
@@ -9,6 +10,7 @@
       </div>
       <div class="div-block-11 graph">
         <div class="div-block-16 graph">
+          <v-progress-linear v-bind:indeterminate="true" v-if="loading"></v-progress-linear>
             <template class="" v-if="chartData.humidity">
               <highcharts :options="chartData.humidity"></highcharts>
             </template>
@@ -41,8 +43,7 @@
         duration: '-24h',
         chartType: 'line',
         chartData: { 'temperature': null, 'humidity': null },
-        
-        
+        loading: true,
       }
     },
      created() {
@@ -53,7 +54,7 @@
           // axios.get(NODES).then(response => {
           //     this.sensors = response.data
           // })
-	    
+	    this.loading = true
 			const NODE_MEASURES_API = `${API_BASE}/nodes/${this.sensorid}/measures`
 			// const EVENTS_API = `${API_BASE}/zones/${this.zoneId}/alarmEvents`
 			// const RULES_API = `${API_BASE}/zones/${this.zoneId}/alarmRules`
@@ -66,7 +67,8 @@
 				// this.alarmEvents = res[1].data.filter(event => event.nodeId === id)
 				// this.alarmRules = res[2].data.alarmRules
 				this.chartData.temperature = this.chart_data('온도', '온도 (℃)', '#ee513b', this.getMinMax('temperature', 'min_value'), this.getMinMax('temperature', 'max_value'), '℃', '온도', this.measures.filter(measure => measure.sensorType.uid === 'temperature'), 'temperature')
-				this.chartData.humidity = this.chart_data('습도', '습도 (%)', '#9badff', this.getMinMax('humidity', 'min_value'), this.getMinMax('humidity', 'max_value'), '%', '습도', this.measures.filter(measure => measure.sensorType.uid === 'humidity'), 'humidity')
+        this.chartData.humidity = this.chart_data('습도', '습도 (%)', '#9badff', this.getMinMax('humidity', 'min_value'), this.getMinMax('humidity', 'max_value'), '%', '습도', this.measures.filter(measure => measure.sensorType.uid === 'humidity'), 'humidity')
+        this.loading = false
 				
 			});
      

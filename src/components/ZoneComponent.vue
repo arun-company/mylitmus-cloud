@@ -1,7 +1,8 @@
 <template>
   <div>
-    <v-progress-linear v-bind:indeterminate="true" v-if="loading"></v-progress-linear>
+    <v-progress-linear v-bind:indeterminate="true" v-if="zone_loading"></v-progress-linear>
     <div v-if="zone" class="div-block-10"><a href="#" @click="setZoneLocal({id:zoneid, name:zonename})" class="heading-4">Zone - {{zonename}}</a>
+            
             <div class="div-block-alerts">
               <div class="div-block-13">
                 <div class="div-block-13">
@@ -9,12 +10,12 @@
                   <div class="text-block-7">{{zone.totalNodes}}개</div>
                 </div>
                 <div class="div-block-13"><img src="public/images/alert_red.png" width="20" height="20" class="image-3">
-                  <div class="text-block-7">{{zone.totalNodes - zone.activeNodes}}</div>
+                  <div class="text-block-7">{{zone.totalNodes - zone.activeNodes}}개</div>
                 </div>
               </div>
             </div>
           </div>
-          <div class="content">
+          <div v-if="zone" class="content">
               <div class="div-block-7 view-all"><img src="public/images/thermometer.png" width="20" height="20" title="평균 온도">
                 <div class="text-block-6">평균 온도 {{getTemperature(zone.currentMeasures)}}</div>
               </div>
@@ -32,13 +33,13 @@
                           <div v-bind:class="alert + ' text-block-3 viewall'">{{sensor.name}}</div>
                           <div class="div-block-8">
                             <div class="div-block-7 ">
-                              <img v-bind:src="'public/images/battery'+alert+white+'.png'" width="20" height="20" title="배터리" class="image-3">
+                              <img v-bind:src="'public/images/battery'+white+'.png'" width="20" height="20" title="배터리" class="image-3">
                               <img v-bind:src="'public/images/working'+activeSensor+white+'.png'" width="20" height="20" title="센서 작동 상태" class="image-3"></div>
                           </div>
                         </div>
                         <div class="div-block-16 partial">
                           <div class="div-block-17 center">
-                            <img v-bind:src="'public/images/thermometer'+alert+white+'.png'"  width="20" height="20" title="온도">
+                            <img v-bind:src="'public/images/thermometer'+white+'.png'"  width="20" height="20" title="온도">
                           </div>
                           <div class="div-block-17 right">
                             <div v-bind:class="alert + ' text-block-9'">최고 -</div>
@@ -90,13 +91,14 @@
       return {
         sensors : [],
         zone:null,
-        loading: true
+        zone_loading: true
       }
     },
      created() {
      
     },
     mounted () {
+          this.zone_loading = true
           var ZONE_DETAIL = `${API_BASE}/zones/`+ this.zoneid 
           var NODES =  ZONE_DETAIL + '/nodes'
           axios.all([
@@ -105,7 +107,7 @@
           ]).then(response => {
               this.zone = response[0].data
               this.sensors = response[1].data
-              this.loading = false
+              this.zone_loading = false
           });
     },
     methods: {

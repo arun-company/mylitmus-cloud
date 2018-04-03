@@ -28,16 +28,16 @@
           <div v-bind:class="getActiveClass(activeItem, key.name) + ' ' + alert + ' div-block-2 w-inline-block sensor-card'" @click="selectNode(key.id)" @click.stop="setActiveItem(key.name)">
             <div v-bind:class="alert+' text-block-3'">{{ key.name }}</div>
             <div v-bind:class="'div-block-8'">
-              <div class="div-block-7"><img v-bind:src="'public/images/thermometer'+white+'.png'" width="25" height="25" title="온도" class="image-2">
+              <div class="div-block-7"><img v-bind:src="'public/images/thermometer'+white+'.png'" width="20" height="20" title="온도" class="image-2">
                 <div v-bind:class="alert + ' text-block-6'"> {{key.currentMeasures[0]?key.currentMeasures[0].value + key.currentMeasures[0].unit:"-"}}</div>
               </div>
               <div class="div-block-7"><img v-bind:src="'public/images/humidity'+white+'.png'" width="20" height="20" title="습도">
                 <div v-bind:class="alert + ' text-block-6'"> {{key.currentMeasures[1]?key.currentMeasures[1].value + key.currentMeasures[1].unit:"-"}}</div>
               </div>
-              <div class="div-block-7"><img v-bind:src="'public/images/battery'+white+'.png'" width="25" height="25" title="습도" class="image-3"><img v-bind:src="'public/images/working'+activeSensor+white+'.png'" width="25" height="25" title="습도" class="image-3"></div>
+              <div class="div-block-7"><img v-bind:src="'public/images/battery'+white+'.png'" width="20" height="20" title="습도" class="image-3"><img v-bind:src="'public/images/working'+activeSensor+white+'.png'" width="20" height="20" title="습도" class="image-3"></div>
             </div>
             <div class="div-block-8">
-              <div class="div-block-7 zoneexpand" ><img v-bind:class="getActiveClass(activeItem, key.name)" v-bind:src="'public/images/expand'+white+'.png'" width="25" height="25" title="센서"></div>
+              <div class="div-block-7 zoneexpand" ><img v-bind:class="getActiveClass(activeItem, key.name)" v-bind:src="'public/images/expand'+white+'.png'" width="20" height="20" title="센서"></div>
             </div>
           </div>
           <div class="card-detail-1">

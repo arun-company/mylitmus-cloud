@@ -10,7 +10,7 @@
             Default
           </router-link>
         <div class="text-block-5">&gt;</div>
-        <!-- <div v-if="zonename" class="text-block-5">{{zonename}}</div> -->
+        <div v-if="zonename" class="text-block-5">{{zonename}}</div>
         </div>
     </div>
     <div class="w-container">
@@ -20,6 +20,31 @@
       <div class="reporting-all">
         <div class="div-block-reporting">
           <div class="content">
+            <div class="text-content">Sensor Notificaitons</div>
+            <div class="div-block-12">
+              <div class="div-block-11"  v-for="rule in alarmRules" :key="rule.name">
+                <div class="div-block-18" >
+                  <v-card>
+                      <v-card-title primary-title>
+                        <v-layout align-content-space-between>
+                          <div class="notification-name-block">
+                              <div class="notification-name-block-title"
+                              :style="{
+                                'border-bottom': `4px solid ${rule.color || '#FFC4C4'}`}">{{ rule.name }}
+                            </div>
+                            <div style="font-size:12px; line-height: 20px;">  {{ rule.sensorType.name }} </div>
+                          </div>
+                            <div class="text-block-8 notification">
+                              {{ rule.rule.split('value ')[1] }}{{ rule.sensorType.unit }}
+                            </div>
+                        </v-layout>
+                      </v-card-title>
+                    </v-card>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="content">
             <div class="text-content">Notification Chart</div>
             <div class="div-block-12">
               <v-layout row wrap>
@@ -27,7 +52,7 @@
                   <v-card>
                     <highcharts :options="eventChartData" v-if="eventChartData"></highcharts>
                     <div v-else-if="eventSeries && eventSeries.length === 0">알람이 설정되지 않았습니다.</div>
-                    <v-progress-circular :size="100" indeterminate color="primary" v-else></v-progress-circular>
+                    <v-progress-circular :size="100" indeterminate v-else></v-progress-circular>
                   </v-card>
                 </v-flex>
               </v-layout>
@@ -46,7 +71,7 @@
                     class="elevation-1"
                   >
                     <template slot="items" scope="props">
-                      <tr @click="$router.push(`/sensor-list/${$store.state.zone.id}/${props.item.nodeId}`)" style="cursor: pointer">
+                      <tr @click="$router.push(`/zone/${props.item.nodeId}`)" style="cursor: pointer">
                         <td class="text-xs-right">{{ props.item.nodeName }}</td>
                         <td class="text-xs-right">{{ props.item.value }}</td>
                         <td class="text-xs-right">{{ props.item.date }}</td>
@@ -84,14 +109,17 @@
       this.$store.state.menuItems =  [
           {id:1, name:'Dashboard', icon:'005-dashboard.png', path:'/zone', class:''},
           {id:3, name:'Reporting', icon:'004-profit-report.png', path:'/zone-reporting', class:''},
-          {id:4, name:'Notifications', icon:'notificationsalerts.fff.png', path:'/zone-notifications' , class:''},
-          {id:5, name:'Settings', icon:'001-cogwheel.png', path:'/zone-settings', class:'w--current'},
+          {id:4, name:'Notifications', icon:'notificationsalerts.fff.png', path:'/zone-notifications' , class:'w--current'},
+          {id:5, name:'Settings', icon:'001-cogwheel.png', path:'/zone-settings', class:''},
         ]
       var zoneId = localStorage.getItem('zoneid');
       var zoneObj = JSON.parse(localStorage.getItem('detail_zone'+zoneId))
       return {
+        settings:null,
+        sensors:null,
+        alarmRules:null,
         zonename:localStorage.getItem('zonename'),
-        zone: zoneObj,
+        zone: zoneObj.data,
       	events: [],
         alarmRules: null,
         events_grouped_by_id: [],
@@ -109,6 +137,7 @@
     	}
     },
     mounted () {
+      this.getSettings()
     	this.getSummaryValue()
     	this.timer = setInterval(() => {
         if (this.zone) {
@@ -145,7 +174,7 @@
     },
     methods: {
     	getSummaryValue () {
-        this.zone = this.$store.state.zone
+        console.log(this.zone)
         if (!this.zone) { return }
         
         const EVENT_API = `${API_BASE}/zones/${this.zone.id}/alarmEvents/spots`
@@ -213,6 +242,22 @@
             const foundEvent = series.alarmEvents.find(event => event.alarmName === group.name)
             group.data.push(foundEvent ? [moment(series.measuredAt).valueOf(), foundEvent.nodeCount]: [moment(series.measuredAt).valueOf(), 0])
           })
+        })
+      },
+      getSettings () {
+        var zondId = localStorage.getItem('zoneid');
+        const SENSORTYPES_API = `${API_BASE}/v1/zones/${zondId}/sensorTypes`
+        const ZONESENSOR = `${API_BASE}/v1/zones/${zondId}/nodes`
+        const RULES_API = `${API_BASE}/zones/${zondId}/alarmRules`
+        axios.all([
+            axios.get(ZONESENSOR),
+            axios.get(SENSORTYPES_API),
+            axios.get(RULES_API),
+        ]).then(
+        res => {
+          this.sensors = res[0].data
+          this.settings = res[1].data
+          this.alarmRules = res[2].data.alarmRules
         })
       }
     }
