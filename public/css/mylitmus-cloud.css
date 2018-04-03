@@ -719,10 +719,10 @@ body {
   -webkit-flex-wrap: wrap;
   -ms-flex-wrap: wrap;
   flex-wrap: wrap;
-  -webkit-box-align: start;
-  -webkit-align-items: flex-start;
-  -ms-flex-align: start;
-  align-items: flex-start;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   -webkit-align-content: flex-start;
   -ms-flex-line-pack: start;
   align-content: flex-start;
@@ -733,6 +733,8 @@ body {
   display: -webkit-flex;
   display: -ms-flexbox;
   display: flex;
+  margin-right: 5px;
+  margin-left: 5px;
   -webkit-box-align: center;
   -webkit-align-items: center;
   -ms-flex-align: center;
@@ -922,7 +924,7 @@ body {
   color: #505050;
   font-size: 24px;
   line-height: 28px;
-  font-weight: 700;
+  font-weight: 400;
   text-align: center;
 }
 
@@ -984,6 +986,9 @@ body {
     width: 50%;
   }
   .div-block-11.card {
+    width: 100%;
+  }
+  .div-block-11.graph.full {
     width: 100%;
   }
   .card-detail-4 {
@@ -1059,6 +1064,14 @@ body {
   }
   .div-block-11 {
     width: 100%;
+  }
+  .div-block-11.graph {
+    width: 100%;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
   }
   .card-detail-3 {
     display: none;
