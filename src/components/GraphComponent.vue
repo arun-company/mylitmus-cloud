@@ -122,7 +122,8 @@
 				  useHTML: true,
 				  // verticalAlign: 'bottom'
         },
-				xAxis: {
+				xAxis: { 
+          visible: false,
 					type: 'datetime',
 					dateTimeLabelFormats: {
 						day: '%b %e일'
