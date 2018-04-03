@@ -14,6 +14,14 @@
               </div>
             </div>
           </div>
+          <div class="content">
+              <div class="div-block-7 view-all"><img src="public/images/thermometer.png" width="20" height="20" title="평균 온도">
+                <div class="text-block-6">평균 온도 {{getTemperature(zone.currentMeasures)}}</div>
+              </div>
+              <div class="div-block-7 view-all"><img src="public/images/humidity.png" width="20" height="20" title="평균 습도">
+                <div class="text-block-6">평균 습도 {{getHumidity(zone.currentMeasures)}}</div>
+              </div>
+          </div>
           <template>
                 <div  v-for="sensor in sensors" v-bind:key="sensor.id" class="content">
                   <v-layout class="hidden">{{ alert= getAlertClass(sensor.currentMeasures)}} {{white=getWhiteClass(alert)}} {{activeSensor = alertSensorClass(sensor.activeAt)}}</v-layout>
@@ -23,34 +31,36 @@
                         <div class="div-block-16 partial cardtitle">
                           <div v-bind:class="alert + ' text-block-3 viewall'">{{sensor.name}}</div>
                           <div class="div-block-8">
-                            <div class="div-block-7"><img v-bind:src="'public/images/battery'+alert+white+'.png'" width="20" height="20" title="배터리" class="image-3">
-                            <img v-bind:src="'public/images/working'+activeSensor+white+'.png'" width="20" height="20" title="센서 작동 상태" class="image-3"></div>
+                            <div class="div-block-7 ">
+                              <img v-bind:src="'public/images/battery'+alert+white+'.png'" width="20" height="20" title="배터리" class="image-3">
+                              <img v-bind:src="'public/images/working'+activeSensor+white+'.png'" width="20" height="20" title="센서 작동 상태" class="image-3"></div>
                           </div>
                         </div>
                         <div class="div-block-16 partial">
-                          <div class="div-block-17">
+                          <div class="div-block-17 center">
                             <img v-bind:src="'public/images/thermometer'+alert+white+'.png'"  width="20" height="20" title="온도">
                           </div>
                           <div class="div-block-17 right">
-                            <div v-bind:class="alert + ' text-block-9'">최고 - ℃</div>
+                            <div v-bind:class="alert + ' text-block-9'">최고 -</div>
                           </div>
                           <div class="div-block-17">
-                            <div v-bind:class="alert + ' text-block-8 alerts'">{{getTemperature(sensor.currentMeasures)}}</div>
+                            <div v-bind:class="alert + ' text-block-8'">{{getTemperature(sensor.currentMeasures)}}</div>
                           </div>
                           <div class="div-block-17 right">
-                            <div v-bind:class="alert + ' text-block-9'">최저 -℃</div>
+                            <div v-bind:class="alert + ' text-block-9'">최저 -</div>
                           </div>
                         </div>
                         <div class="div-block-16 partial">
-                          <div class="div-block-17"><img src="public/images/humidity.fff.png" width="20" height="20" title="습도"></div>
+                          <div class="div-block-17 center">
+                            <img v-bind:src="'public/images/humidity'+white+'.png'" width="20" height="20" title="습도"></div>
                           <div class="div-block-17 right">
-                            <div v-bind:class="alert + ' text-block-9'">최고 -%</div>
+                            <div v-bind:class="alert + ' text-block-9'">최고 -</div>
                           </div>
                           <div class="div-block-17">
                             <div v-bind:class="alert + ' text-block-8'">{{getHumidity(sensor.currentMeasures)}}</div>
                           </div>
                           <div class="div-block-17 right">
-                            <div v-bind:class="alert + ' text-block-9'">최저 -%</div>
+                            <div v-bind:class="alert + ' text-block-9'">최저 -</div>
                           </div>
                         </div>
                       </div>
@@ -101,14 +111,14 @@
     methods: {
 
       getHumidity(currentMeasures) {
-        if (currentMeasures && currentMeasures[0]) {
-            return currentMeasures[0].value + currentMeasures[0].unit
+        if (currentMeasures && currentMeasures[1]) {
+            return currentMeasures[1].value + currentMeasures[1].unit
         }
         return '-'
       },
       getTemperature(currentMeasures) {
-         if (currentMeasures && currentMeasures[1]) {
-            return currentMeasures[1].value + currentMeasures[1].unit
+         if (currentMeasures && currentMeasures[0]) {
+            return currentMeasures[0].value + currentMeasures[0].unit
         }
         return '-'
       },

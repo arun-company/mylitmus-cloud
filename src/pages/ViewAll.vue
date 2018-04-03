@@ -11,15 +11,6 @@
               <div class="text-block-7">존</div>
               <div class="text-block-7">{{zones.length}}곳</div>
             </div>
-            <div class="div-block-13">
-              <div class="div-block-13">
-                <div class="text-block-7">센서</div>
-                <div class="text-block-7">000개</div>
-              </div>
-              <div class="div-block-13"><img src="public/images/alert_red.png" width="20" height="20" class="image-3">
-                <div class="text-block-7">000개</div>
-              </div>
-            </div>
           </div>
         </div>
         <div class="content">
@@ -35,7 +26,6 @@
         </div>  
         <!-- END OF SITE DETAIL -->
         <div v-for="zone in zones" class="div-block-reporting" v-bind:key="zone.name">
-          
           <zone-component v-bind:zoneid="zone.id" v-bind:zonename="zone.name"></zone-component>
           <!-- END OF ZONE -->
           </div>
@@ -174,14 +164,14 @@
         return (new Date() - new Date(activeDate)) > (24 * 3600 * 1000)?'-not':''
       },
       getHumidity(currentMeasures) {
-        if (currentMeasures && currentMeasures[0]) {
-            return currentMeasures[0].value + currentMeasures[0].unit
+        if (currentMeasures && currentMeasures[1]) {
+            return currentMeasures[1].value + currentMeasures[1].unit
         }
         return '-'
       },
       getTemperature(currentMeasures) {
-         if (currentMeasures && currentMeasures[1]) {
-            return currentMeasures[1].value + currentMeasures[1].unit
+         if (currentMeasures && currentMeasures[0]) {
+            return currentMeasures[0].value + currentMeasures[0].unit
         }
         return '-'
       },

@@ -24,6 +24,10 @@
               <div class="hidden">{{alert = getClassAlert(tempZone.data)}}{{white=getWhiteClass(alert)}} {{sensorClass= alertSensorClass(alert)}} {{error = tempZone.data.totalNodes - tempZone.data.activeNodes}}</div>
               <div v-bind:class="alert + ' text-block-3'">{{ tempZone.data.name }}</div>
                 <div class="div-block-8">
+                  <div v-bind:class="alert + ' text-block-8'">{{getTemperature(tempZone.data.currentMeasures)}}</div>
+                  <div v-bind:class="alert + ' text-block-8'">{{getHumidity(tempZone.data.currentMeasures)}}</div>
+                </div>
+                <div class="div-block-8">
                   <div class="div-block-7 full"><img v-bind:src="'public/images/wireless-device'+white+'.png'" width="20" height="20" title="센서">
                     <div v-bind:class="alert +' text-block-6'">전체 센서 {{tempZone.data.totalNodes}}</div>
                   </div>
@@ -159,7 +163,19 @@
       },
       alertSensorClass(alert) {
         return alert?"-not":""
-      }
+      },
+      getHumidity(currentMeasures) {
+        if (currentMeasures && currentMeasures[1]) {
+            return currentMeasures[1].value + currentMeasures[1].unit
+        }
+        return '-'
+      },
+      getTemperature(currentMeasures) {
+         if (currentMeasures && currentMeasures[0]) {
+            return currentMeasures[0].value + currentMeasures[0].unit
+        }
+        return '-'
+      },
     }
   }
 </script>
