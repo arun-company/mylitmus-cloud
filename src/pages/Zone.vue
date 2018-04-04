@@ -20,7 +20,10 @@
       <h1 class="heading">{{zonename}}</h1>
     </div>
     <div class="div-block-5">
-        <node-map></node-map>
+        <v-layout row wrap  v-if="!imageLink">
+          <v-progress-circular v-bind:indeterminate="true" size="40"></v-progress-circular>
+        </v-layout>
+        <node-map v-bind:imageLink="imageLink" ></node-map>
     </div>
     <div class="div-block-9">
       <template  v-for="(key,index) in filteredItems"> 
@@ -169,11 +172,11 @@
         if (localStorage.getItem('zonename'))
             zonename = localStorage.getItem('zonename')
         return {
-          title:'Hello World',
           zoneId : localStorage.getItem('zoneid'),
           search: '',
           sensors:[],
           zone: zoneObj,
+          imageLink:'',
           zonename: zonename,
           searchTitle: "Search sensors ...",
           items: [],
@@ -200,6 +203,7 @@
         '$store.state.zone': function () {
           this.getSensorTypes()
           this.getMeasuresFromRemote(this.id)
+          this.imageLink = this.$store.state.zone.floor_map
           // this.setActiveItem(this.id)
         },
         // id: function () {

@@ -33,42 +33,6 @@
             </div>
         </div>
   </div>
-    <!-- <div v-if="zone" @click="setZoneLocal({'id':id,'name':zonename})" v-bind:class="allAlert + ' div-block-2 w-inline-block zone-card'">
-        <div class="hidden">{{alert = getClassAlert(zone)}}{{white=getWhiteClass(alert)}} {{sensorClass= alertSensorClass(alert)}} {{error = zone.totalNodes - zone.activeNodes}}</div>
-        <div v-bind:class="alert + ' text-block-3'">{{ zone.name }}</div>
-          <div class="div-block-8">
-            <div v-bind:class="alert + ' text-block-8'">{{getTemperature(zone.currentMeasures)}}</div>
-            <div v-bind:class="alert + ' text-block-8'">{{getHumidity(zone.currentMeasures)}}</div>
-          </div>
-          <div class="div-block-8">
-            <div class="div-block-7 full"><img v-bind:src="'public/images/wireless-device'+white+'.png'" width="20" height="20" title="센서">
-              <div v-bind:class="alert +' text-block-6'">전체 센서 {{zone.totalNodes}}</div>
-            </div>
-          </div>
-          <div class="div-block-8">
-            <div v-if="alert" class="div-block-7"><img v-bind:src="'public/images/alert'+white+'.png'" width="20" height="20" title="센서">
-              <div v-bind:class="alert +' text-block-6'">센서 {{zone.totalNodes - zone.activeNodes}}</div>
-            </div>
-            <div class="div-block-7"><img v-bind:src="'public/images/notifications'+alert+white+'.png'" width="20" height="20" title="알림">
-              <div v-bind:class="alert +' text-block-6'">주의  {{error}}</div>
-            </div>
-          </div>
-          <div class="div-block-8">
-            <div class="div-block-7"><img  v-bind:src="'public/images/thermometer'+white+'.png'" width="20" height="20" title="온도 알림" class="image-2">
-              <div v-bind:class="alert +' text-block-6'">{{false?error:"OK"}}</div>
-            </div>
-            <div class="div-block-7"><img  v-bind:src="'public/images/humidity'+white+'.png'" width="20" height="20" title="습도 알림">
-              <div v-bind:class="alert +' text-block-6'">{{false?error:"OK"}}</div>
-            </div>
-            <div class="div-block-7"><img  v-bind:src="'public/images/battery'+white+'.png'" width="20" height="20" title="배터리 알림">
-              <div v-bind:class="alert +' text-block-6'">{{false?error:"OK"}}</div>
-            </div>
-            <div class="div-block-7"><img  v-bind:src="'public/images/working'+sensorClass+white+'.png'" width="20" height="20" title="센서 알림">
-              <div v-bind:class="alert +' text-block-6'">{{error?error:"OK"}}</div>
-            </div>
-          </div>
-      </div> -->
-      
 </template>
 
 <script>
@@ -205,7 +169,7 @@
         localStorage.setItem('zone', JSON.stringify(zone));
         localStorage.setItem('zoneid', zone.id);
         localStorage.setItem('zonename', zone.name);
-        this.$router.push('/zone/'+  zone.name)
+        this.$router.push('/zone')
         return
       },
       getZoneDetail(zoneId) {
