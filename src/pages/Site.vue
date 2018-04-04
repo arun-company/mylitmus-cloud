@@ -15,9 +15,9 @@
       <h1 class="heading">{{headerTitle}}</h1>
     </div>
     <div class="div-block-15">
-      <!-- <v-layout row wrap div-block-10 v-if="loading">
+      <v-layout row wrap div-block-10 v-if="loading">
             <v-progress-circular v-bind:indeterminate="true" size="40"></v-progress-circular>
-      </v-layout> -->
+      </v-layout>
       <div class="div-block-9">
         <template v-for="zone in filteredItems" >
             <zone-card v-bind:key="zone.id" v-bind:id="zone.id" v-bind:zonename="zone.name"></zone-card>
@@ -53,7 +53,7 @@
         headerTitle: 'Default',
         searchTitle: 'Search zones ...',
         zoneDetail:[],
-        loading: true,
+        loading: false,
       }
     },
     computed:
@@ -94,10 +94,13 @@
           return []
       },
       getZones(){
-        this.loading = true
+        this.loading=true
         axios.get(ZONES_API).then(res => {
           this.zones = res.data
-          // this.loading=false
+          var self = this;
+          setTimeout(function(){
+                self.loading = false;
+            }, 6000);
         })
       },
       getAllZones () {
