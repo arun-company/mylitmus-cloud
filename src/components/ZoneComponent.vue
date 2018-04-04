@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-progress-linear v-bind:indeterminate="true" v-if="zone_loading"></v-progress-linear>
+    <v-progress-circular v-bind:indeterminate="true" style="{color:red;}" v-if="zone_loading"></v-progress-circular>
           <div v-if="zone" class="div-block-10"><a href="#" @click="setZoneLocal({id:zoneid, name:zonename})" class="heading-4">Zone - {{zonename}}</a>
             <div class="div-block-alerts">
               <div class="div-block-13">
@@ -9,7 +9,7 @@
                   <div class="text-block-7">{{zone.totalNodes}}개</div>
                 </div>
                 <div class="div-block-13"><img src="public/images/alert_red.png" width="20" height="20" class="image-3">
-                  <div class="text-block-7">{{zone.totalNodes - zone.activeNodes}}개</div>
+                  <div class="text-block-7">{{this.count}}개</div>
                 </div>
               </div>
             </div>
@@ -22,7 +22,7 @@
                 <div class="text-block-6">평균 습도 {{getHumidity(zone.currentMeasures)}}</div>
               </div>
           </div>
-          <sensor-card-component v-for="sensor in sensors" v-bind:minMaxTemp="[tempMin, tempMax]" v-bind:minMaxHumi="[humiMin, humiMax]" v-bind:sensor="sensor" v-bind:key="sensor.id"  @sendGraphData="updateMaxValue($event)"></sensor-card-component>
+          <sensor-card-component v-for="sensor in sensors" v-bind:minMaxTemp="[tempMin, tempMax]" v-bind:minMaxHumi="[humiMin, humiMax]" v-bind:sensor="sensor" v-bind:key="sensor.id"  @count-alert="updateAlertCount($event)"></sensor-card-component>
           <!-- <sensor-card-component v-for="sensor in sensors" v-bind:key="JSON.stringtify(sensor)"  @sendGraphData="updateMaxValue($event)"></sensor-card-component> -->
   </div>
 </template>
@@ -51,7 +51,8 @@
         tempMin: null,
         tempMax: null,
         humiMin: null,
-        humiMax: null
+        humiMax: null,
+        count:0,
       }
     },
      created() {
@@ -78,6 +79,11 @@
           });
     },
     methods: {
+      updateAlertCount(data) {
+          if (data) {
+              this.count +=1
+          }
+      },
       setAlameRule(alarm_rules) {
           for(var i=0; i<alarm_rules.length; i++) {
             if (alarm_rules[i].sensorType.uid == 'temperature') {

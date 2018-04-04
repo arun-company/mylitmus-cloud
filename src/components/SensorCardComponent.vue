@@ -1,64 +1,64 @@
 <template>
     <div class="content" v-if="sensor">
-                  <v-layout class="hidden">{{ alert= getAlertClass(sensor.currentMeasures)}} {{white=getWhiteClass(alert)}} {{activeSensor = alertSensorClass(sensor.activeAt)}} {{alertTemp = getAlertTemperature(sensor.currentMeasures)}}</v-layout>
-                  <div class="div-block-12">
-                    <div class="div-block-11 card">
-                      <div v-bind:class="alert + ' div-block-2 viewall w-inline-block'">
-                        <div class="div-block-16 partial cardtitle">
-                          <div v-bind:class="alert + ' text-block-3 viewall'">{{sensor.name}}</div>
-                          <div class="div-block-8">
-                            <div class="div-block-7 ">
-                              <img v-bind:src="'public/images/battery'+white+'.png'" width="20" height="20" title="배터리" class="image-3">
-                              <img v-bind:src="'public/images/working'+activeSensor+white+'.png'" width="20" height="20" title="센서 작동 상태" class="image-3"></div>
-                          </div>
-                        </div>
-                        <div class="div-block-16 partial">
-                          <div class="div-block-17 center">
-                            <img v-bind:src="'public/images/thermometer'+alertTemp+white+'.png'"  width="20" height="20" title="온도">
-                          </div>
-                          <div class="div-block-17 right">
-                            <div v-if="minmax" v-bind:class="alert + ' text-block-9'">최고 {{minmax.temp.max}}</div>
-                          </div>
-                          <div class="div-block-17">
-                            <div v-bind:class="alert + ' text-block-8'">{{getTemperature(sensor.currentMeasures)}}</div>
-                          </div>
-                          <div class="div-block-17 right">
-                            <div v-if="minmax"  v-bind:class="alert + ' text-block-9'">최저 {{minmax.temp.min}}</div>
-                          </div>
-                        </div>
-                        <div class="div-block-16 partial">
-                          <div class="div-block-17 center">
-                            <img v-bind:src="'public/images/humidity'+white+'.png'" width="20" height="20" title="습도"></div>
-                          <div class="div-block-17 right">
-                            <div v-if="minmax" v-bind:class="alert + ' text-block-9'">최고 {{minmax.humi.max}}</div>
-                          </div>
-                          <div class="div-block-17">
-                            <div v-bind:class="alert + ' text-block-8'">{{getHumidity(sensor.currentMeasures)}}</div>
-                          </div>
-                          <div class="div-block-17 right">
-                            <div v-if="minmax" v-bind:class="alert + ' text-block-9'">최저 {{minmax.humi.min}}</div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                    <div class="div-block-11">
-                      <div class="div-block-16">
-                        <v-progress-linear v-bind:indeterminate="true" v-if="loading"></v-progress-linear>
-                          <template class="" v-if="chartData.temperature">
-                            <highcharts :options="chartData.temperature"></highcharts>
-                          </template>
-                      </div>
-                    </div>
-                    <div class="div-block-11">
-                      <div class="div-block-16">
-                        <v-progress-linear v-bind:indeterminate="true" v-if="loading"></v-progress-linear>
-                          <template class="" v-if="chartData.humidity">
-                            <highcharts :options="chartData.humidity"></highcharts>
-                          </template>
-                      </div>
+        <v-layout class="hidden">{{alertTemp = getAlertTemperature(sensor.currentMeasures), alertHumi = getAlertHumidity(sensor.currentMeasures)}} {{ alert= (alertTemp || alertHumi) ? 'alerts':getAlertClass(sensor.currentMeasures)}} {{white=getWhiteClass(alert)}} {{activeSensor = alertSensorClass(sensor.activeAt)}}</v-layout>
+            <div class="div-block-12">
+              <div class="div-block-11 card">
+                <div v-bind:class="alert + ' div-block-2 viewall w-inline-block'">
+                  <div class="div-block-16 partial cardtitle">
+                    <div v-bind:class="alert + ' text-block-3 viewall'">{{sensor.name}}</div>
+                    <div class="div-block-8">
+                      <div class="div-block-7 ">
+                        <img v-bind:src="'public/images/battery'+white+'.png'" width="20" height="20" title="배터리" class="image-3">
+                        <img v-bind:src="'public/images/working'+activeSensor+white+'.png'" width="20" height="20" title="센서 작동 상태" class="image-3"></div>
                     </div>
                   </div>
+                  <div class="div-block-16 partial">
+                    <div class="div-block-17 center">
+                      <img v-bind:src="'public/images/thermometer'+alertTemp+white+'.png'"  width="20" height="20" title="온도">
+                    </div>
+                    <div class="div-block-17 right">
+                      <div v-if="minmax" v-bind:class="alert + ' text-block-9'">최고 {{minmax.temp.max}}</div>
+                    </div>
+                    <div class="div-block-17">
+                      <div v-bind:class="alert + ' text-block-8'">{{getTemperature(sensor.currentMeasures)}}</div>
+                    </div>
+                    <div class="div-block-17 right">
+                      <div v-if="minmax"  v-bind:class="alert + ' text-block-9'">최저 {{minmax.temp.min}}</div>
+                    </div>
+                  </div>
+                  <div class="div-block-16 partial">
+                    <div class="div-block-17 center">
+                      <img v-bind:src="'public/images/humidity'+alertHumi+white+'.png'" width="20" height="20" title="습도"></div>
+                    <div class="div-block-17 right">
+                      <div v-if="minmax" v-bind:class="alert + ' text-block-9'">최고 {{minmax.humi.max}}</div>
+                    </div>
+                    <div class="div-block-17">
+                      <div v-bind:class="alert + ' text-block-8'">{{getHumidity(sensor.currentMeasures)}}</div>
+                    </div>
+                    <div class="div-block-17 right">
+                      <div v-if="minmax" v-bind:class="alert + ' text-block-9'">최저 {{minmax.humi.min}}</div>
+                    </div>
+                  </div>
+                </div>
               </div>
+              <div class="div-block-11">
+                <div class="div-block-16">
+                  <v-progress-circular v-bind:indeterminate="true" style="{color:red;}" v-if="loading"></v-progress-circular>
+                    <template class="" v-if="chartData.temperature">
+                      <highcharts :options="chartData.temperature"></highcharts>
+                    </template>
+                </div>
+              </div>
+              <div class="div-block-11">
+                <div class="div-block-16">
+                  <v-progress-circular v-bind:indeterminate="true" style="{color:red;}" v-if="loading"></v-progress-circular>
+                    <template class="" v-if="chartData.humidity">
+                      <highcharts :options="chartData.humidity"></highcharts>
+                    </template>
+                </div>
+              </div>
+            </div>
+        </div>
 </template>
 
 <script>
@@ -92,6 +92,7 @@
         chartData: { 'temperature': null, 'humidity': null },
         loading: true,
         minmax:null,
+        countAlert:false,
       }
     },
      created() {
@@ -100,8 +101,6 @@
     mounted () {
 	    this.loading = true
 			const NODE_MEASURES_API = `${API_BASE}/nodes/${this.sensor.id}/measures`
-			// const EVENTS_API = `${API_BASE}/zones/${this.zoneId}/alarmEvents`
-			// const RULES_API = `${API_BASE}/zones/${this.zoneId}/alarmRules`
 			axios.all([
 				axios.get(NODE_MEASURES_API, { params: { dateFrom: this.duration }}),
 				// axios.get(EVENTS_API, { params: { dateFrom: this.duration }}),
@@ -115,10 +114,8 @@
         this.loading = false
         var humidity = this.measures.filter(measure => measure.sensorType.uid === 'humidity');
         var temperature = this.measures.filter(measure => measure.sensorType.uid === 'temperature');
-        
-      
-
-        this.minmax = {'temp': this.getMinMaxMeasure(temperature) , 'humi': this.getMinMaxMeasure(humidity) } 
+        this.minmax = {'temp': this.getMinMaxMeasure(temperature) , 'humi': this.getMinMaxMeasure(humidity) }
+        this.$emit('count-alert', this.countAlert)
 			});
      
     },
@@ -160,11 +157,26 @@
         }
         return ''
       },
+      getAlertHumidity(currentMeasures) {
+        if (currentMeasures && currentMeasures[1]) {
+            if (this.minMaxHumi[0] && this.minMaxHumi[1])
+              return currentMeasures[1].value > this.minMaxHumi[0] && currentMeasures[1].value < this.minMaxHumi[1] ? "":"alerts"
+            else if (this.minMaxHumi[0])
+              return currentMeasures[1].value > this.minMaxHumi[0] ? "":"alerts"
+            else if (this.minMaxHumi[1])
+              return currentMeasures[1].value < this.minMaxHumi[1] ? "":"alerts"
+        }
+        return ''
+      },
       getAlertClass(checkValue) {
          return (checkValue[0]&&checkValue[1])? '':'alerts'
       },
-      getWhiteClass(alertClass){
-        return alertClass?".fff":""
+      getWhiteClass(alertClass) {
+        if (alertClass) {
+          this.countAlert = true
+          return ".fff"
+        }
+        return ""
       },
       alertSensorClass(activeDate) {
         return (new Date() - new Date(activeDate)) > (24 * 3600 * 1000)?'-not':''
