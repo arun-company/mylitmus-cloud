@@ -52,7 +52,11 @@
                   <v-card>
                     <highcharts :options="eventChartData" v-if="eventChartData"></highcharts>
                     <div v-else-if="eventSeries && eventSeries.length === 0">알람이 설정되지 않았습니다.</div>
-                    <v-progress-circular :size="100" indeterminate v-else></v-progress-circular>
+                    <v-layout row wrap v-else>
+                      <v-progress-circular v-bind:indeterminate="true" size="40"></v-progress-circular>
+                    </v-layout>
+
+
                   </v-card>
                 </v-flex>
               </v-layout>

@@ -20,13 +20,13 @@
       <h1 class="heading">{{zonename}}</h1>
     </div>
     <div class="div-block-5">
-        <node-map @onSelectNode="selectNode($event.id)"></node-map>
+        <node-map></node-map>
     </div>
     <div class="div-block-9">
       <template  v-for="(key,index) in filteredItems"> 
           <v-layout v-bind:key="index+'_0'" class="hidden">{{ alert= getAlertClass(key.currentMeasures)}} {{white=getWhiteClass(alert)}} {{activeSensor = alertSensorClass(key.activeAt)}}</v-layout>  
           <div v-bind:class="getActiveClass(activeItem, key.id) + ' ' + alert + ' div-block-2 w-inline-block sensor-card'" @click="selectNode(key.id)" @click.stop="setActiveItem(key.id)" v-bind:key="index+'_a'">
-            <div v-bind:class="alert+' text-block-3'">{{ key.id }}</div>
+            <div v-bind:class="alert+' text-block-3'">{{ key.name }}</div>
             <div v-bind:class="'div-block-8'">
               <div class="div-block-7"><img v-bind:src="'public/images/thermometer'+white+'.png'" width="20" height="20" title="온도" class="image-2">
                 <div v-bind:class="alert + ' text-block-6'"> {{key.currentMeasures[0]?key.currentMeasures[0].value + key.currentMeasures[0].unit:"-"}}</div>
@@ -43,7 +43,8 @@
           <div class="card-detail-1" v-bind:key="index+'_b'">
              <v-container fluid v-if="key.id == activeItem">
                   <v-layout row wrap>
-                    <v-progress-linear v-bind:indeterminate="true" v-if="loading.info"></v-progress-linear>
+                    
+                    <v-progress-circular v-bind:indeterminate="true" style="{color:red;}" v-if="loading.info"></v-progress-circular>
                   </v-layout>
                   <v-card class="mt-2" v-if="chartData.temperature && chartData.humidity">
                     <duration-selector :duration.sync="duration" />
@@ -66,7 +67,7 @@
           <div class="card-detail-2" v-if="(index+1)%2 == 0 || (index+1) == filteredItems.length" v-bind:key="index+'_c'">
                <v-container  fluid v-if="key.id == activeItem || (index%2 > 0 && filteredItems[index-1].id == activeItem)">
                   <v-layout row wrap>
-                    <v-progress-linear v-bind:indeterminate="true" v-if="loading.info"></v-progress-linear>
+                    <v-progress-circular v-bind:indeterminate="true" style="{color:red;}" v-if="loading.info"></v-progress-circular>
                   </v-layout>
                   <v-card class="mt-2" v-if="chartData.temperature && chartData.humidity">
                     <duration-selector :duration.sync="duration" />
@@ -86,10 +87,11 @@
                   </v-card>
              </v-container>
           </div>
+          
           <div class="card-detail-3" v-if="(index+1)%3 == 0 || (index+1) == filteredItems.length" v-bind:key="index+'_d'">
              <v-container fluid v-if="key.id == activeItem || (index%3 > 0 && filteredItems[index-1].id == activeItem) || (index%3 > 1 && filteredItems[index-2].id == activeItem)">
                   <v-layout row wrap>
-                    <v-progress-linear v-bind:indeterminate="true" v-if="loading.info"></v-progress-linear>
+                    <v-progress-circular v-bind:indeterminate="true" size="40"  v-if="loading.info"></v-progress-circular>
                   </v-layout>
                   <v-card class="mt-2" v-if="chartData.temperature && chartData.humidity">
                     <duration-selector :duration.sync="duration" />
@@ -112,7 +114,7 @@
           <div class="card-detail-4" v-if="(index+1)%4 == 0 || (index+1) == filteredItems.length" v-bind:key="index+'_e'">
              <v-container fluid v-if="(key.id == activeItem) || ((index%4 > 0)  && (filteredItems[index-1].id == activeItem)) || (index%4 > 1 && filteredItems[index-2].id == activeItem) || (index%4 > 2 && filteredItems[index-3].id == activeItem)">
                   <v-layout row wrap>
-                    <v-progress-linear v-bind:indeterminate="true" v-if="loading.info"></v-progress-linear>
+                    <v-progress-circular v-bind:indeterminate="true" size="40" v-if="loading.info"></v-progress-circular>
                   </v-layout>
                   <v-card class="mt-2" v-if="chartData.temperature && chartData.humidity">
                     <duration-selector :duration.sync="duration" />
@@ -320,6 +322,33 @@
 			const sensorType = this.sensorTypes.find(element => element.sensorType.uid === uid) || {}
 			return sensorType[minmax] || 0
 		},
+      setAlameRule(alarm_rules) {
+          for(var i=0; i<alarm_rules.length; i++) {
+            if (alarm_rules[i].sensorType.uid == 'temperature') {
+              this.checkTempartureRule(alarm_rules[i].rule)
+            } else if (alarm_rules[i].sensorType.uid == 'humidity'){
+              this.checkHumidityRule(alarm_rules[i].rule)
+            }
+          }
+      },
+      checkTempartureRule(rule_condition) {
+          var rule_value = rule_condition.split('value ')[1]
+          if (rule_value.indexOf(">") >= 0) {
+                this.tempMax = rule_value.split('>')[1] * 1
+          }
+            
+          if(rule_value.indexOf("<") >= 0) {
+            this.tempMin = rule_value.split('<')[1] * 1
+          }
+            
+      },
+      checkHumidityRule(rule_condition) {
+          var rule_value = rule_condition.split('value ')[1]
+          if ( rule_value.indexOf(">") >= 0)
+              this.humiMax = rule_value.split('>')[1] * 1
+          if( rule_value.indexOf("<") >= 0) 
+            this.humiMin = rule_value.split('<')[1] * 1
+      },
 		chart_data(title, yAxisTitle, color, min, max, unit, seriesTitle, measures, sensorType) {
 			// TODO 알람이 과거에는 존재하고 현재 없어진 경우, plotband subtitle에는 표시되지 않는 이슈가 있다.
 			return {

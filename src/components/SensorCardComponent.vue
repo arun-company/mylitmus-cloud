@@ -43,7 +43,9 @@
               </div>
               <div class="div-block-11">
                 <div class="div-block-16">
-                  <v-progress-circular v-bind:indeterminate="true" style="{color:red;}" v-if="loading"></v-progress-circular>
+                  <v-layout row wrap v-if="loading">
+                    <v-progress-circular v-bind:indeterminate="true" size="40"></v-progress-circular>
+                  </v-layout>
                     <template class="" v-if="chartData.temperature">
                       <highcharts :options="chartData.temperature"></highcharts>
                     </template>
@@ -51,7 +53,9 @@
               </div>
               <div class="div-block-11">
                 <div class="div-block-16">
-                  <v-progress-circular v-bind:indeterminate="true" style="{color:red;}" v-if="loading"></v-progress-circular>
+                    <v-layout row wrap v-if="loading">
+                      <v-progress-circular v-bind:indeterminate="true" size="40"></v-progress-circular>
+                    </v-layout>
                     <template class="" v-if="chartData.humidity">
                       <highcharts :options="chartData.humidity"></highcharts>
                     </template>
