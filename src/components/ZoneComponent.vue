@@ -15,14 +15,14 @@
             </div>
           </div>
           <div v-if="zone" class="content">
-              <div class="div-block-7 view-all"><img src="public/images/thermometer.png" width="20" height="20" title="평균 온도">
+              <div class="div-block-7 view-all"><img  src="public/images/thermometer.png" width="20" height="20" title="평균 온도">
                 <div class="text-block-6">평균 온도 {{getTemperature(zone.currentMeasures)}}</div>
               </div>
-              <div class="div-block-7 view-all"><img src="public/images/humidity.png" width="20" height="20" title="평균 습도">
+              <div class="div-block-7 view-all"><img  src="public/images/humidity.png" width="20" height="20" title="평균 습도">
                 <div class="text-block-6">평균 습도 {{getHumidity(zone.currentMeasures)}}</div>
               </div>
           </div>
-          <sensor-card-component v-for="sensor in sensors"  v-bind:sensor="sensor" v-bind:key="sensor.id"  @sendGraphData="updateMaxValue($event)"></sensor-card-component>
+          <sensor-card-component v-for="sensor in sensors" v-bind:minMaxTemp="[tempMin, tempMax]" v-bind:minMaxHumi="[humiMin, humiMax]" v-bind:sensor="sensor" v-bind:key="sensor.id"  @sendGraphData="updateMaxValue($event)"></sensor-card-component>
           <!-- <sensor-card-component v-for="sensor in sensors" v-bind:key="JSON.stringtify(sensor)"  @sendGraphData="updateMaxValue($event)"></sensor-card-component> -->
   </div>
 </template>
@@ -47,7 +47,11 @@
         sensors : [],
         zone:null,
         zone_loading: true,
-        minmax:null
+        minmax:null,
+        tempMin: null,
+        tempMax: null,
+        humiMin: null,
+        humiMax: null
       }
     },
      created() {
@@ -57,16 +61,50 @@
           this.zone_loading = true
           var ZONE_DETAIL = `${API_BASE}/zones/`+ this.zoneid 
           var NODES =  ZONE_DETAIL + '/nodes'
+          var ZONE_TYPE = ZONE_DETAIL + '/sensorTypes'
+          var ALARMRULE = ZONE_DETAIL + '/alarmRules'
           axios.all([
-             axios.get(ZONE_DETAIL),
-             axios.get(NODES),
+            axios.get(ZONE_TYPE),
+            axios.get(ZONE_DETAIL),
+            axios.get(NODES),
+            axios.get(ALARMRULE),
           ]).then(response => {
-              this.zone = response[0].data
-              this.sensors = response[1].data
+              this.sensorTypes = response[0].data
+              this.zone = response[1].data
+              this.sensors = response[2].data
+              this.setAlameRule(response[3].data.alarmRules)
               this.zone_loading = false
+              
           });
     },
     methods: {
+      setAlameRule(alarm_rules) {
+          for(var i=0; i<alarm_rules.length; i++) {
+            if (alarm_rules[i].sensorType.uid == 'temperature') {
+              this.checkTempartureRule(alarm_rules[i].rule)
+            } else if (alarm_rules[i].sensorType.uid == 'humidity'){
+              this.checkHumidityRule(alarm_rules[i].rule)
+            }
+          }
+      },
+      checkTempartureRule(rule_condition) {
+          var rule_value = rule_condition.split('value ')[1]
+          if (rule_value.indexOf(">") >= 0) {
+                this.tempMax = rule_value.split('>')[1] * 1
+          }
+            
+          if(rule_value.indexOf("<") >= 0) {
+            this.tempMin = rule_value.split('<')[1] * 1
+          }
+            
+      },
+      checkHumidityRule(rule_condition) {
+          var rule_value = rule_condition.split('value ')[1]
+          if ( rule_value.indexOf(">") >= 0)
+              this.humiMax = rule_value.split('>')[1] * 1
+          if( rule_value.indexOf("<") >= 0) 
+            this.humiMin = rule_value.split('<')[1] * 1
+      },
       updateMaxValue(minMax) {
           this.minmax = minMax
       },
@@ -90,7 +128,12 @@
         this.$router.push('/zone/'+  zone.name)
         return
       },
+      getTempartureWarningClass() {
 
+      },
+      getHumidityWarningClass() {
+
+      },
       getAlertClass(checkValue) {
          return (checkValue[0]&&checkValue[1])? '':'alerts'
       },
@@ -102,10 +145,10 @@
       },
       getSensorTypes() {     
         this.chartData = {}
-        const SENSOR_MIN_MAX_API = `${API_BASE}/zones/3/sensorTypes`;
-        axios.get(SENSOR_MIN_MAX_API).then(res => {
-          this.sensorTypes = res.data
-        })
+        // const SENSOR_MIN_MAX_API = `${API_BASE}/zones/${}/sensorTypes`;
+        // axios.get(SENSOR_MIN_MAX_API).then(res => {
+        //   this.sensorTypes = res.data
+        // })
 		  }
     }
   }

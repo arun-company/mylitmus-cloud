@@ -51,7 +51,7 @@
               
             </div>
           </div>
-          <div class="content">
+          <div class="content" v-if="0">
             <div class="text-content">Sensor Notificaitons</div>
             <div class="div-block-12">
               <div class="div-block-11"  v-for="rule in alarmRules" :key="rule.name">

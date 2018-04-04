@@ -37,18 +37,18 @@
                     <div v-bind:class="alert +' text-block-6'">센서 {{tempZone.data.totalNodes - tempZone.data.activeNodes}}</div>
                   </div>
                   <div class="div-block-7"><img v-bind:src="'public/images/notifications'+alert+white+'.png'" width="20" height="20" title="알림">
-                    <div v-bind:class="alert +' text-block-6'">주의  {{error * 4}}</div>
+                    <div v-bind:class="alert +' text-block-6'">주의  {{error}}</div>
                   </div>
                 </div>
                 <div class="div-block-8">
-                  <div class="div-block-7"><img  v-bind:src="'public/images/thermometer'+alert+white+'.png'" width="20" height="20" title="온도 알림" class="image-2">
-                    <div v-bind:class="alert +' text-block-6'">{{error?error:"OK"}}</div>
+                  <div class="div-block-7"><img  v-bind:src="'public/images/thermometer'+white+'.png'" width="20" height="20" title="온도 알림" class="image-2">
+                    <div v-bind:class="alert +' text-block-6'">{{false?error:"OK"}}</div>
                   </div>
-                  <div class="div-block-7"><img  v-bind:src="'public/images/humidity'+alert+white+'.png'" width="20" height="20" title="습도 알림">
-                    <div v-bind:class="alert +' text-block-6'">{{error?error:"OK"}}</div>
+                  <div class="div-block-7"><img  v-bind:src="'public/images/humidity'+white+'.png'" width="20" height="20" title="습도 알림">
+                    <div v-bind:class="alert +' text-block-6'">{{false?error:"OK"}}</div>
                   </div>
-                  <div class="div-block-7"><img  v-bind:src="'public/images/battery'+alert+white+'.png'" width="20" height="20" title="배터리 알림">
-                    <div v-bind:class="alert +' text-block-6'">{{error?error:"OK"}}</div>
+                  <div class="div-block-7"><img  v-bind:src="'public/images/battery'+white+'.png'" width="20" height="20" title="배터리 알림">
+                    <div v-bind:class="alert +' text-block-6'">{{false?error:"OK"}}</div>
                   </div>
                   <div class="div-block-7"><img  v-bind:src="'public/images/working'+sensorClass+white+'.png'" width="20" height="20" title="센서 알림">
                     <div v-bind:class="alert +' text-block-6'">{{error?error:"OK"}}</div>

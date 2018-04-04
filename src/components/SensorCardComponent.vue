@@ -1,6 +1,6 @@
 <template>
     <div class="content" v-if="sensor">
-                  <v-layout class="hidden">{{ alert= getAlertClass(sensor.currentMeasures)}} {{white=getWhiteClass(alert)}} {{activeSensor = alertSensorClass(sensor.activeAt)}}</v-layout>
+                  <v-layout class="hidden">{{ alert= getAlertClass(sensor.currentMeasures)}} {{white=getWhiteClass(alert)}} {{activeSensor = alertSensorClass(sensor.activeAt)}} {{alertTemp = getAlertTemperature(sensor.currentMeasures)}}</v-layout>
                   <div class="div-block-12">
                     <div class="div-block-11 card">
                       <div v-bind:class="alert + ' div-block-2 viewall w-inline-block'">
@@ -14,7 +14,7 @@
                         </div>
                         <div class="div-block-16 partial">
                           <div class="div-block-17 center">
-                            <img v-bind:src="'public/images/thermometer'+white+'.png'"  width="20" height="20" title="온도">
+                            <img v-bind:src="'public/images/thermometer'+alertTemp+white+'.png'"  width="20" height="20" title="온도">
                           </div>
                           <div class="div-block-17 right">
                             <div v-if="minmax" v-bind:class="alert + ' text-block-9'">최고 {{minmax.temp.max}}</div>
@@ -73,7 +73,9 @@
   import { ZONES_API, ZONE_INFO_API, API_BASE } from '@/global'
   export default {
     props: {
-      sensor: {type: Object}
+      sensor: {type: Object},
+      minMaxTemp: {type: Array},
+      minMaxHumi: {type: Array}
     },
     watch: {
       
@@ -96,10 +98,6 @@
      
     },
     mounted () {
-          // var NODES = `${API_BASE}/zones/`+ this.zoneid + '/nodes'
-          // axios.get(NODES).then(response => {
-          //     this.sensors = response.data
-          // })
 	    this.loading = true
 			const NODE_MEASURES_API = `${API_BASE}/nodes/${this.sensor.id}/measures`
 			// const EVENTS_API = `${API_BASE}/zones/${this.zoneId}/alarmEvents`
@@ -151,7 +149,17 @@
         this.$router.push('/zone/'+  zone.name)
         return
       },
-
+      getAlertTemperature(currentMeasures) {
+        if (currentMeasures && currentMeasures[0]) {
+            if (this.minMaxTemp[0] && this.minMaxTemp[1])
+              return currentMeasures[0].value > this.minMaxTemp[0] && currentMeasures[0].value < this.minMaxTemp[1] ? "":"alerts"
+            else if (this.minMaxTemp[0])
+              return currentMeasures[0].value > this.minMaxTemp[0] ? "":"alerts"
+            else if (this.minMaxTemp[1])
+              return currentMeasures[0].value < this.minMaxTemp[1] ? "":"alerts"
+        }
+        return ''
+      },
       getAlertClass(checkValue) {
          return (checkValue[0]&&checkValue[1])? '':'alerts'
       },
@@ -162,14 +170,14 @@
         return (new Date() - new Date(activeDate)) > (24 * 3600 * 1000)?'-not':''
       },
       getHumidity(currentMeasures) {
-        if (currentMeasures && currentMeasures[0]) {
-            return currentMeasures[0].value + currentMeasures[0].unit
+        if (currentMeasures && currentMeasures[1]) {
+            return currentMeasures[1].value + currentMeasures[1].unit
         }
         return '-'
       },
       getTemperature(currentMeasures) {
-         if (currentMeasures && currentMeasures[1]) {
-            return currentMeasures[1].value + currentMeasures[1].unit
+         if (currentMeasures && currentMeasures[0]) {
+            return currentMeasures[0].value + currentMeasures[0].unit
         }
         return '-'
       },
