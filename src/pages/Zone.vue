@@ -359,7 +359,7 @@
       
 		},
 		getMeasuresFromRemote(id) {
-      // var zoneid = localStorage.getItem('zoneid')
+      if (!(id * 1)) return ''
 			this.loading.info = true
 			const NODE_MEASURES_API = `${API_BASE}/nodes/${id}/measures`
 			const EVENTS_API = `${API_BASE}/zones/${this.zoneId}/alarmEvents`

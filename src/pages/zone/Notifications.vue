@@ -71,7 +71,6 @@
                     :headers="event_table_headers"
                     :items="event_table_items"
                     hide-actions
-                    :loading="loading"
                     class="elevation-1"
                   >
                     <template slot="items" scope="props">
@@ -117,13 +116,14 @@
           {id:5, name:'Settings', icon:'001-cogwheel.png', path:'/zone-settings', class:''},
         ]
       var zoneId = localStorage.getItem('zoneid');
-      var zoneObj = JSON.parse(localStorage.getItem('detail_zone'+zoneId))
+      
       return {
+        zoneId :zoneId,
         settings:null,
         sensors:null,
         alarmRules:null,
         zonename:localStorage.getItem('zonename'),
-        zone: zoneObj.data,
+        zone: null,
       	events: [],
         alarmRules: null,
         events_grouped_by_id: [],
@@ -133,6 +133,7 @@
         ],
         eventChartData: null,
         eventSeries: null,
+        timer:null,
       }
     },
     watch: {
@@ -142,12 +143,12 @@
     },
     mounted () {
       this.getSettings()
-    	this.getSummaryValue()
-    	this.timer = setInterval(() => {
-        if (this.zone) {
-          this.$store.dispatch('setZone', { zoneId : this.zone.id, shouldClear: false })
-        }
-      }, DASHBOARD_REFRESH_TIME);
+      
+      var ZONE_DETAIL = `${API_BASE}/zones/`+ this.zoneId 
+    	axios.get(ZONE_DETAIL).then(response => {
+        this.zone = response.data
+        this.getSummaryValue()
+      })
     },
     destroyed () {
     	clearInterval(this.timer)
@@ -178,7 +179,6 @@
     },
     methods: {
     	getSummaryValue () {
-        console.log(this.zone)
         if (!this.zone) { return }
         
         const EVENT_API = `${API_BASE}/zones/${this.zone.id}/alarmEvents/spots`
