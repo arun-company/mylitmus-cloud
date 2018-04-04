@@ -100,7 +100,7 @@
           var self = this;
           setTimeout(function(){
                 self.loading = false;
-            }, 6000);
+            }, 4000);
         })
       },
       getAllZones () {

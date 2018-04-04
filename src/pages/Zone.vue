@@ -25,7 +25,7 @@
     <div class="div-block-9">
       <template  v-for="(key,index) in filteredItems"> 
           <v-layout v-bind:key="index+'_0'" class="hidden">{{alertTemp = getAlertTemperature(key.currentMeasures), alertHumi = getAlertHumidity(key.currentMeasures)}} {{ alert= (alertTemp || alertHumi) ? 'alerts':getAlertClass(key.currentMeasures)}} {{white=getWhiteClass(alert)}} {{activeSensor = alertSensorClass(key.activeAt)}}</v-layout>
-          <div v-bind:class="getActiveClass(activeItem, key.id) + ' ' + alert + ' div-block-2 w-inline-block sensor-card'" @click="selectNode(key.id)" @click.stop="setActiveItem(key.id)" v-bind:key="index+'_a'">
+          <div v-bind:class="getActiveClass(activeItem, key.id) + ' ' + alert + ' div-block-2 w-inline-block sensor-card'" @click.stop="setActiveItem(key.id)" v-bind:key="index+'_a'">
             <div v-bind:class="alert+' text-block-3'">{{key.name}}</div>
             <div v-bind:class="'div-block-8'">
               <div class="div-block-7"><img v-bind:src="'public/images/thermometer'+alertTemp+white+'.png'" width="20" height="20" title="온도" class="image-2">
@@ -200,11 +200,11 @@
         '$store.state.zone': function () {
           this.getSensorTypes()
           this.getMeasuresFromRemote(this.id)
-          this.setActiveItem(this.id)
+          // this.setActiveItem(this.id)
         },
-        id: function () {
-          this.selectNode(this.id)
-        },
+        // id: function () {
+        //   this.selectNode(this.id)
+        // },
         duration: function () {
           this.getMeasuresFromRemote(this.id)
         },
@@ -334,7 +334,11 @@
       this.chartData = {}
       
 			this.node = null
-  
+      if (this.id == this.activeItem) {
+        // alert("Hello World")
+        this.activeIte=null
+        return ''
+      }
 			if (id !== this.id) {
 				this.$router.push(`/zone/${id}`)
 			}
@@ -485,11 +489,12 @@
       })
     },
     setActiveItem(nodeId) {
-      // if (this.activeItem == nodeId) {
-      //   this.activeItem = null
-      //   return
-      // }
+      if (this.activeItem == nodeId) {
+        this.activeItem = null
+        return
+      }
       this.activeItem = nodeId
+      this.selectNode(nodeId)
     },
     getActiveClass(activeItem, nodeId) {
       if (activeItem == nodeId) {
