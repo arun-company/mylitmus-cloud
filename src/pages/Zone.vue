@@ -24,14 +24,14 @@
     </div>
     <div class="div-block-9">
       <template  v-for="(key,index) in filteredItems"> 
-          <v-layout v-bind:key="index+'_0'" class="hidden">{{ alert= getAlertClass(key.currentMeasures)}} {{white=getWhiteClass(alert)}} {{activeSensor = alertSensorClass(key.activeAt)}}</v-layout>  
+          <v-layout v-bind:key="index+'_0'" class="hidden">{{alertTemp = getAlertTemperature(key.currentMeasures), alertHumi = getAlertHumidity(key.currentMeasures)}} {{ alert= (alertTemp || alertHumi) ? 'alerts':getAlertClass(key.currentMeasures)}} {{white=getWhiteClass(alert)}} {{activeSensor = alertSensorClass(key.activeAt)}}</v-layout>
           <div v-bind:class="getActiveClass(activeItem, key.id) + ' ' + alert + ' div-block-2 w-inline-block sensor-card'" @click="selectNode(key.id)" @click.stop="setActiveItem(key.id)" v-bind:key="index+'_a'">
-            <div v-bind:class="alert+' text-block-3'">{{ key.name }}</div>
+            <div v-bind:class="alert+' text-block-3'">{{key.name}}</div>
             <div v-bind:class="'div-block-8'">
-              <div class="div-block-7"><img v-bind:src="'public/images/thermometer'+white+'.png'" width="20" height="20" title="온도" class="image-2">
+              <div class="div-block-7"><img v-bind:src="'public/images/thermometer'+alertTemp+white+'.png'" width="20" height="20" title="온도" class="image-2">
                 <div v-bind:class="alert + ' text-block-6'"> {{key.currentMeasures[0]?key.currentMeasures[0].value + key.currentMeasures[0].unit:"-"}}</div>
               </div>
-              <div class="div-block-7"><img v-bind:src="'public/images/humidity'+white+'.png'" width="20" height="20" title="습도">
+              <div class="div-block-7"><img v-bind:src="'public/images/humidity'+alertHumi+white+'.png'" width="20" height="20" title="습도">
                 <div v-bind:class="alert + ' text-block-6'"> {{key.currentMeasures[1]?key.currentMeasures[1].value + key.currentMeasures[1].unit:"-"}}</div>
               </div>
               <div class="div-block-7"><img v-bind:src="'public/images/battery'+white+'.png'" width="20" height="20" title="습도" class="image-3"><img v-bind:src="'public/images/working'+activeSensor+white+'.png'" width="20" height="20" title="습도" class="image-3"></div>
@@ -191,6 +191,10 @@
           chartData: { 'temperature': null, 'humidity': null },
           card: false,
           dialog: false,
+          tempMin: null,
+          tempMax: null,
+          humiMin: null,
+          humiMax: null,
         }
       },
       watch: {
@@ -239,8 +243,58 @@
         this.getSummaryValue()
         this.getMeasuresFromRemote(this.id)
         this.setActiveItem(this.id)
+        
       },
       methods: {
+         setAlameRule(alarm_rules) {
+          for(var i=0; i<alarm_rules.length; i++) {
+            if (alarm_rules[i].sensorType.uid == 'temperature') {
+              this.checkTempartureRule(alarm_rules[i].rule)
+            } else if (alarm_rules[i].sensorType.uid == 'humidity'){
+              this.checkHumidityRule(alarm_rules[i].rule)
+            }
+          }
+        },
+        checkTempartureRule(rule_condition) {
+          var rule_value = rule_condition.split('value ')[1]
+          if (rule_value.indexOf(">") >= 0) {
+                this.tempMax = rule_value.split('>')[1] * 1
+          }
+            
+          if(rule_value.indexOf("<") >= 0) {
+            this.tempMin = rule_value.split('<')[1] * 1
+          }
+            
+      },
+      checkHumidityRule(rule_condition) {
+          var rule_value = rule_condition.split('value ')[1]
+          if ( rule_value.indexOf(">") >= 0)
+              this.humiMax = rule_value.split('>')[1] * 1
+          if( rule_value.indexOf("<") >= 0) 
+            this.humiMin = rule_value.split('<')[1] * 1
+      },
+      getAlertTemperature(currentMeasures) {
+        if (currentMeasures && currentMeasures[0]) {
+            if (this.tempMin && this.tempMax)
+              return currentMeasures[0].value > this.tempMin && currentMeasures[0].value < this.tempMax? "":"alerts"
+            else if (this.tempMin)
+              return currentMeasures[0].value > this.tempMin ? "":"alerts"
+            else if (this.tempMax)
+              return currentMeasures[0].value < this.tempMax ? "":"alerts"
+        }
+        return ''
+      },
+      getAlertHumidity(currentMeasures) {
+        if (currentMeasures && currentMeasures[1]) {
+            if (this.humiMin && this.humiMax)
+              return currentMeasures[1].value > this.humiMin && currentMeasures[1].value < this.humiMax ? "":"alerts"
+            else if (this.humiMin)
+              return currentMeasures[1].value > this.humiMin ? "":"alerts"
+            else if (this.humiMax)
+              return currentMeasures[1].value < this.humiMax ? "":"alerts"
+        }
+        return ''
+      },
     	getSummaryValue () {
         const EVENT_API = `${API_BASE}/zones/${this.zoneId}/nodes`
         axios.get(EVENT_API).then(res => {
@@ -254,6 +308,7 @@
         const ALARMS_API = `${API_BASE}/zones/${this.zone.id}/alarmRules`
         axios.get(ALARMS_API).then(res => {
           this.alarmRules = res.data.alarmRules
+          this.setAlameRule(this.alarmRules)
           this.eventSeries = this.alarmRules.map(rule => ({
             name: rule.name, data: [], color: rule.color,
           }))

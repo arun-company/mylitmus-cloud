@@ -1,10 +1,11 @@
 <template>
   <div>
     <!-- <v-progress-circular v-bind:indeterminate="true" style="{color:red;}" ></v-progress-circular> -->
-          <v-layout row wrap v-if="zone_loading">
-            <v-progress-circular v-bind:indeterminate="true" size="40"></v-progress-circular>
-          </v-layout>
+            <v-layout row wrap div-block-10 v-if="zone_loading">
+              <v-progress-circular v-bind:indeterminate="true" size="40"></v-progress-circular>
+            </v-layout>
           <div v-if="zone" class="div-block-10"><a href="#" @click="setZoneLocal({id:zoneid, name:zonename})" class="heading-4">Zone - {{zonename}}</a>
+            
             <div class="div-block-alerts">
               <div class="div-block-13">
                 <div class="div-block-13">
