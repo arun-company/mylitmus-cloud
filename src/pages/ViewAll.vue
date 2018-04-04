@@ -28,7 +28,7 @@
         <div v-for="zone in zones" class="div-block-reporting" v-bind:key="zone.name">
           <zone-component v-bind:zoneid="zone.id" v-bind:zonename="zone.name"></zone-component>
           <!-- END OF ZONE -->
-          </div>
+        </div>
           
       </div>
     </div>
@@ -128,30 +128,6 @@
           axios.get(ZONES_API).then(res => {
           this.zones = res.data;
           localStorage.setItem('zones', JSON.stringify(this.zones))
-          // this.zones = JSON.parse(localStorage.getItem('zones'));
-
-          // for(var i=0; i < res.data.length; i++) {
-            
-          //   var id = res.data[i].id
-          //   // if (localStorage.getItem('detail_zone'+ id)){
-          //   //   this.$store.state.detail_zone[id] = JSON.parse(localStorage.getItem('detail_zone'+ id))
-          //   // } else {
-          //     var ZONE_DETAIL = `${API_BASE}/zones/`+ id
-          //     var NODES = ZONE_DETAIL + '/nodes'
-          //     // var sensorType = zone + '/sensorTypes';
-          //     axios.all([
-          //         axios.get(ZONE_DETAIL),
-          //         axios.get(NODES),
-          //         // axios.get(sensorType)
-          //     ]).then(response => {
-          //       this.detail_zone[id] = response[0].data
-          //       this.nodes  = response[1].data
-          //       this.nodeAll[id] = response[1].data
-          //       localStorage.setItem('detail_zone' + response[0].data.id, JSON.stringify({'data':response[0].data,'nodes':response[1].data}))
-          //     })
-          //   // }
-          //   if (i==2) break;
-          // }
         })
       },
       getAlertClass(checkValue) {

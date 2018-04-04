@@ -15,49 +15,12 @@
       <h1 class="heading">{{headerTitle}}</h1>
     </div>
     <div class="div-block-15">
+      <!-- <v-layout row wrap div-block-10 v-if="loading">
+            <v-progress-circular v-bind:indeterminate="true" size="40"></v-progress-circular>
+      </v-layout> -->
       <div class="div-block-9">
-        <div class="progress-bar" v-if="! zones">
-          <v-progress-circular  indeterminate color="red" size="80"  :width="10"></v-progress-circular>
-        </div>
-        <template v-for="zone in filteredItems">
-            <div  v-if="tempZone=getZoneDetail(zone.id)" @click="setZoneLocal(zone)" v-bind:class="getClassAlert(tempZone.data) + ' div-block-2 w-inline-block zone-card'" v-bind:key="zone.id" >
-              <div class="hidden">{{alert = getClassAlert(tempZone.data)}}{{white=getWhiteClass(alert)}} {{sensorClass= alertSensorClass(alert)}} {{error = tempZone.data.totalNodes - tempZone.data.activeNodes}}</div>
-              <div v-bind:class="alert + ' text-block-3'">{{ tempZone.data.name }}</div>
-                <div class="div-block-8">
-                  <div v-bind:class="alert + ' text-block-8'">{{getTemperature(tempZone.data.currentMeasures)}}</div>
-                  <div v-bind:class="alert + ' text-block-8'">{{getHumidity(tempZone.data.currentMeasures)}}</div>
-                </div>
-                <div class="div-block-8">
-                  <div class="div-block-7 full"><img v-bind:src="'public/images/wireless-device'+white+'.png'" width="20" height="20" title="센서">
-                    <div v-bind:class="alert +' text-block-6'">전체 센서 {{tempZone.data.totalNodes}}</div>
-                  </div>
-                </div>
-                <div class="div-block-8">
-                  <div v-if="alert" class="div-block-7"><img v-bind:src="'public/images/alert'+white+'.png'" width="20" height="20" title="센서">
-                    <div v-bind:class="alert +' text-block-6'">센서 {{tempZone.data.totalNodes - tempZone.data.activeNodes}}</div>
-                  </div>
-                  <div class="div-block-7"><img v-bind:src="'public/images/notifications'+alert+white+'.png'" width="20" height="20" title="알림">
-                    <div v-bind:class="alert +' text-block-6'">주의  {{error}}</div>
-                  </div>
-                </div>
-                <div class="div-block-8">
-                  <div class="div-block-7"><img  v-bind:src="'public/images/thermometer'+white+'.png'" width="20" height="20" title="온도 알림" class="image-2">
-                    <div v-bind:class="alert +' text-block-6'">{{false?error:"OK"}}</div>
-                  </div>
-                  <div class="div-block-7"><img  v-bind:src="'public/images/humidity'+white+'.png'" width="20" height="20" title="습도 알림">
-                    <div v-bind:class="alert +' text-block-6'">{{false?error:"OK"}}</div>
-                  </div>
-                  <div class="div-block-7"><img  v-bind:src="'public/images/battery'+white+'.png'" width="20" height="20" title="배터리 알림">
-                    <div v-bind:class="alert +' text-block-6'">{{false?error:"OK"}}</div>
-                  </div>
-                  <div class="div-block-7"><img  v-bind:src="'public/images/working'+sensorClass+white+'.png'" width="20" height="20" title="센서 알림">
-                    <div v-bind:class="alert +' text-block-6'">{{error?error:"OK"}}</div>
-                  </div>
-                </div>
-              
-              <!-- Zone Information --> 
-              <!-- <v-progress-circular v-if="! zoneDetail[key.id]" :width="3"></v-progress-circular> -->
-            </div>
+        <template v-for="zone in filteredItems" >
+            <zone-card v-bind:key="zone.id" v-bind:id="zone.id" v-bind:zonename="zone.name"></zone-card>
         </template>
       </div>
     </div>
@@ -67,14 +30,14 @@
 <script type="text/javascript">
   import axios from 'axios'
   import moment from 'moment'
-  // import ZoneIdMixin from '@/mixins/ZoneIdMixin'
+  import ZoneCard from '@/components/ZoneCard'
   import { ZONES_API, ZONE_INFO_API, API_BASE } from '@/global'
   export default {
     // components: { EventGraph, TextCard, ServiceStatusBar },
     // mixins: [ZoneIdMixin],
+    components: { ZoneCard },
     
     data () {
-      
       this.$store.state.menu = false
       this.$store.state.menuItems =  [
         {id:1, name:'Dashboard', icon:'005-dashboard.png', path:'/site', class:'w--current'},
@@ -89,7 +52,8 @@
         open: this.drawer,
         headerTitle: 'Default',
         searchTitle: 'Search zones ...',
-        zoneDetail:[]
+        zoneDetail:[],
+        loading: true,
       }
     },
     computed:
@@ -109,9 +73,10 @@
     	
     },
     mounted () {
-      this.getAllZones()
+      this.getZones()     
     },
     methods: {
+      
       setZoneLocal: function(zone) {
         var self=this;
         localStorage.setItem('zone', JSON.stringify(zone));
@@ -120,34 +85,25 @@
         this.$router.push('/zone/'+  zone.name)
         return
       },
+      stopLoading(loading) {
+          this.loading=loading
+      },
       getSensors(zoneId) {
           if (localStorage.getItem('detail_zone'+zoneId))
             return JSON.parse(localStorage.getItem('detail_zone'+zoneId))
           return []
       },
+      getZones(){
+        this.loading = true
+        axios.get(ZONES_API).then(res => {
+          this.zones = res.data
+          // this.loading=false
+        })
+      },
       getAllZones () {
           axios.get(ZONES_API).then(res => {
           this.zones = res.data;
           localStorage.setItem('zones', JSON.stringify(this.zones))
-          // this.zones = JSON.parse(localStorage.getItem('zones'));
-
-          for(var i=0; i < res.data.length; i++) {
-            var id = res.data[i].id
-            if (localStorage.getItem('detail_zone'+ id)){
-              this.$store.state.detail_zone[id] = JSON.parse(localStorage.getItem('detail_zone'+ id))
-            } else {
-              var zone = `${API_BASE}/zones/`+ id
-              var node = zone + '/nodes'
-              axios.all([
-                  axios.get(zone),
-                  axios.get(node)
-              ]).then(response => {
-                this.$store.state.detail_zone[id] = response[0].data
-                this.$store.state.detail_zone[id].nodes = response[1].data
-                localStorage.setItem('detail_zone' + response[0].data.id, JSON.stringify({'data':response[0].data,'nodes':response[1].data}))
-              })
-            }
-          }
         })
       },
       getZoneDetail(zoneId) {

@@ -185,7 +185,6 @@
           alarmRules: [],
           loading: { list: true, info: false },
           headers: [{text: '센서ID', value: 'id', align: 'center'}],
-          node_headers: [{text: '데이터', value: 'info', align: 'center'}, {text: '값', value: 'info', align: 'center'}],
           duration: '-24h',
           chartType: 'line',
           chartData: { 'temperature': null, 'humidity': null },
