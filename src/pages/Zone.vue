@@ -20,7 +20,7 @@
       <h1 class="heading">{{zonename}}</h1>
     </div>
     <div class="div-block-5">
-        <v-layout row wrap  v-if="!imageLink">
+        <v-layout row wrap  v-if="loading_map">
           <v-progress-circular v-bind:indeterminate="true" size="40"></v-progress-circular>
         </v-layout>
         <node-map v-bind:imageLink="imageLink" ></node-map>
@@ -177,6 +177,7 @@
           sensors:[],
           zone: zoneObj,
           imageLink:'',
+          loading_map:true,
           zonename: zonename,
           searchTitle: "Search sensors ...",
           items: [],
@@ -204,6 +205,7 @@
           this.getSensorTypes()
           this.getMeasuresFromRemote(this.id)
           this.imageLink = this.$store.state.zone.floor_map
+          this.loading_map = false
           // this.setActiveItem(this.id)
         },
         // id: function () {
