@@ -2,7 +2,7 @@
     <div class="section">
       <div class="div-block-3">
         <div class="div-block-4">
-          <div class="text-block-5">Home</div>
+          <div class="text-block-5">홈</div>
         </div>
       </div>
       <div class="w-container">
@@ -47,10 +47,10 @@
     components: { EventGraph, TextCard, ServiceStatusBar, DateSelector },
     data () {
       this.$store.state.menuItems =  [
-          {id:1, name:'Dashboard', icon:'005-dashboard.png', path:'/', class:''},
-          {id:2, name:'Reporting', icon:'004-profit-report.png', path:'/home-reporting', class:'w--current'},
-          {id:3, name:'Settings', icon:'001-cogwheel.png', path:'/home-settings', class:''},
-          {id:4, name:'View', icon:'003-signs.png', path:'/view-all' , class:''},
+          {id:1, name:'대시보드', icon:'005-dashboard.png', path:'/', class:''},
+          {id:2, name:'보고서', icon:'004-profit-report.png', path:'/home-reporting', class:'w--current'},
+          {id:3, name:'보고서', icon:'001-cogwheel.png', path:'/home-settings', class:''},
+          {id:4, name:'전체 보기', icon:'003-signs.png', path:'/view-all' , class:''},
         ]
       return {
         range: {

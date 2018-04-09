@@ -5,7 +5,7 @@
       <router-link to="/" class="brand w-nav-brand">
         <div class="text-block-2">Litmus.Cloud</div>
       </router-link>
-      <nav role="navigation" class="nav-menu w-nav-menu"><a v-if="$store.getters.isAuthenticated"  @click='logout' class="nav-link w-nav-link">Sign out</a></nav>
+      <nav role="navigation" class="nav-menu w-nav-menu"><a v-if="$store.getters.isAuthenticated"  @click='logout' class="nav-link w-nav-link">로그아웃</a></nav>
       <div class="menu-button w-nav-button">
         <div class="w-icon-nav-menu"></div>
       </div>

@@ -2,7 +2,7 @@
   <div data-collapse="all" data-animation="over-left" data-duration="10" data-doc-height="1" class="navbarside w-nav">
     <div class="container w-container">
       <nav role="navigation" class="nav-menu sidebar w-nav-menu">
-        <a href="#" title="Close Menu" class="link-block-2 w-inline-block">
+        <a href="#" title="메뉴 닫기" class="link-block-2 w-inline-block">
           <img src="public/images/left-arrow-key.png" width="20" height="20">
         </a>
         <router-link v-for="(key, index) in $store.state.menuItems" :key="index" :to="key.path" :class="key.class + ' link-block-2 w-inline-block'">
@@ -12,12 +12,12 @@
 
       </nav>
 
-      <div title="Open Menu" class="menu-button w-nav-button">
+      <div title="메뉴 열기" class="menu-button w-nav-button">
         <div class="w-icon-nav-menu"></div>
       </div>
 
       <div class="div-block">
-        <router-link v-for="(key, index) in $store.state.menuItems" :key="index" :to="key.path" :class="key.class + ' link-block-2 w-inline-block'">
+        <router-link v-for="(key, index) in $store.state.menuItems" :title="key.name" :key="index" :to="key.path" :class="key.class + ' link-block-2 w-inline-block'">
           <img :src="'public/images/'+key.icon" width="20" height="20">
         </router-link>
       </div>

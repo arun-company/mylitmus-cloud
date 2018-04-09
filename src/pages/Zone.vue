@@ -3,7 +3,7 @@
     <div class="div-block-3 home">
       <div class="div-block-4">
           <router-link class="link" to="/">
-            Home
+            홈
           </router-link>
         <div class="text-block-5">&gt;</div>
           <router-link to="/site" class="link">
