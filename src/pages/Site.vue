@@ -38,13 +38,11 @@
     components: { ZoneCard },
     
     data () {
-      this.$store.state.menu = false
       this.$store.state.menuItems =  [
           {id:1, name:'대시보드', icon:'005-dashboard.png', path:'/site', class:'w--current'},
           {id:2, name:'보고서', icon:'004-profit-report.png', path:'/site-reporting', class:''},
           {id:3, name:'설정', icon:'001-cogwheel.png', path:'/site-settings', class:''},
       ]
-      // router = 
       return {
         zones:[],
         router :this.$router,

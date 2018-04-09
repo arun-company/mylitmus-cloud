@@ -37,7 +37,7 @@
       return {
         search: '',
         open: this.drawer,
-        headerTitle: 'Settings',
+        headerTitle: '설정',
         searchTitle: 'Search sites ...',
         items: [
           {id:1, name:"Default",description:""},

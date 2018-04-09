@@ -60,7 +60,7 @@
         zones:[],
         search: '',
         open: this.drawer,
-        headerTitle: 'Reporting',
+        headerTitle: '보고서',
         searchTitle: 'Search sites ...',
         items: [
           {id:1, name:"Default",description:""},
