@@ -75,14 +75,6 @@
     },
     methods: {
       
-      setZoneLocal: function(zone) {
-        var self=this;
-        localStorage.setItem('zone', JSON.stringify(zone));
-        localStorage.setItem('zoneid', zone.id);
-        localStorage.setItem('zonename', zone.name);
-        this.$router.push('/zone/'+  zone.name)
-        return
-      },
       stopLoading(loading) {
           this.loading=loading
       },
@@ -98,7 +90,7 @@
           var self = this;
           setTimeout(function(){
                 self.loading = false;
-            }, 6000);
+            }, 4000);
         })
       },
       getAllZones () {

@@ -5,7 +5,7 @@
           <v-progress-circular v-bind:indeterminate="true" size="40"></v-progress-circular>
         </v-layout>
         <svg  width="100%" :height="svgHeight" ref="svg" v-if="$store.state.zone">
-          <image :xlink:href="imageLink" x="50%" y="50%" :width="imageDisplayWidth" :height="svgHeight" :transform="`translate(${-imageDisplayWidth/2}, ${-svgHeight/2})`" v-if="imageLink"></image>
+          <image :xlink:href="imageLink" x="50%" y="50%" :width="imageDisplayWidth" :height="svgHeight" :transform="`translate(${-imageDisplayWidth/2}, ${-svgHeight/2})`"></image>
           <node v-for="node in remappedNodes" :key="node.id" :node="node" :selected="selected" @click="onClick(node)"></node>
         </svg>
     </div>
@@ -14,13 +14,13 @@
 
 <script>
   import axios from 'axios'
-  import { ENDPOINT, SVG_DEFAULT_HEIGHT } from '@/global'
+  import { ENDPOINT, SVG_DEFAULT_HEIGHT , API_BASE} from '@/global'
   import Node from '@/components/nodemap/Node'
-  
-  import { API_BASE } from '@/global'
-
   export default {
     props: {
+      imageLink: {
+        type: String,
+      },
       selectionEnabled: {
         type: Boolean,
         default: true,
@@ -66,12 +66,6 @@
         const ratio = this.svgSize.width / this.$store.state.zone.map_width
         const imageDisplayHeight = this.$store.state.zone.map_height * ratio
         return !this.infoExists || this.orientation === 'landscape' ? SVG_DEFAULT_HEIGHT : imageDisplayHeight
-      },
-      imageLink () {
-        var zoneId = localStorage.getItem('zoneid');
-        var zone = JSON.parse(localStorage.getItem('detail_zone'+zoneId))
-        return zone.data.floor_map
-        
       },
       imageDisplayWidth () {
         if (!this.infoExists) { return 0 }

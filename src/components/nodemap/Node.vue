@@ -1,5 +1,5 @@
 <template>
-  <g class="container" :transform="`translate(${node.x}, ${node.y})`" @click="onClick(node)">
+  <g class="container" :transform="`translate(${node.x}, ${node.y})`" >
     <circle 
       :class="{
         'node-circle': true,
@@ -39,7 +39,7 @@
 
 <style scoped>
   .container {
-    cursor: pointer;
+    /* cursor: pointer; */
   }
 
   .node-circle {

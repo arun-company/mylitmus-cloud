@@ -113,7 +113,7 @@
         localStorage.setItem('zone', JSON.stringify(zone));
         localStorage.setItem('zoneid', zone.id);
         localStorage.setItem('zonename', zone.name);
-        this.$router.push('/zone/'+  zone.name)
+        this.$router.push('/zone')
         return
       },
       getSensors(zoneId) {

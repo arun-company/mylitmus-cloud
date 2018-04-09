@@ -20,12 +20,15 @@
       <h1 class="heading">{{zonename}}</h1>
     </div>
     <div class="div-block-5">
-        <node-map></node-map>
+        <v-layout row wrap  v-if="loading_map">
+          <v-progress-circular v-bind:indeterminate="true" size="40"></v-progress-circular>
+        </v-layout>
+        <node-map v-bind:imageLink="imageLink" ></node-map>
     </div>
     <div class="div-block-9">
       <template  v-for="(key,index) in filteredItems"> 
           <v-layout v-bind:key="index+'_0'" class="hidden">{{alertTemp = getAlertTemperature(key.currentMeasures), alertHumi = getAlertHumidity(key.currentMeasures)}} {{ alert= (alertTemp || alertHumi) ? 'alerts':getAlertClass(key.currentMeasures)}} {{white=getWhiteClass(alert)}} {{activeSensor = alertSensorClass(key.activeAt)}}</v-layout>
-          <div v-bind:class="getActiveClass(activeItem, key.id) + ' ' + alert + ' div-block-2 w-inline-block sensor-card'" @click="selectNode(key.id)" @click.stop="setActiveItem(key.id)" v-bind:key="index+'_a'">
+          <div v-bind:class="getActiveClass(activeItem, key.id) + ' ' + alert + ' div-block-2 w-inline-block sensor-card'" @click.stop="setActiveItem(key.id)" v-bind:key="index+'_a'">
             <div v-bind:class="alert+' text-block-3'">{{key.name}}</div>
             <div v-bind:class="'div-block-8'">
               <div class="div-block-7"><img v-bind:src="'public/images/thermometer'+alertTemp+white+'.png'" width="20" height="20" title="온도" class="image-2">
@@ -173,6 +176,8 @@
           search: '',
           sensors:[],
           zone: zoneObj,
+          imageLink:'',
+          loading_map:true,
           zonename: zonename,
           searchTitle: "센서 검색 ...",
           items: [],
@@ -199,11 +204,13 @@
         '$store.state.zone': function () {
           this.getSensorTypes()
           this.getMeasuresFromRemote(this.id)
-          this.setActiveItem(this.id)
+          this.imageLink = this.$store.state.zone.floor_map
+          this.loading_map = false
+          // this.setActiveItem(this.id)
         },
-        id: function () {
-          this.selectNode(this.id)
-        },
+        // id: function () {
+        //   this.selectNode(this.id)
+        // },
         duration: function () {
           this.getMeasuresFromRemote(this.id)
         },
@@ -333,7 +340,11 @@
       this.chartData = {}
       
 			this.node = null
-  
+      if (this.id == this.activeItem) {
+        // alert("Hello World")
+        this.activeIte=null
+        return ''
+      }
 			if (id !== this.id) {
 				this.$router.push(`/zone/${id}`)
 			}
@@ -348,7 +359,7 @@
       
 		},
 		getMeasuresFromRemote(id) {
-      // var zoneid = localStorage.getItem('zoneid')
+      if (!(id * 1)) return ''
 			this.loading.info = true
 			const NODE_MEASURES_API = `${API_BASE}/nodes/${id}/measures`
 			const EVENTS_API = `${API_BASE}/zones/${this.zoneId}/alarmEvents`
@@ -484,11 +495,12 @@
       })
     },
     setActiveItem(nodeId) {
-      // if (this.activeItem == nodeId) {
-      //   this.activeItem = null
-      //   return
-      // }
+      if (this.activeItem == nodeId) {
+        this.activeItem = null
+        return
+      }
       this.activeItem = nodeId
+      this.selectNode(nodeId)
     },
     getActiveClass(activeItem, nodeId) {
       if (activeItem == nodeId) {
