@@ -3,7 +3,7 @@
       <div class="div-block-3">
         <div class="div-block-4">
           <router-link class="link" to="/">
-            Home
+          홈
           </router-link>
         <div class="text-block-5">&gt;</div>
           <router-link to="/site" class="link">
@@ -24,7 +24,7 @@
            <v-progress-linear v-bind:indeterminate="true" v-if="!settings"></v-progress-linear>
           <div class="div-block-10"><a href="zone.html" class="heading-4">Sensor - {{sensor.name}}</a></div>
           <div class="content">
-            <div class="text-content">Sensor Settings</div>
+            <div class="text-content">센서 설정</div>
             <div class="div-block-12">
                <template v-for="setting in settings">
                 <div class="div-block-11">
@@ -105,7 +105,7 @@
         zonename: localStorage.getItem('zonename'),
         search: '',
         open: this.drawer,
-        headerTitle: 'Settings',
+        headerTitle: '설정',
         searchTitle: 'Search sites ...',
         items: [
           

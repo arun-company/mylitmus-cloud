@@ -63,7 +63,7 @@
         zones:[],
         open: this.drawer,
         headerTitle: 'Organization',
-        searchTitle: 'Search sites ...',
+        searchTitle: '사이트 검색 ...',
         detail_zone: [],
         items: [
           {id:1, name:"Default",description:""},

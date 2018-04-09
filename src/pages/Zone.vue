@@ -169,13 +169,12 @@
         if (localStorage.getItem('zonename'))
             zonename = localStorage.getItem('zonename')
         return {
-          title:'Hello World',
           zoneId : localStorage.getItem('zoneid'),
           search: '',
           sensors:[],
           zone: zoneObj,
           zonename: zonename,
-          searchTitle: "Search sensors ...",
+          searchTitle: "센서 검색 ...",
           items: [],
           activeItem: null,
           node: null,

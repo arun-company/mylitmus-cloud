@@ -3,7 +3,7 @@
       <div class="div-block-3">
         <div class="div-block-4">
           <router-link class="link" to="/">
-            Home
+            홈
           </router-link>
         <div class="text-block-5">&gt;</div>
           <router-link to="/site" class="link">
@@ -14,7 +14,7 @@
         </div>
     </div>
     <div class="w-container">
-      <h1 class="heading">Notifications</h1>
+      <h1 class="heading">알림</h1>
     </div>
     <div class="w-container">
       <div class="reporting-all">
@@ -45,7 +45,7 @@
             </div>
           </div>
           <div class="content">
-            <div class="text-content">Notification Chart</div>
+            <div class="text-content">알림 그래프</div>
             <div class="div-block-12">
               <v-layout row wrap>
                 <v-flex xs12>
@@ -63,7 +63,7 @@
             </div>
           </div>
           <div class="content">
-            <div class="text-content">Notification List</div>
+            <div class="text-content">알림 리스트</div>
             <div class="div-block-12">
               <v-layout>
                 <v-flex xs12>

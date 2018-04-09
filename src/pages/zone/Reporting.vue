@@ -3,7 +3,7 @@
       <div class="div-block-3">
         <div class="div-block-4">
           <router-link class="link" to="/">
-            Home
+            홈
           </router-link>
         <div class="text-block-5">&gt;</div>
           <router-link to="/site" class="link">
@@ -56,7 +56,7 @@
         },
         search: '',
         open: this.drawer,
-        headerTitle: 'Reporting',
+        headerTitle: '보고서',
         searchTitle: 'Search sites ...',
         items: [
           {id:1, name:"Default",description:""},

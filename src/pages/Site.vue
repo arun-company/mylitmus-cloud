@@ -3,7 +3,7 @@
     <div class="div-block-3 home">
       <div class="div-block-4">
         <router-link to="/"  class="link">
-          Home
+          홈
         </router-link>
         <div class="text-block-5">&gt;</div>
         <div class="text-block-5">{{headerTitle}}</div>
@@ -40,9 +40,9 @@
     data () {
       this.$store.state.menu = false
       this.$store.state.menuItems =  [
-        {id:1, name:'Dashboard', icon:'005-dashboard.png', path:'/site', class:'w--current'},
-        {id:2, name:'Reporting', icon:'004-profit-report.png', path:'/site-reporting', class:''},
-        {id:3, name:'Settings', icon:'001-cogwheel.png', path:'/site-settings', class:''},
+          {id:1, name:'대시보드', icon:'005-dashboard.png', path:'/site', class:'w--current'},
+          {id:2, name:'보고서', icon:'004-profit-report.png', path:'/site-reporting', class:''},
+          {id:3, name:'설정', icon:'001-cogwheel.png', path:'/site-settings', class:''},
       ]
       // router = 
       return {
@@ -51,7 +51,7 @@
         search: '',
         open: this.drawer,
         headerTitle: 'Default',
-        searchTitle: 'Search zones ...',
+        searchTitle: '존 검색 ...',
         zoneDetail:[],
         loading: false,
       }

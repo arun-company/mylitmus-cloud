@@ -57,7 +57,7 @@
         search: '',
         open: this.drawer,
         headerTitle: 'Organization',
-        searchTitle: 'Search sites ...',
+        searchTitle: '사이트 검색 ...',
         items: [
           {id:1, name:"Default",description:""},
         ],
