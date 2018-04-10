@@ -199,7 +199,7 @@
           }
           const EVENT_TIMESERIES_API = `${API_BASE}/zones/${this.zone.id}/alarmEvents/timeSeries`
           axios.get(EVENT_TIMESERIES_API, { params: { dateFrom: '-24h' }}).then(res => {
-            this.eventChartData = this.chart_data('알람 현황', res.data.timeSeries)
+            this.eventChartData = this.chart_data('알림 현황', res.data.timeSeries)
           })
         })
     	},
