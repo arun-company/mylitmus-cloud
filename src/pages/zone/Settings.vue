@@ -12,8 +12,6 @@
         <div class="text-block-5">&gt;</div>
         <div v-if="zonename" class="text-block-5">{{zonename}}</div>
         </div>
-        <div class="div-block-4 search">
-          <input id="search-box" class="w-input" v-model="search" type="text" :placeholder="searchTitle"><a href="#" class="w-inline-block"><img src="public/images/search.333333.png" width="20" height="20" class="image"></a></div>
       </div>
       <div class="w-container">
         <h1 class="heading">{{headerTitle}}</h1>
@@ -96,10 +94,10 @@
     components: { EventGraph, TextCard, ServiceStatusBar },
     data () {
       this.$store.state.menuItems =  [
-          {id:1, name:'Dashboard', icon:'005-dashboard.png', path:'/zone', class:''},
-          {id:3, name:'Reporting', icon:'004-profit-report.png', path:'/zone-reporting', class:''},
-          {id:4, name:'Notifications', icon:'notificationsalerts.fff.png', path:'/zone-notifications' , class:''},
-          {id:5, name:'Settings', icon:'001-cogwheel.png', path:'/zone-settings', class:'w--current'},
+          {id:1, name:'대시보드', icon:'005-dashboard.png', path:'/zone', class:''},
+          {id:3, name:'보고서', icon:'004-profit-report.png', path:'/zone-reporting', class:''},
+          {id:4, name:'알림', icon:'notificationsalerts.fff.png', path:'/zone-notifications' , class:''},
+          {id:5, name:'설정', icon:'001-cogwheel.png', path:'/zone-settings', class:'w--current'},
         ]
       return {
         zonename: localStorage.getItem('zonename'),

@@ -41,13 +41,7 @@
   import { API_BASE } from '@/global'
   export default {
     props: ['id','zonename'],
-    data () {
-      this.$store.state.menu = false
-      this.$store.state.menuItems =  [
-        {id:1, name:'Dashboard', icon:'005-dashboard.png', path:'/site', class:'w--current'},
-        {id:2, name:'Reporting', icon:'004-profit-report.png', path:'/site-reporting', class:''},
-        {id:3, name:'Settings', icon:'001-cogwheel.png', path:'/site-settings', class:''},
-      ]
+    data () { 
       return {
         zone:null,
         router :this.$router,

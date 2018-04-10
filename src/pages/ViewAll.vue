@@ -5,7 +5,7 @@
     </div>
     <div class="reporting-all">
       <div class="div-block-reporting">
-        <div class="div-block-10"><router-link to="/site" class="heading-3">Site -Dafult</router-link>
+        <div class="div-block-10"><router-link to="/site" class="heading-3">사이트 - Dafult</router-link>
           <div class="div-block-alerts">
             <div class="div-block-13">
               <div class="text-block-7">존</div>
@@ -14,13 +14,13 @@
           </div>
         </div>
         <div class="content">
-          <div class="div-block-7 view-all"><img src="public/images/call.png" width="20" height="20" title="센서">
+          <div class="div-block-7 view-all"><img src="public/images/call.png" width="20" height="20" title="전화번호">
             <div class="text-block-6">(0666) 7777-8888</div>
           </div>
-          <div class="div-block-7 view-all"><img src="public/images/email.png" width="20" height="20" title="센서">
+          <div class="div-block-7 view-all"><img src="public/images/email.png" width="20" height="20" title="이메일">
             <div class="text-block-6">alias-alias@email.com</div>
           </div>
-          <div class="div-block-7 view-all address"><img src="public/images/location.png" width="20" height="20" title="센서">
+          <div class="div-block-7 view-all address"><img src="public/images/location.png" width="20" height="20" title="주소">
             <div class="text-block-6">전라남도 진안군 성삼읍</div>
           </div>
         </div>  
@@ -52,7 +52,7 @@
       this.$store.state.menuItems =  [
           {id:1, name:'대시보드', icon:'005-dashboard.png', path:'/', class:''},
           {id:2, name:'보고서', icon:'004-profit-report.png', path:'/home-reporting', class:''},
-          {id:3, name:'보고서', icon:'001-cogwheel.png', path:'/home-settings', class:''},
+          {id:3, name:'설정', icon:'001-cogwheel.png', path:'/home-settings', class:''},
           {id:4, name:'전체 보기', icon:'003-signs.png', path:'/view-all' , class:'w--current'},
         ]
       return {

@@ -49,7 +49,7 @@
       this.$store.state.menuItems =  [
           {id:1, name:'대시보드', icon:'005-dashboard.png', path:'/', class:''},
           {id:2, name:'보고서', icon:'004-profit-report.png', path:'/home-reporting', class:'w--current'},
-          {id:3, name:'보고서', icon:'001-cogwheel.png', path:'/home-settings', class:''},
+          {id:3, name:'설정', icon:'001-cogwheel.png', path:'/home-settings', class:''},
           {id:4, name:'전체 보기', icon:'003-signs.png', path:'/view-all' , class:''},
         ]
       return {

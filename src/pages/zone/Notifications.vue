@@ -20,7 +20,7 @@
       <div class="reporting-all">
         <div class="div-block-reporting">
           <div class="content">
-            <div class="text-content">Sensor Notificaitons</div>
+            <div class="text-content">감지기 알림</div>
             <div class="div-block-12">
               <div class="div-block-11"  v-for="rule in alarmRules" :key="rule.name">
                 <div class="div-block-18" >
@@ -110,10 +110,10 @@
       // if (localStorage.getItem('zonename'))
       //       zonename = localStorage.getItem('zonename')
       this.$store.state.menuItems =  [
-          {id:1, name:'Dashboard', icon:'005-dashboard.png', path:'/zone', class:''},
-          {id:3, name:'Reporting', icon:'004-profit-report.png', path:'/zone-reporting', class:''},
-          {id:4, name:'Notifications', icon:'notificationsalerts.fff.png', path:'/zone-notifications' , class:'w--current'},
-          {id:5, name:'Settings', icon:'001-cogwheel.png', path:'/zone-settings', class:''},
+          {id:1, name:'대시보드', icon:'005-dashboard.png', path:'/zone', class:''},
+          {id:3, name:'보고서', icon:'004-profit-report.png', path:'/zone-reporting', class:''},
+          {id:4, name:'알림', icon:'notificationsalerts.fff.png', path:'/zone-notifications' , class:'w--current'},
+          {id:5, name:'설정', icon:'001-cogwheel.png', path:'/zone-settings', class:''},
         ]
       var zoneId = localStorage.getItem('zoneid');
       

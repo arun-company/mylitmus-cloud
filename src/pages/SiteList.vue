@@ -5,7 +5,7 @@
           <div class="text-block-5">홈</div>
         </div>
         <div class="div-block-4 search">
-          <input id="search-box" class="w-input" v-model="search" type="text" :placeholder="searchTitle"><a href="#" class="w-inline-block"><img src="public/images/search.333333.png" width="20" height="20" class="image"></a></div>
+          <input id="search-box" class="w-input" v-model="search" type="text" :placeholder="searchTitle"><a href="#" class="w-inline-block"><img src="public/images/search.333333.png" width="20" height="20" class="image" title="검색"></a></div>
       </div>
       <div class="w-container">
         <h1 class="heading">{{headerTitle}}</h1>
@@ -16,17 +16,17 @@
           <router-link to="/site" class="div-block-2 alerts w-inline-block" v-for="(key, index) in filteredItems" :key="index">
             <div class="text-block-3 alerts">{{ key.name }}</div>
             <div class="div-block-8">
-              <div class="div-block-7 site"><img src="public/images/call.fff.png" width="20" height="20" title="센서">
+              <div class="div-block-7 site"><img src="public/images/call.fff.png" width="20" height="20" title="전화번호">
                 <div class="text-block-6 alerts">(0666) 7777-8888</div>
               </div>
             </div>
             <div class="div-block-8">
-              <div class="div-block-7 site"><img src="public/images/email.fff.png" width="20" height="20" title="센서">
+              <div class="div-block-7 site"><img src="public/images/email.fff.png" width="20" height="20" title="이메일">
                 <div class="text-block-6 alerts">alias-alias@email.com</div>
               </div>
             </div>
             <div class="div-block-8">
-              <div class="div-block-7 site"><img src="public/images/location.fff.png" width="20" height="20" title="센서">
+              <div class="div-block-7 site"><img src="public/images/location.fff.png" width="20" height="20" title="주소">
                 <div class="text-block-6 alerts">전라남도 진안군 성삼읍 </div>
               </div>
             </div>
@@ -50,7 +50,7 @@
       this.$store.state.menuItems =  [
           {id:1, name:'대시보드', icon:'005-dashboard.png', path:'/', class:'w--current'},
           {id:2, name:'보고서', icon:'004-profit-report.png', path:'/home-reporting', class:''},
-          {id:3, name:'보고서', icon:'001-cogwheel.png', path:'/home-settings', class:''},
+          {id:3, name:'설정', icon:'001-cogwheel.png', path:'/home-settings', class:''},
           {id:4, name:'전체 보기', icon:'003-signs.png', path:'/view-all' , class:''},
         ]
       return {

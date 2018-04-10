@@ -41,10 +41,10 @@
     components: { EventGraph, TextCard, ServiceStatusBar, DateSelector },
     data () {
       this.$store.state.menuItems =  [
-          {id:1, name:'Dashboard', icon:'005-dashboard.png', path:'/zone', class:''},
-          {id:3, name:'Reporting', icon:'004-profit-report.png', path:'/zone-reporting', class:'w--current'},
-          {id:4, name:'Notifications', icon:'notificationsalerts.fff.png', path:'/zone-notifications' , class:''},
-          {id:5, name:'Settings', icon:'001-cogwheel.png', path:'/zone-settings', class:''},
+          {id:1, name:'대시보드', icon:'005-dashboard.png', path:'/zone', class:''},
+          {id:3, name:'보고서', icon:'004-profit-report.png', path:'/zone-reporting', class:'w--current'},
+          {id:4, name:'알림', icon:'notificationsalerts.fff.png', path:'/zone-notifications' , class:''},
+          {id:5, name:'설정', icon:'001-cogwheel.png', path:'/zone-settings', class:''},
         ]
         // if (localStorage.getItem('zonename'))
         //     zonename = localStorage.getItem('zonename')

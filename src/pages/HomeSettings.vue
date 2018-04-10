@@ -4,8 +4,6 @@
         <div class="div-block-4">
           <div class="text-block-5">홈</div>
         </div>
-        <div class="div-block-4 search">
-          <input id="search-box" class="w-input" v-model="search" type="text" :placeholder="searchTitle"><a href="#" class="w-inline-block"><img src="public/images/search.333333.png" width="20" height="20" class="image"></a></div>
       </div>
       <div class="w-container">
         <h1 class="heading">{{headerTitle}}</h1>
@@ -31,7 +29,7 @@
       this.$store.state.menuItems =  [
           {id:1, name:'대시보드', icon:'005-dashboard.png', path:'/', class:''},
           {id:2, name:'보고서', icon:'004-profit-report.png', path:'/home-reporting', class:''},
-          {id:3, name:'보고서', icon:'001-cogwheel.png', path:'/home-settings', class:'w--current'},
+          {id:3, name:'설정', icon:'001-cogwheel.png', path:'/home-settings', class:'w--current'},
           {id:4, name:'전체 보기', icon:'003-signs.png', path:'/view-all' , class:''},
         ]
       return {
