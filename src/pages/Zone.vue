@@ -23,7 +23,7 @@
         <v-layout row wrap  v-if="loading_map">
           <v-progress-circular v-bind:indeterminate="true" size="40"></v-progress-circular>
         </v-layout>
-        <node-map v-bind:imageLink="imageLink" ></node-map>
+        <node-map v-bind:imageLink="imageLink"  @onSelectNode="filterResult($event)" ></node-map>
     </div>
     <div class="div-block-9">
       <template  v-for="(key,index) in filteredItems"> 
@@ -199,6 +199,7 @@
           tempMax: null,
           humiMin: null,
           humiMax: null,
+          sNodes:[]
         }
       },
       watch: {
@@ -227,11 +228,14 @@
         filteredItems:function()
         {
           var self=this;
-          return self.items.filter(function(item){
+          return self.items.filter(function(item) {
+            if (self.sNodes.length) {
+              return self.sNodes.indexOf(item.id) >= 0 && item.name.toLowerCase().indexOf(self.search.toLowerCase())>=0;
+            }
             if (item.name)
               return item.name.toLowerCase().indexOf(self.search.toLowerCase())>=0;
-            
             }
+            
           );
         },
         node_info () {
@@ -252,6 +256,19 @@
         
       },
       methods: {
+        filterResult(selectedNodes) {
+          this.sNodes = selectedNodes
+          return;
+          this.items.filter(function(item){
+            
+            // console.log(selectedNodes)
+            console.log(selectedNodes.indexOf(item.id) >= 0)
+            if (item.id)
+              return selectedNodes.indexOf(item.id) > 0;
+            }
+          )
+          console.log(this.items)
+        },
          setAlameRule(alarm_rules) {
           for(var i=0; i<alarm_rules.length; i++) {
             if (alarm_rules[i].sensorType.uid == 'temperature') {

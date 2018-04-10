@@ -6,7 +6,7 @@
         </v-layout>
         <svg  width="100%" :height="svgHeight" ref="svg" v-if="$store.state.zone">
           <image :xlink:href="imageLink" x="50%" y="50%" :width="imageDisplayWidth" :height="svgHeight" :transform="`translate(${-imageDisplayWidth/2}, ${-svgHeight/2})`"></image>
-          <node v-for="node in remappedNodes" :key="node.id" :node="node" :selected="selected" @click="onClick(node)"></node>
+          <node v-for="node in remappedNodes" :key="node.id" :node="node" :selectedNodes="selectedNodes" @click="onClick(node)"></node>
         </svg>
     </div>
   </div>
@@ -30,9 +30,10 @@
       SVG_DEFAULT_HEIGHT,
       svgSize: null,
       nodes: null,
-      selected: null,
+      selected: [],
       checkbox: false,
-      zone:null
+      zone:null,
+      selectedNodes:[]
     }),
     components: { Node },
     watch: {
@@ -94,8 +95,17 @@
       },
       onClick (node) {
         if (!this.selectionEnabled) { return }
-        this.selected = node
-        this.$emit('onSelectNode', node)
+        this.addSelecte(node)
+        
+      },
+      addSelecte(node) {
+        var index = this.selectedNodes.indexOf(node.id)
+        if ( index < 0 ) {
+            this.selectedNodes.push(node.id)
+        } else {
+            this.selectedNodes.splice(index, 1)
+        }
+        this.$emit('onSelectNode', this.selectedNodes)
       },
       setSize () {
         if (!this.$refs.svg) { return }

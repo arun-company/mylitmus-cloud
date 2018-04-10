@@ -1,9 +1,9 @@
 <template>
-  <g class="container" :transform="`translate(${node.x}, ${node.y})`" >
+  <g class="container" :transform="`translate(${node.x}, ${node.y})`"  @click="onClick(node)" >
     <circle 
       :class="{
         'node-circle': true,
-        'selected': selected ? selected.id === node.id : false,
+        'selected': isHave(node.id),
         'inactive': node.currentMeasures.length === 0,
       }" r="10"></circle>
     <text 
@@ -28,10 +28,13 @@
 
 <script>
   export default {
-    props: ['node', 'selected'],
+    props: ['node', 'selectedNodes'],
     methods: {
       onClick (node) {
         this.$emit('click', node) 
+      },
+      isHave(node_id) {
+        return this.selectedNodes.indexOf(node_id) < 0 ? false:true
       }
     }
   }
@@ -39,7 +42,7 @@
 
 <style scoped>
   .container {
-    /* cursor: pointer; */
+    cursor: pointer;
   }
 
   .node-circle {
