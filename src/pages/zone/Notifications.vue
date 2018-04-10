@@ -20,7 +20,7 @@
       <div class="reporting-all">
         <div class="div-block-reporting">
           <div class="content">
-            <div class="text-content">감지기 알림</div>
+            <div class="text-content">알림 설정</div>
             <div class="div-block-12">
               <div class="div-block-11"  v-for="rule in alarmRules" :key="rule.name">
                 <div class="div-block-18" >

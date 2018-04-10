@@ -37,10 +37,11 @@
               <div class="div-block-7"><img v-bind:src="'public/images/humidity'+alertHumi+white+'.png'" width="20" height="20" title="습도">
                 <div v-bind:class="alert + ' text-block-6'"> {{key.currentMeasures[1]?key.currentMeasures[1].value + key.currentMeasures[1].unit:"-"}}</div>
               </div>
-              <div class="div-block-7"><img v-bind:src="'public/images/battery'+white+'.png'" width="20" height="20" title="습도" class="image-3"><img v-bind:src="'public/images/working'+activeSensor+white+'.png'" width="20" height="20" title="습도" class="image-3"></div>
+              <div class="div-block-7"><img v-bind:src="'public/images/battery'+white+'.png'" width="20" height="20" title="배터리" class="image-3">
+              <img v-bind:src="'public/images/working'+activeSensor+white+'.png'" width="20" height="20" title="센서 작동 상태" class="image-3"></div>
             </div>
             <div class="div-block-8">
-              <div class="div-block-7 zoneexpand" ><img v-bind:class="getActiveClass(activeItem, key.id)" v-bind:src="'public/images/expand'+white+'.png'" width="20" height="20" title="센서"></div>
+              <div class="div-block-7 zoneexpand" ><img v-bind:class="getActiveClass(activeItem, key.id)" v-bind:src="'public/images/expand'+white+'.png'" width="20" height="20"></div>
             </div>
           </div>
           <div class="card-detail-1" v-bind:key="index+'_b'">
