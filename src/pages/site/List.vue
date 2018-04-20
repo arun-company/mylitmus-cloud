@@ -36,7 +36,6 @@
     // components: { EventGraph, TextCard, ServiceStatusBar },
     // mixins: [ZoneIdMixin],
     components: { ZoneCard },
-    props: ['siteid'],
     data () {
       this.$store.state.menuItems =  [
           {id:1, name:'대시보드', icon:'005-dashboard.png', path:'/site', class:'w--current'},
@@ -48,10 +47,11 @@
         router :this.$router,
         search: '',
         open: this.drawer,
-        headerTitle: 'Default___ SITE LIST',
+        headerTitle: localStorage.getItem('sitename'),
         searchTitle: '존 검색 ...',
         zoneDetail:[],
         loading: false,
+        siteid: localStorage.getItem('siteid'),
       }
     },
     computed:
@@ -85,9 +85,10 @@
       },
       getZones(){
         this.loading=true
-        var ZoneAPI = API_BASE + "/sites/8/zones"
+        var ZoneAPI = API_BASE + "/sites/"+this.siteid+"/zones"
         axios.get(ZoneAPI).then(res => {
           this.zones = res.data
+          
           var self = this;
           self.loading = false;
           
@@ -125,7 +126,7 @@
             return currentMeasures[0].value + currentMeasures[0].unit
         }
         return '-'
-      },
+      }
     }
   }
 </script>

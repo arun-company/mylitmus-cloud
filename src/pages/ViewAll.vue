@@ -5,31 +5,28 @@
     </div>
     <div v-for="site in filteredItems" class="reporting-all" v-bind:key="site.id">
       <div class="div-block-reporting">
-        <div class="div-block-10"><router-link to="/site" class="heading-3">사이트 - {{site.name}}</router-link>
+        <div class="div-block-10"><router-link :to="'/site/'+site.id" class="heading-3">사이트 - {{site.name}}</router-link>
           <div class="div-block-alerts">
             <div class="div-block-13">
               <div class="text-block-7">존</div>
-              <div class="text-block-7">{{zones.length}}곳</div>
+              <div class="text-block-7">{{items.length}}곳</div>
             </div>
           </div>
         </div>
         <div class="content">
           <div class="div-block-7 view-all"><img src="public/images/call.png" width="20" height="20" title="전화번호">
-            <div class="text-block-6">{{site.mobilePhone}}</div>
+            <div class="text-block-6">{{site.mobilePhone ? site.mobilePhone:'-'}}</div>
           </div>
           <div class="div-block-7 view-all"><img src="public/images/email.png" width="20" height="20" title="이메일">
-            <div class="text-block-6">alias-alias@email.com</div>
+            <div class="text-block-6">{{site.email ? site.email:'-'}}</div>
           </div>
           <div class="div-block-7 view-all address"><img src="public/images/location.png" width="20" height="20" title="주소">
-            <div class="text-block-6">전라남도 진안군 성삼읍</div>
+            <div class="text-block-6">{{site.address ? site.address:'-'}}</div>
           </div>
         </div>  
         <!-- END OF SITE DETAIL -->
-        <div v-for="zone in zones" class="div-block-reporting" v-bind:key="zone.name">
-          <zone-component v-bind:zoneid="zone.id" v-bind:zonename="zone.name"></zone-component>
-          <!-- END OF ZONE -->
-        </div>
-          
+        <zone-list :key="site.id" :siteid="site.id"></zone-list>
+        
       </div>
     </div>
   </div>
@@ -40,14 +37,14 @@
   import moment from 'moment'
 
   import EventGraph from '@/components/charts/EventGraph'
-  import ZoneComponent from '@/components/ZoneComponent'
+  import ZoneList from '@/components/ZoneList'
   // import TextCard from '@/components/dashboard/TextCard'
   // import ServiceStatusBar from '@/components/dashboard/ServiceStatusBar'
   import { toFixedNumber } from '@/util'
   import { ZONES_API, ZONE_INFO_API, API_BASE } from '@/global'
 
   export default {
-    components: { ZoneComponent },
+    components: { ZoneList },
     data () {
       this.$store.state.menuItems =  [
           {id:1, name:'대시보드', icon:'005-dashboard.png', path:'/', class:''},
@@ -66,7 +63,7 @@
         searchTitle: '사이트 검색 ...',
         detail_zone: [],
         items: [
-          {id:1, name:"Default",description:""},
+          
         ],
         sensorTypes: [{"sensorType":{"name":"온도","uid":"temperature","unit":"℃"},"min_value":5.0,"max_value":40.0},{"sensorType":{"name":"습도","uid":"humidity","unit":"%"},"min_value":0.0,"max_value":100.0}],
         alarmEvents: [],
@@ -96,7 +93,6 @@
     },
     mounted () {
       // this.getChartTemperature()
-      this.getAllZones()
       this.getSite()      
     },
     methods: {
@@ -107,18 +103,16 @@
               this.measures= response.data    
               this.getChartData()
             })
-          
       },
       getSite() {
         var ORGS_API = API_BASE + "/users/self/orgs"
         axios.get(ORGS_API).then(res => {
           this.org = res.data[0]
-          console.log(res.data)
           this.headerTitle = this.org.name
           var SITE_API = API_BASE + '/orgs/'+this.org.id+'/sites'
           axios.get(SITE_API).then(res => {
             this.items = res.data
-            this.loading = false
+            this.getAllZones()
           })
         })
       },
@@ -138,6 +132,7 @@
 
       },
       getAllZones () {
+          var ZONE_API = 
           axios.get(ZONES_API).then(res => {
           this.zones = res.data;
           localStorage.setItem('zones', JSON.stringify(this.zones))

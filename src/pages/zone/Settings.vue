@@ -6,8 +6,8 @@
           홈
           </router-link>
         <div class="text-block-5">&gt;</div>
-          <router-link to="/site" class="link">
-            Default
+          <router-link :to="'/site/'+siteid" class="link">
+            {{sitename}}
           </router-link>
         <div class="text-block-5">&gt;</div>
         <div v-if="zonename" class="text-block-5">{{zonename}}</div>
@@ -46,7 +46,7 @@
               </template>
               
                
-              
+
             </div>
           </div>
           <div class="content" v-if="0">
@@ -110,7 +110,9 @@
         ],
         settings:null,
         sensors:null,
-        alarmRules:null
+        alarmRules:null,
+        sitename:localStorage.getItem('sitename'),
+        siteid:localStorage.getItem('siteid'),
       }
     },
     computed:

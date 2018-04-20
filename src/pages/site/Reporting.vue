@@ -6,7 +6,7 @@
               홈
             </router-link>
             <div class="text-block-5">&gt;</div>
-            <div class="text-block-5">Default</div>
+            <div class="text-block-5">{{sitename}}</div>
           </div>        
       </div>
       <div class="w-container">
@@ -116,9 +116,8 @@
         open: this.drawer,
         headerTitle: '보고서',
         searchTitle: 'Search sites ...',
-        items: [
-          {id:1, name:"Default",description:""},
-        ],
+        sitename:localStorage.getItem('sitename'),
+        siteid:localStorage.getItem('siteid'),
       }
     },
     computed:

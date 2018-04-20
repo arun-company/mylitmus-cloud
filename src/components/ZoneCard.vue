@@ -12,7 +12,7 @@
           </div>
           <div class="div-block-8">
             <div v-if="alert" class="div-block-7"><img v-bind:src="'public/images/alert'+white+'.png'" width="20" height="20" title="센서">
-              <div v-bind:class="alert +' text-block-6'">센서 {{countWorking}}</div>
+              <div v-bind:class="alert +' text-block-6'">센서 {{ zone.alarmEventNodeCount}}</div>
             </div>
             <div class="div-block-7"><img v-bind:src="'public/images/notifications'+alert+white+'.png'" width="20" height="20" title="알림">
               <div v-bind:class="alert +' text-block-6'">주의  {{totalAlert}}</div>
@@ -20,7 +20,7 @@
           </div>
           <div class="div-block-8">
             <div class="div-block-7"><img  v-bind:src="'public/images/thermometer'+alertTemp+white+'.png'" width="20" height="20" title="온도 알림" class="image-2">
-              <div v-bind:class="alert +' text-block-6'">{{countTemp?countTemp:"OK"}}</div>
+              <div v-bind:class="alert +' text-block-6'">{{zone.alarmEventRuleCount?zone.alarmEventRuleCount:"OK"}}</div>
             </div>
             <div class="div-block-7"><img  v-bind:src="'public/images/humidity'+alertHumi+white+'.png'" width="20" height="20" title="습도 알림">
               <div v-bind:class="alert +' text-block-6'">{{countHumi?countHumi:"OK"}}</div>
@@ -74,46 +74,48 @@
           axios.all([
             axios.get(ZONE_DETAIL),
             axios.get(NODES),
-            axios.get(ALARMRULE),
+            // axios.get(ALARMRULE),
           ]).then(response => {
               this.zone = response[0].data
-              this.nodes = response[1].data
-              this.setAlameRule(response[2].data.alarmRules)
+              console.log(this.zone)
+              // this.nodes = response[1].data
+              // this.setAlameRule(response[2].data.alarmRules)
               
-              if (this.zone.currentMeasures.length > 0) {
-                   for (var i=0; i<this.nodes.length; i++) {
+              // if (this.zone.currentMeasures.length > 0) {
+              //      for (var i=0; i<this.nodes.length; i++) {
                     
-                     if ((this.nodes[i].currentMeasures.length && this.nodes[i].currentMeasures[0])) {
-                        if(this.tempMin && this.tempMax) {
-                           if (!(this.nodes[i].currentMeasures[0] > this.tempMin && this.nodes[i].currentMeasures[0] < this.tempMax))
-                            this.countTemp += 1
-                        } else if (this.tempMin) {
-                            if (this.nodes[i].currentMeasures[0] < this.tempMin){
-                              this.countTemp += 1
-                            }
-                        } else if (this.tempMax) {
-                            if (this.nodes[i].currentMeasures[0] > this.tempMax) 
-                            {
-                              this.countTemp += 1
-                            }
-                        }
+              //        if ((this.nodes[i].currentMeasures.length && this.nodes[i].currentMeasures[0])) {
+              //           if(this.tempMin && this.tempMax) {
+              //              if (!(this.nodes[i].currentMeasures[0] > this.tempMin && this.nodes[i].currentMeasures[0] < this.tempMax))
+              //               this.countTemp += 1
+              //           } else if (this.tempMin) {
+              //               if (this.nodes[i].currentMeasures[0] < this.tempMin){
+              //                 this.countTemp += 1
+              //               }
+              //           } else if (this.tempMax) {
+              //               if (this.nodes[i].currentMeasures[0] > this.tempMax) 
+              //               {
+              //                 this.countTemp += 1
+              //               }
+              //           }
                         
                         
-                     } 
-                     if ((this.nodes[i].currentMeasures.length && this.nodes[i].currentMeasures[1])) {
-                       // TODO Count Min max Humi
-                     }
-                   }
+              //        } 
+              //        if ((this.nodes[i].currentMeasures.length && this.nodes[i].currentMeasures[1])) {
+              //          // TODO Count Min max Humi
+              //        }
+              //      }
                    
 
-              }
+              // }
                  
               this.countWorking = this.zone.totalNodes - this.zone.activeNodes
               this.workingClass = this.countWorking ? "-not":""
-              this.alert = this.countWorking? "alerts":""
+              this.alert = this.zone.alarmEventCount|this.zone.alarmEventNodeCount|this.zone.alarmEventRuleCount? "alerts":""
               this.white = this.alert?".fff":""
-              this.alertTemp= this.countTemp?'alerts':''
-              this.totalAlert = this.countTemp + this.countWorking + this.countBattery + this.countHumi
+
+              this.alertTemp= this.zone.alarmEventRuleCount?'alerts':''
+              this.totalAlert = this.zone.alarmEventCount + this.zone.alarmEventNodeCount + this.zone.alarmEventRuleCount
               
               // this.$emit('loadingstop', false)
           });
