@@ -1,40 +1,41 @@
-import Vue from 'vue'
-import App from './App.vue'
-import Vuetify from 'vuetify'
-import VueRouter from 'vue-router'
-import VueHighcharts from 'vue-highcharts'
-import Vuex from 'vuex'
-import './stylus/main.styl'
-import axios from 'axios'
+import Vue from 'vue';
+import App from './App.vue';
+import Vuetify from 'vuetify';
+import VueRouter from 'vue-router';
+import VueHighcharts from 'vue-highcharts';
+import Vuex from 'vuex';
+import './stylus/main.styl';
+import axios from 'axios';
 import Highcharts from  "highcharts";
 import highchartsMore from 'highcharts/highcharts-more';
 import loadStock from 'highcharts/modules/stock';
 
-import Login from '@/pages/Login'
-import SiteList from '@/pages/SiteList'
-import HomeReporting from '@/pages/HomeReporting'
-import HomeSettings from '@/pages/HomeSettings' 
+import Login from '@/pages/Login';
+import SiteList from '@/pages/SiteList';
+import HomeReporting from '@/pages/HomeReporting';
+import HomeSettings from '@/pages/HomeSettings';
 
-import SiteReporting from '@/pages/site/Reporting'
-import SiteSettings from '@/pages/site/Settings' 
+import SiteReporting from '@/pages/site/Reporting';
+import SiteSettings from '@/pages/site/Settings'; 
 
-import ZoneReporting from '@/pages/zone/Reporting'
-import ZoneSettings from '@/pages/zone/Settings' 
-import ZoneNotifications from '@/pages/zone/Notifications' 
+import ZoneReporting from '@/pages/zone/Reporting';
+import ZoneSettings from '@/pages/zone/Settings'; 
+import ZoneNotifications from '@/pages/zone/Notifications'; 
 
-import ViewAll from '@/pages/ViewAll'
-import Zone from '@/pages/Zone'
-import Site from '@/pages/Site'
-import Sensor from '@/pages/Sensor'
-import Dashboard from '@/pages/Dashboard'
-import SensorList from '@/pages/SensorList'
-import Report from '@/pages/Report'
-import AlarmRules from '@/pages/AlarmRules'
-import Settings from '@/pages/Settings'
+import ViewAll from '@/pages/ViewAll';
+import Zone from '@/pages/Zone';
+// import Site from '@/pages/Site';
+import Site from '@/pages/site/List';
+import Sensor from '@/pages/Sensor';
+import Dashboard from '@/pages/Dashboard';
+import SensorList from '@/pages/SensorList';
+import Report from '@/pages/Report';
+import AlarmRules from '@/pages/AlarmRules';
+import Settings from '@/pages/Settings';
 // import BootstrapVue from 'bootstrap-vue'
 
-import { ZONES_API, ZONE_INFO_API } from '@/global'
-import auth from '@/auth'
+import { ZONES_API, ZONE_INFO_API } from '@/global';
+import auth from '@/auth';
 
 Vue.use(Vuetify)
 Vue.use(VueRouter)
@@ -74,7 +75,7 @@ const routes = [
 	{ path: '/zone-notifications', component: ZoneNotifications },
 	{ path: '/login', component: Login },
 	{ path: '/dashboard', component: Dashboard },
-	{ path: '/site/:zoneid', component: Site },
+	{ path: '/site/:siteid', component: Site },
 	{ path: '/site', component: Site },
 	{ path: '/zone', component: Zone },
 	{ path: '/zone/:id', component: Zone, props: true },
