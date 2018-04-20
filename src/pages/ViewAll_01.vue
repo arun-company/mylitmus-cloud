@@ -3,9 +3,9 @@
     <div class="w-container">
       <h1 class="heading">{{headerTitle}}</h1>
     </div>
-    <div v-for="site in filteredItems" class="reporting-all" v-bind:key="site.id">
+    <div class="reporting-all">
       <div class="div-block-reporting">
-        <div class="div-block-10"><router-link to="/site" class="heading-3">사이트 - {{site.name}}</router-link>
+        <div class="div-block-10"><router-link to="/site" class="heading-3">사이트 - Dafult</router-link>
           <div class="div-block-alerts">
             <div class="div-block-13">
               <div class="text-block-7">존</div>
@@ -15,7 +15,7 @@
         </div>
         <div class="content">
           <div class="div-block-7 view-all"><img src="public/images/call.png" width="20" height="20" title="전화번호">
-            <div class="text-block-6">{{site.mobilePhone}}</div>
+            <div class="text-block-6">(0666) 7777-8888</div>
           </div>
           <div class="div-block-7 view-all"><img src="public/images/email.png" width="20" height="20" title="이메일">
             <div class="text-block-6">alias-alias@email.com</div>
@@ -96,8 +96,7 @@
     },
     mounted () {
       // this.getChartTemperature()
-      this.getAllZones()
-      this.getSite()      
+      this.getAllZones()      
     },
     methods: {
       getChartTemperature: function(nodeId) {
@@ -108,19 +107,6 @@
               this.getChartData()
             })
           
-      },
-      getSite() {
-        var ORGS_API = API_BASE + "/users/self/orgs"
-        axios.get(ORGS_API).then(res => {
-          this.org = res.data[0]
-          console.log(res.data)
-          this.headerTitle = this.org.name
-          var SITE_API = API_BASE + '/orgs/'+this.org.id+'/sites'
-          axios.get(SITE_API).then(res => {
-            this.items = res.data
-            this.loading = false
-          })
-        })
       },
       setZoneLocal: function(zone) {
         var self=this;
