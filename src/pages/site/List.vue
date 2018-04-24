@@ -20,7 +20,7 @@
       </v-layout>
       <div class="div-block-9">
         <template v-for="zone in filteredItems" >
-            <zone-card v-bind:key="zone.id" v-bind:id="zone.id" v-bind:zonename="zone.name"></zone-card>
+            <zone-card v-bind:key="zone.id" v-bind:id="zone.id" v-bind:zone="zone"></zone-card>
         </template>
       </div>
     </div>
@@ -52,6 +52,7 @@
         zoneDetail:[],
         loading: false,
         siteid: localStorage.getItem('siteid'),
+        sitename: localStorage.getItem('sitename'),
       }
     },
     computed:

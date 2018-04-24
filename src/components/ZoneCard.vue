@@ -1,9 +1,9 @@
 <template>
-   <div v-if="zone" @click="setZoneLocal({'id':id,'name':zonename})" v-bind:class="alert + ' div-block-2 w-inline-block zone-card'">
+   <div v-if="zone" @click="setZoneLocal({'id':zone.id,'name':zone.name})" v-bind:class="alert + ' div-block-2 w-inline-block zone-card'">
      <div v-bind:class="alert + ' text-block-3'">{{ zone.name }}</div>
      <div class="div-block-8">
-            <div v-bind:class="alert + ' text-block-8'">{{getTemperature(zone.currentMeasures)}}</div>
-            <div v-bind:class="alert + ' text-block-8'">{{getHumidity(zone.currentMeasures)}}</div>
+            <div v-bind:class="alert + ' text-block-8'">{{parseFloat(Math.round(zone.currentTemperature * 100) / 100).toFixed(2) }}</div>
+            <div v-bind:class="alert + ' text-block-8'">{{parseFloat(Math.round(zone.currentHumidity * 100) / 100).toFixed(2) }}</div>
           </div>
           <div class="div-block-8">
             <div class="div-block-7 full"><img v-bind:src="'public/images/wireless-device'+white+'.png'" width="20" height="20" title="센서">
@@ -12,7 +12,7 @@
           </div>
           <div class="div-block-8">
             <div v-if="alert" class="div-block-7"><img v-bind:src="'public/images/alert'+white+'.png'" width="20" height="20" title="센서">
-              <div v-bind:class="alert +' text-block-6'">센서 {{ zone.alarmEventNodeCount}}</div>
+              <div v-bind:class="alert +' text-block-6'">센서 {{ Math.max(zone.temperatureWarningCount, zone.humidityWarningCount, zone.batteryWarningCount, zone.inactiveNodes)}}</div>
             </div>
             <div class="div-block-7"><img v-bind:src="'public/images/notifications'+alert+white+'.png'" width="20" height="20" title="알림">
               <div v-bind:class="alert +' text-block-6'">주의  {{totalAlert}}</div>
@@ -20,16 +20,16 @@
           </div>
           <div class="div-block-8">
             <div class="div-block-7"><img  v-bind:src="'public/images/thermometer'+alertTemp+white+'.png'" width="20" height="20" title="온도 알림" class="image-2">
-              <div v-bind:class="alert +' text-block-6'">{{zone.alarmEventRuleCount?zone.alarmEventRuleCount:"OK"}}</div>
+              <div v-bind:class="alert +' text-block-6'">{{zone.temperatureWarningCount?zone.temperatureWarningCount:"OK"}}</div>
             </div>
             <div class="div-block-7"><img  v-bind:src="'public/images/humidity'+alertHumi+white+'.png'" width="20" height="20" title="습도 알림">
-              <div v-bind:class="alert +' text-block-6'">{{countHumi?countHumi:"OK"}}</div>
+              <div v-bind:class="alert +' text-block-6'">{{zone.humidityWarningCount?zone.humidityWarningCount:"OK"}}</div>
             </div>
-            <div class="div-block-7"><img  v-bind:src="'public/images/battery'+white+'.png'" width="20" height="20" title="배터리 알림">
-              <div v-bind:class="alert +' text-block-6'">{{false?error:"OK"}}</div>
+            <div class="div-block-7"><img  v-bind:src="'public/images/battery'+batteryError+white+'.png'" width="20" height="20" title="배터리 알림">
+              <div v-bind:class="alert +' text-block-6'">{{zone.batteryWarningCount?zone.batteryWarningCount:"OK"}}</div>
             </div>
             <div class="div-block-7"><img  v-bind:src="'public/images/working'+workingClass+white+'.png'" width="20" height="20" title="센서 알림">
-              <div v-bind:class="alert +' text-block-6'">{{countWorking?countWorking:"OK"}}</div>
+              <div v-bind:class="alert +' text-block-6'">{{zone.inactiveNodes?zone.inactiveNodes:"OK"}}</div>
             </div>
         </div>
   </div>
@@ -40,10 +40,14 @@
   import moment from 'moment'
   import { API_BASE } from '@/global'
   export default {
-    props: ['id','zonename'],
+    // props: ['id','zonename', 'zone'],
+    props: {
+      zone: {type: Object},
+      // minMaxTemp: {type: Array},
+      // minMaxHumi: {type: Array}
+    },
     data () { 
       return {
-        zone:null,
         router :this.$router,
         search: '',
         open: this.drawer,
@@ -65,19 +69,21 @@
         tempMax: null,
         humiMin: null,
         humiMax: null,
+        workingClass:null,
+        batteryError:'',
       }
     },
     mounted () { 
-          var ZONE_DETAIL = `${API_BASE}/zones/`+ this.id 
-          var NODES =  ZONE_DETAIL + '/nodes'
-          var ALARMRULE = ZONE_DETAIL + '/alarmRules'
-          axios.all([
-            axios.get(ZONE_DETAIL),
-            axios.get(NODES),
-            // axios.get(ALARMRULE),
-          ]).then(response => {
-              this.zone = response[0].data
-              console.log(this.zone)
+          // var ZONE_DETAIL = `${API_BASE}/zones/`+ this.id 
+          // var NODES =  ZONE_DETAIL + '/nodes'
+          // var ALARMRULE = ZONE_DETAIL + '/alarmRules'
+          // axios.all([
+          //   axios.get(ZONE_DETAIL),
+          //   // axios.get(NODES),
+          //   // axios.get(ALARMRULE),
+          // ]).then(response => {
+          //     this.zone = response[0].data
+          //     console.log(this.zone)
               // this.nodes = response[1].data
               // this.setAlameRule(response[2].data.alarmRules)
               
@@ -108,17 +114,14 @@
                    
 
               // }
-                 
-              this.countWorking = this.zone.totalNodes - this.zone.activeNodes
+              this.countWorking = this.zone.inactiveNodes
+              // this.countWorking = this.zone.totalNodes - this.zone.activeNodes
               this.workingClass = this.countWorking ? "-not":""
-              this.alert = this.zone.alarmEventCount|this.zone.alarmEventNodeCount|this.zone.alarmEventRuleCount? "alerts":""
+              this.alert = this.zone.batteryWarningCount|this.zone.humidityWarningCount|this.zone.temperatureWarningCount? "alerts":""
               this.white = this.alert?".fff":""
-
-              this.alertTemp= this.zone.alarmEventRuleCount?'alerts':''
-              this.totalAlert = this.zone.alarmEventCount + this.zone.alarmEventNodeCount + this.zone.alarmEventRuleCount
-              
-              // this.$emit('loadingstop', false)
-          });
+              this.batteryError = this.zone.batteryWarningCount?'alerts':''
+              this.alertTemp= this.zone.temperatureWarningCount?'alerts':''
+              this.totalAlert = this.zone.temperatureWarningCount + this.zone.humidityWarningCount + this.zone.batteryWarningCount
     },
     methods: {
         setAlameRule(alarm_rules) {

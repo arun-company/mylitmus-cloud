@@ -76,7 +76,7 @@ const routes = [
 	{ path: '/login', component: Login },
 	{ path: '/dashboard', component: Dashboard },
 	{ path: '/site/:siteid', component: Site , props: true},
-	// { path: '/site', component: Site },
+	{ path: '/site', component: Site },
 	{ path: '/zone', component: Zone },
 	{ path: '/zone/:id', component: Zone, props: true },
 	{ path: '/sensor', component: Sensor },

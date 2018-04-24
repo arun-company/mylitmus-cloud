@@ -97,6 +97,8 @@
         loading: true,
         minmax:null,
         countAlert:false,
+        tempMeasure:[],
+        humiMeasure:[],
       }
     },
      created() {
@@ -104,13 +106,19 @@
     },
     mounted () {
 	    this.loading = true
-			const NODE_MEASURES_API = `${API_BASE}/nodes/${this.sensor.id}/measures`
+      const NODE_MEASURES_API = `${API_BASE}/nodes/${this.sensor.id}/measures`
+      const NEW_NODE_TEMP_MEASURES_API = `${API_BASE}/nodes/${this.sensor.id}/sensorTypes/temperature/measures`
+      const NEW_NODE_HUMI_MEASURES_API = `${API_BASE}/nodes/${this.sensor.id}/sensorTypes/humidity/measures`
 			axios.all([
-				axios.get(NODE_MEASURES_API, { params: { dateFrom: this.duration }}),
+        axios.get(NODE_MEASURES_API, { params: { dateFrom: this.duration }}),
+        axios.get(NEW_NODE_TEMP_MEASURES_API, { params: { dateFrom: this.duration }}),
+        axios.get(NEW_NODE_HUMI_MEASURES_API, { params: { dateFrom: this.duration }}),
 				// axios.get(EVENTS_API, { params: { dateFrom: this.duration }}),
 				// axios.get(RULES_API),
 			]).then(res => {
-				this.measures = res[0].data.measures
+        this.measures = res[0].data.measures
+        this.tempMeasure = res[1].data.measures
+        this.humiMeasure = res[2].data.measures
 				// this.alarmEvents = res[1].data.filter(event => event.nodeId === id)
 				// this.alarmRules = res[2].data.alarmRules
 				this.chartData.temperature = this.chart_data('온도', '온도 (℃)', '#ee513b', this.getMinMax('temperature', 'min_value'), this.getMinMax('temperature', 'max_value'), '℃', '온도', this.measures.filter(measure => measure.sensorType.uid === 'temperature'), 'temperature')

@@ -92,18 +92,9 @@
       
     },
     mounted () {
-      // this.getChartTemperature()
-      this.getSite()      
+      this.getSite()
     },
     methods: {
-      getChartTemperature: function(nodeId) {
-            nodeId = 1000005
-            var NODE_MESEARED = `${API_BASE}/nodes/${nodeId}/measures?dateFrom=-24h`
-            axios.get(NODE_MESEARED).then(response => {
-              this.measures= response.data    
-              this.getChartData()
-            })
-      },
       getSite() {
         var ORGS_API = API_BASE + "/users/self/orgs"
         axios.get(ORGS_API).then(res => {

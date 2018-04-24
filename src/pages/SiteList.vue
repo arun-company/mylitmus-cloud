@@ -16,7 +16,7 @@
             <v-progress-circular v-bind:indeterminate="true" size="40"></v-progress-circular>
          </v-layout>
         <div class="div-block-9">
-          <div class="div-block-2 alerts w-inline-block" v-for="(key, index) in filteredItems" :key="index" @click="setSiteName(key.name, key.id)">
+          <div class="div-block-2 alerts w-inline-block sitecard-small" v-for="(key, index) in filteredItems" :key="index" @click="setSiteName(key.name, key.id)">
             <div class="text-block-3 alerts">{{ key.name }}</div>
             <div class="div-block-8">
               <div class="div-block-7 site"><img src="public/images/call.fff.png" width="20" height="20" title="전화번호">
@@ -102,7 +102,7 @@
   }
 </script>
 <style>
-  .div-block-2.w-inline-block {
+  .sitecard-small {
     cursor: pointer;
   }
 </style>
