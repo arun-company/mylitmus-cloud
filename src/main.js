@@ -99,7 +99,7 @@ router.beforeEach((to, from, next) => {
 })
 
 export const store = new Vuex.Store({
-	state: { zones: [], zoneid: null, zone: null, token: null, menu:true, menuItems:[], detail_zone:[]},
+	state: { zones: [], zoneid: null, zone: null, token: null, menu:true, menuItems:[], detail_zone:[], switch:[]},
 	mutations: {
 		setZones (state, zones) { state.zones = zones },
 		setZoneId (state, zoneid) { state.zoneid = zoneid },

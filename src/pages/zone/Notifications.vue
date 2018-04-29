@@ -115,6 +115,9 @@
           {id:4, name:'알림', icon:'notificationsalerts.fff.png', path:'/zone-notifications' , class:'w--current'},
           {id:5, name:'설정', icon:'001-cogwheel.png', path:'/zone-settings', class:''},
         ]
+      this.$store.state.switch = [
+        
+      ]
       var zoneId = localStorage.getItem('zoneid');
       
       return {

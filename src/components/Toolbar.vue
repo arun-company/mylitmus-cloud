@@ -9,7 +9,10 @@
           <img :src="'public/images/'+key.icon" width="20" height="20">
           <div class="text-block">{{key.name}}</div>
         </router-link>
-
+        <router-link v-for="(key, index) in $store.state.switch" :key="index +'_3'"  :to="key.path" :class=" scroll==index?'hidden':'' + ' link-block-2 w-inline-block'" @click="setActive(index)">
+          <img :src="'public/images/'+key.icon" width="25">
+          <div class="text-block">{{key.name}}</div>
+        </router-link>
       </nav>
 
       <div title="메뉴 열기" class="menu-button w-nav-button">
@@ -20,6 +23,11 @@
         <router-link v-for="(key, index) in $store.state.menuItems" :title="key.name" :key="index" :to="key.path" :class="key.class + ' link-block-2 w-inline-block'">
           <img :src="'public/images/'+key.icon" width="20" height="20">
         </router-link>
+      </div>
+      <div class="auto-scroll-switch-block" v-for="(key, index) in $store.state.switch" :title="key.name" :key="index" :class="scroll==index?'hidden':''" @click="setActive(index)">
+        <a href="#" title="자동스크롤" class="w-inline-block">
+          <img :src="'public/images/'+key.icon" width="30">
+          </a>
       </div>
     </div>
   </div>
@@ -39,6 +47,7 @@
     data () {
       return {
         open: this.drawer,
+        scroll: 1,
       }
     },
      created() {
@@ -46,6 +55,11 @@
     },
     mounted () {
       this.open = this.drawer
+    },
+    methods: {
+       setActive(index) {
+          this.scroll = index
+       }
     }
   }
 </script>

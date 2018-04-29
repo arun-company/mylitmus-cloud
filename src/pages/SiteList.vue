@@ -57,6 +57,9 @@
           {id:3, name:'설정', icon:'001-cogwheel.png', path:'/home-settings', class:''},
           {id:4, name:'전체 보기', icon:'003-signs.png', path:'/view-all' , class:''},
         ]
+        this.$store.state.switch = [
+        
+        ]
       return {
         loading:true,
         search: '',

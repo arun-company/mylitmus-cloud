@@ -46,8 +46,9 @@
           {id:4, name:'알림', icon:'notificationsalerts.fff.png', path:'/zone-notifications' , class:''},
           {id:5, name:'설정', icon:'001-cogwheel.png', path:'/zone-settings', class:''},
         ]
-        // if (localStorage.getItem('zonename'))
-        //     zonename = localStorage.getItem('zonename')
+        this.$store.state.switch = [
+        
+        ]
       return {
         zonename: localStorage.getItem('zonename'),
         range: {

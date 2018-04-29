@@ -34,6 +34,9 @@
           {id:2, name:'보고서', icon:'004-profit-report.png', path:'/site-reporting', class:''},
           {id:3, name:'설정', icon:'001-cogwheel.png', path:'/site-settings', class:'w--current'},
         ]
+      this.$store.state.switch = [
+        
+      ]
       return {
         search: '',
         open: this.drawer,
