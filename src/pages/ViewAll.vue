@@ -3,30 +3,32 @@
     <div class="w-container">
       <h1 class="heading">{{headerTitle}}</h1>
     </div>
-    <div v-for="site in filteredItems" class="reporting-all" v-bind:key="site.id">
-      <div class="div-block-reporting">
-        <div class="div-block-10"><router-link :to="'/site/'+site.id" class="heading-3">사이트 - {{site.name}}</router-link>
-          <div class="div-block-alerts">
-            <div class="div-block-13">
-              <div class="text-block-7">존</div>
-              <div class="text-block-7">{{items.length}}곳</div>
+    <div class="div-block-15">    
+      <div v-for="site in filteredItems" class="reporting-all" v-bind:key="site.id">
+        <div class="div-block-reporting">
+          <div class="div-block-10"><router-link :to="'/site/'+site.id" class="heading-3">사이트 - {{site.name}}</router-link>
+            <div class="div-block-alerts">
+              <div class="div-block-13">
+                <div class="text-block-7">존</div>
+                <div class="text-block-7">{{items.length}}곳</div>
+              </div>
             </div>
           </div>
+          <div class="content">
+            <div class="div-block-7 view-all"><img src="public/images/call.png" width="20" height="20" title="전화번호">
+              <div class="text-block-6">{{site.mobilePhone ? site.mobilePhone:'-'}}</div>
+            </div>
+            <div class="div-block-7 view-all"><img src="public/images/email.png" width="20" height="20" title="이메일">
+              <div class="text-block-6">{{site.email ? site.email:'-'}}</div>
+            </div>
+            <div class="div-block-7 view-all address"><img src="public/images/location.png" width="20" height="20" title="주소">
+              <div class="text-block-6">{{site.address ? site.address:'-'}}</div>
+            </div>
+          </div>  
+          <!-- END OF SITE DETAIL -->
+          <zone-list :key="site.id" :siteid="site.id"></zone-list>
+          
         </div>
-        <div class="content">
-          <div class="div-block-7 view-all"><img src="public/images/call.png" width="20" height="20" title="전화번호">
-            <div class="text-block-6">{{site.mobilePhone ? site.mobilePhone:'-'}}</div>
-          </div>
-          <div class="div-block-7 view-all"><img src="public/images/email.png" width="20" height="20" title="이메일">
-            <div class="text-block-6">{{site.email ? site.email:'-'}}</div>
-          </div>
-          <div class="div-block-7 view-all address"><img src="public/images/location.png" width="20" height="20" title="주소">
-            <div class="text-block-6">{{site.address ? site.address:'-'}}</div>
-          </div>
-        </div>  
-        <!-- END OF SITE DETAIL -->
-        <zone-list :key="site.id" :siteid="site.id"></zone-list>
-        
       </div>
     </div>
   </div>

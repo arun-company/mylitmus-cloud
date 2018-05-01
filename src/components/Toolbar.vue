@@ -24,7 +24,7 @@
           <img :src="'public/images/'+key.icon" width="20" height="20">
         </router-link>
       </div>
-      <div class="auto-scroll-switch-block" v-for="(key, index) in $store.state.switch" :title="key.name" :key="index" :class="scroll==index?'hidden':''" @click="setActive(index)">
+      <div class="auto-scroll-switch-block" v-for="(key, index) in $store.state.switch" :title="key.name" :key="index" :class="scroll==index?'hidden':''" @click="setActive(index)" >
         <a href="#" title="자동스크롤" class="w-inline-block">
           <img :src="'public/images/'+key.icon" width="30">
           </a>
@@ -48,18 +48,73 @@
       return {
         open: this.drawer,
         scroll: 1,
+        interval: null,
+        scrollDown:true
       }
     },
-     created() {
-     
-    },
+    
     mounted () {
       this.open = this.drawer
+      this.scroll= 1,
+      window.clearInterval(this.interval);
     },
     methods: {
-       setActive(index) {
-          this.scroll = index
-       }
+      setActive(index) {
+        this.scroll = index
+        if (! this.scroll) {
+          this.autoScroll()
+        } else {
+          window.clearInterval(this.interval);
+        }
+      },
+      
+      autoScroll() {
+        var pause = false
+        var TotalHeight = document.body.scrollHeight - window.innerHeight;
+        var increment = window.scrollY
+        var timer;
+        window.addEventListener('scroll', function(){
+          if (increment != window.scrollY) {
+             increment = window.scrollY
+              if (timer) {
+                window.clearTimeout(timer);
+              }
+              timer = window.setTimeout(function() {
+                  pause = false
+              }, 1500);
+          }
+        });
+        
+        window.addEventListener('mousemove', function(){
+          pause = true
+          if (timer) {
+            window.clearTimeout(timer);
+          }
+          timer = window.setTimeout(function() {
+              pause = false
+          }, 1500);
+        })
+        
+        var scrollMove = 7
+        this.interval = setInterval(function() {
+          if (!pause) {
+            if (this.scrollDown) {
+                increment += scrollMove
+                window.scrollTo(0, increment);
+            } else {
+              increment -= scrollMove
+              window.scrollTo(0, increment);
+            }
+            if (TotalHeight < increment & this.scrollDown) {
+               this.scrollDown = false
+               increment = TotalHeight
+            } else if ( increment < 0 ) {
+               this.scrollDown = true
+               increment = 0
+            }
+          }
+        }, 100);
+      }
     }
   }
 </script>
