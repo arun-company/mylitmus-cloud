@@ -2,8 +2,8 @@
    <div v-if="zone" @click="setZoneLocal({'id':zone.id,'name':zone.name})" v-bind:class="alert + ' div-block-2 w-inline-block zone-card'">
      <div v-bind:class="alert + ' text-block-3'">{{ zone.name }}</div>
      <div class="div-block-8">
-            <div v-bind:class="alert + ' text-block-8'">{{parseFloat(Math.round(zone.currentTemperature * 100) / 100).toFixed(2) }}</div>
-            <div v-bind:class="alert + ' text-block-8'">{{parseFloat(Math.round(zone.currentHumidity * 100) / 100).toFixed(2) }}</div>
+            <div v-bind:class="alert + ' text-block-8'">{{parseFloat(Math.round(zone.currentTemperature * 100) / 100).toFixed(2) }}℃</div>
+            <div v-bind:class="alert + ' text-block-8'">{{parseFloat(Math.round(zone.currentHumidity * 100) / 100).toFixed(2) }}%</div>
           </div>
           <div class="div-block-8">
             <div class="div-block-7 full"><img v-bind:src="'public/images/wireless-device'+white+'.png'" width="20" height="20" title="센서">
