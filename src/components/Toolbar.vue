@@ -68,10 +68,10 @@
       },
       
     autoScroll() {
-      if (document.getElementsByClassName('div-block-15')[0].scrollHeight < (window.innerHeight-60)) {
-          return;
-      }
-        
+      // if (document.getElementsByClassName('div-block-15')[0].scrollHeight < (window.innerHeight-60)) {
+      //     return;
+      // }
+
       var pause = false
       var TotalHeight = document.body.scrollHeight - (window.innerHeight-60);
       var increment = window.scrollY
