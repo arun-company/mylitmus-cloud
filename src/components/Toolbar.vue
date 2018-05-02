@@ -38,6 +38,9 @@
       },
       open: function () {
         this.$emit('update:drawer', this.open)
+      },
+      '$store.state.switch': function() {
+           this.setActive(1)
       }
     },
     data () {
