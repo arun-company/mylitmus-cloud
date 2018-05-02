@@ -9,10 +9,6 @@
           <img :src="'public/images/'+key.icon" width="20" height="20">
           <div class="text-block">{{key.name}}</div>
         </router-link>
-        <router-link v-for="(key, index) in $store.state.switch" :key="index +'_3'"  :to="key.path" :class=" scroll==index?'hidden':'' + ' link-block-2 w-inline-block'" @click="setActive(index)">
-          <img :src="'public/images/'+key.icon" width="25">
-          <div class="text-block">{{key.name}}</div>
-        </router-link>
       </nav>
 
       <div title="메뉴 열기" class="menu-button w-nav-button">
@@ -35,7 +31,7 @@
 
 <script>
   export default {
-    props: ['drawer'],
+    props: ['drawer', 'index'],
     watch: {
       drawer: function () {
         this.open = this.drawer
@@ -47,16 +43,16 @@
     data () {
       return {
         open: this.drawer,
-        scroll: 1,
+        scroll: this.index,
         interval: null,
         scrollDown:true
       }
     },
     
     mounted () {
+      this.setActive(this.scroll)
       this.open = this.drawer
-      this.scroll= 1,
-      window.clearInterval(this.interval);
+
     },
     methods: {
       setActive(index) {
@@ -64,57 +60,61 @@
         if (! this.scroll) {
           this.autoScroll()
         } else {
-          window.clearInterval(this.interval);
+          window.clearInterval(this.$store.state.interval);
         }
       },
       
-      autoScroll() {
-        var pause = false
-        var TotalHeight = document.body.scrollHeight - window.innerHeight;
-        var increment = window.scrollY
-        var timer;
-        window.addEventListener('scroll', function(){
-          if (increment != window.scrollY) {
-             increment = window.scrollY
-              if (timer) {
-                window.clearTimeout(timer);
-              }
-              timer = window.setTimeout(function() {
-                  pause = false
-              }, 1500);
-          }
-        });
-        
-        window.addEventListener('mousemove', function(){
-          pause = true
-          if (timer) {
-            window.clearTimeout(timer);
-          }
-          timer = window.setTimeout(function() {
-              pause = false
-          }, 1500);
-        })
-        
-        var scrollMove = 7
-        this.interval = setInterval(function() {
-          if (!pause) {
-            if (this.scrollDown) {
-                increment += scrollMove
-                window.scrollTo(0, increment);
-            } else {
-              increment -= scrollMove
-              window.scrollTo(0, increment);
-            }
-            if (TotalHeight < increment & this.scrollDown) {
-               this.scrollDown = false
-               increment = TotalHeight
-            } else if ( increment < 0 ) {
-               this.scrollDown = true
-               increment = 0
-            }
-          }
-        }, 100);
+    autoScroll() {
+      if (document.getElementsByClassName('div-block-15')[0].scrollHeight < (window.innerHeight-60)) {
+          return;
       }
+        
+      var pause = false
+      var TotalHeight = document.body.scrollHeight - (window.innerHeight-60);
+      var increment = window.scrollY
+      var timer;
+      window.addEventListener('scroll', function(){
+        if (increment != window.scrollY) {
+            increment = window.scrollY
+            if (timer) {
+              window.clearTimeout(timer);
+            }
+            timer = window.setTimeout(function() {
+                pause = false
+            }, 1500);
+        }
+      });
+      
+      window.addEventListener('mousemove', function(){
+        pause = true
+        if (timer) {
+          window.clearTimeout(timer);
+        }
+        timer = window.setTimeout(function() {
+            pause = false
+        }, 1500);
+      })
+      
+      var scrollMove = 7
+      this.$store.state.interval = setInterval(function() {
+        if (!pause) {
+          if (this.scrollDown) {
+              increment += scrollMove
+              window.scrollTo(0, increment);
+          } else {
+            increment -= scrollMove
+            window.scrollTo(0, increment);
+          }
+          if (TotalHeight < increment & this.scrollDown) {
+              this.scrollDown = false
+              increment = TotalHeight
+          } else if ( increment < 0 ) {
+              this.scrollDown = true
+              increment = 0
+          }
+        }
+      }, 100);
+    }
     }
   }
 </script>

@@ -164,6 +164,9 @@
           {id:4, name:'알림', icon:'notificationsalerts.fff.png', path:'/zone-notifications' , class:''},
           {id:5, name:'설정', icon:'001-cogwheel.png', path:'/zone-settings', class:''},
         ]
+        this.$store.state.switch = [
+        
+        ]
         events_grouped_by_id: [];
         this.$store.state.menu = true
         var zoneObj=null
@@ -256,7 +259,8 @@
         this.getSummaryValue()
         this.getMeasuresFromRemote(this.id)
         this.setActiveItem(this.id)
-        
+        window.clearInterval(this.$store.state.interval)
+
       },
       methods: {
         filterResult(selectedNodes) {

@@ -102,6 +102,7 @@
       this.$store.state.switch = [
         
       ]
+      
       return {
         zonename: localStorage.getItem('zonename'),
         search: '',

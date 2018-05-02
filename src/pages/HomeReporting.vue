@@ -52,6 +52,9 @@
           {id:3, name:'설정', icon:'001-cogwheel.png', path:'/home-settings', class:''},
           {id:4, name:'전체 보기', icon:'003-signs.png', path:'/view-all' , class:''},
         ]
+      this.$store.state.switch = [
+        
+      ]
       return {
         range: {
           dateFrom: moment().startOf('day').format(),
@@ -77,6 +80,7 @@
     },
     mounted () {
       this.getAllZones()
+      window.clearInterval(this.$store.state.interval)
     },
     methods: {
        beforeToday (date) {

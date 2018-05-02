@@ -75,7 +75,8 @@
     	
     },
     mounted () {
-      this.getZones()     
+      this.getZones()
+      window.clearInterval(this.$store.state.interval)
     },
     methods: {
       
