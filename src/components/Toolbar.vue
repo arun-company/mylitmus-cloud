@@ -98,7 +98,7 @@
         }, 1500);
       })
       
-      var scrollMove = 7
+      var scrollMove = 4
       this.$store.state.interval = setInterval(function() {
         if (!pause) {
           if (this.scrollDown) {
