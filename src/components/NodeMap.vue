@@ -109,7 +109,9 @@
       },
       setSize () {
         if (!this.$refs.svg) { return }
-        this.svgSize = { width: this.$refs.svg.clientWidth, height: this.$refs.svg.clientHeight}
+        var width = this.$refs.svg.clientWidth || this.$refs.svg.parentNode.clientWidth;
+        var height = this.$refs.svg.clientHeight || this.$refs.svg.parentNode.clientHeight;
+        this.svgSize = { width: width, height: height}
       }
     }
   }

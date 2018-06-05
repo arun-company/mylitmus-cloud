@@ -25,7 +25,7 @@
                 <div class="text-block-6">평균 습도 {{getHumidity(zone.currentMeasures)}}</div>
               </div>
           </div>
-          <sensor-card-component v-for="sensor in sensors" v-bind:minMaxTemp="[tempMin, tempMax]" v-bind:minMaxHumi="[humiMin, humiMax]" v-bind:sensor="sensor" v-bind:key="sensor.id"  @count-alert="updateAlertCount($event)"></sensor-card-component>
+          <sensor-card-component v-for="sensor in sensors" v-bind:minMaxTemp="[tempMin, tempMax]" v-bind:zoneid="zoneid" v-bind:minMaxHumi="[humiMin, humiMax]" v-bind:sensor="sensor" v-bind:key="sensor.id"  @count-alert="updateAlertCount($event)"></sensor-card-component>
           <!-- <sensor-card-component v-for="sensor in sensors" v-bind:key="JSON.stringtify(sensor)"  @sendGraphData="updateMaxValue($event)"></sensor-card-component> -->
   </div>
 </template>

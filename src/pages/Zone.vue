@@ -210,7 +210,6 @@
       },
       watch: {
         '$store.state.zone': function () {
-          this.getSensorTypes()
           this.getMeasuresFromRemote(this.id)
           this.imageLink = this.$store.state.zone.floor_map
           this.loading_map = false
@@ -256,11 +255,11 @@
       },
       mounted () {
         this.$store.dispatch('setZone', { zoneId: this.zoneId, shouldClear: false})
+        this.getSensorTypes()
         this.getSummaryValue()
         this.getMeasuresFromRemote(this.id)
         this.setActiveItem(this.id)
         window.clearInterval(this.$store.state.interval)
-
       },
       methods: {
         filterResult(selectedNodes) {
@@ -396,9 +395,9 @@
 			]).then(res => {
 				this.measures = res[0].data.measures
 				this.alarmEvents = res[1].data.filter(event => event.nodeId === id)
-				this.alarmRules = res[2].data.alarmRules
-				this.chartData.temperature = this.chart_data('온도', '온도 (℃)', '#ee513b', this.getMinMax('temperature', 'min_value'), this.getMinMax('temperature', 'max_value'), '℃', '온도', this.measures.filter(measure => measure.sensorType.uid === 'temperature'), 'temperature')
-				this.chartData.humidity = this.chart_data('습도', '습도 (%)', '#9badff', this.getMinMax('humidity', 'min_value'), this.getMinMax('humidity', 'max_value'), '%', '습도', this.measures.filter(measure => measure.sensorType.uid === 'humidity'), 'humidity')
+        this.alarmRules = res[2].data.alarmRules
+				this.chartData.temperature = this.chart_data('온도', '온도 (℃)', '#ee513b', this.getMinMax('temperature', 'min_value') , this.getMinMax('temperature', 'max_value'), '℃', '온도', this.measures.filter(measure => measure.sensorType.uid === 'temperature'), 'temperature')
+				this.chartData.humidity = this.chart_data('습도', '습도 (%)', '#9badff', this.getMinMax('humidity', 'min_value') , this.getMinMax('humidity', 'max_value'), '%', '습도', this.measures.filter(measure => measure.sensorType.uid === 'humidity'), 'humidity')
 				this.loading.info = false
 			});
 		},
@@ -408,7 +407,7 @@
 			return `${measure.value.toFixed(2)}${measure.unit}`
 		},
 		getMinMax(uid, minmax) {
-			const sensorType = this.sensorTypes.find(element => element.sensorType.uid === uid) || {}
+      const sensorType = this.sensorTypes.find(element => element.sensorType.uid === uid) || {}
 			return sensorType[minmax] || 0
 		},
       setAlameRule(alarm_rules) {
@@ -438,8 +437,8 @@
           if( rule_value.indexOf("<") >= 0) 
             this.humiMin = rule_value.split('<')[1] * 1
       },
-		chart_data(title, yAxisTitle, color, min, max, unit, seriesTitle, measures, sensorType) {
-			// TODO 알람이 과거에는 존재하고 현재 없어진 경우, plotband subtitle에는 표시되지 않는 이슈가 있다.
+		chart_data(title, yAxisTitle, color, minV, maxV, unit, seriesTitle, measures, sensorType) {
+      // TODO 알람이 과거에는 존재하고 현재 없어진 경우, plotband subtitle에는 표시되지 않는 이슈가 있다.
 			return {
 				chart: { type: this.chartType, zoomType: 'x' },
 				title: { text: title },
@@ -455,46 +454,50 @@
 					},
 				  plotBands: this.getPlotBands(sensorType),
 				},
-			    yAxis: {
-			      title: { text: yAxisTitle },
-				  min, max
+        yAxis: {
+          title: { text: yAxisTitle },
+          min:minV, 
+          max:maxV
 				},
-			    tooltip: { valueSuffix: unit },
-			    legend: {
-			      layout: 'vertical',
-			      align: 'right',
-			      verticalAlign: 'middle',
-			      borderWidth: 0
-				},
+        tooltip: { valueSuffix: unit },
+          legend: {
+            layout: 'vertical',
+            align: 'right',
+            verticalAlign: 'middle',
+            borderWidth: 0
+          },
 				plotOptions: {
-				  scatter: {
-            marker: {
-                radius: 2,
-                states: {
-                    hover: {
-                        enabled: true,
-                    }
-                }
-            },
-            states: {
-                hover: {
-                    marker: {
-                        enabled: false
-                    }
-                }
-            },
-            tooltip: {
-                headerFormat: '<b>{point.key}</b><br>',
-                pointFormat: '{series.name} {point.y}{unit}'
+            scatter: {
+              marker: {
+                  radius: 2,
+                  states: {
+                      hover: {
+                          enabled: true,
+                      }
+                  }
+              },
+              states: {
+                  hover: {
+                      marker: {
+                          enabled: false
+                      }
+                  }
+              },
+              tooltip: {
+                dateTimeLabelFormats:{
+                    day:"%A, %b %e, %H:%M",
+                },
+                  headerFormat:  '<span>{point.key}</span><br>',
+                  pointFormat: '<span style="color:{series.color}">●</span> <span class="highcharts-header"> {series.name}{point.y}{unit}</span><br/>'
+              }
             }
-        	}
-				},
-				series: [{
-				name: seriesTitle,
-        color,
-        measures:{},
-        data: measures.map(measure => [moment(measure.measuredAt).valueOf(), toFixedNumber(measure.value, 2)])
-				}]
+          },
+            series: [{
+            name: seriesTitle,
+            color,
+            measures:{},
+            data: measures.map(measure => [moment(measure.measuredAt).valueOf(), toFixedNumber(measure.value, 2)])
+          }]
 			}
 		},
 		getPlotBands(sensorType) {
