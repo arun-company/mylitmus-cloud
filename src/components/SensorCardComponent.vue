@@ -130,8 +130,6 @@
         this.$emit('count-alert', this.countAlert)
         var minmaxTemp = this.sensorTypes.find(element => element.sensorType.uid === 'temperature') || {}
         var minmaxHumi = this.sensorTypes.find(element => element.sensorType.uid === 'humidity') || {}
-        console.log(minmaxTemp['min_value'])
-        console.log(minmaxTemp['max_value'])
         this.chartData.temperature = this.chart_data('온도', '온도 (℃)', '#ee513b', minmaxTemp['min_value'], minmaxTemp['max_value'], '℃', '온도', this.measures.filter(measure => measure.sensorType.uid === 'temperature'), 'temperature')
         this.chartData.humidity = this.chart_data('습도', '습도 (%)', '#9badff', minmaxHumi['min_value'], minmaxHumi['max_value'], '%', '습도', this.measures.filter(measure => measure.sensorType.uid === 'humidity'), 'humidity')    
 			});
@@ -238,9 +236,10 @@
 				  // plotBands: this.getPlotBands(sensorType),
 				},
         yAxis: {
-			      title: null,
+			    title: null,
           min:min,
-          max:max
+          max:max,
+          tickAmount:parseInt((max-min)/20) + 1,
 				},
 			    tooltip: { valueSuffix: unit },
 			    legend: {
@@ -249,8 +248,42 @@
 			      align: 'right',
 			      verticalAlign: 'middle',
 			      borderWidth: 0
-				},
+        },
+        plotOptions: {
+        line: {
+              marker: {
+                  radius: 2,
+                  states: {
+                      hover: {
+                          enabled: true,
+                      }
+                  }
+              },
+              states: {
+                  hover: {
+                      marker: {
+                          enabled: false
+                      }
+                  }
+              },
+              tooltip: {
+                dateTimeLabelFormats:{
+                      millisecond:"%A, %b%e일 %H:%M",
+                      second:"%A, %b%e일 %H:%M",
+                      minute:"%A, %b%e일 %H:%M",
+                      hour:"%A, %b%e일 %H:%M",
+                      day:"%A, %b%e일 %H:%M",
+                      week:"%A, %b%e일 %H:%M",
+                      month:"%A, %b%e일 %H:%M",
+                      year:"%A, %b%e일 %H:%M",
+                },
+                  headerFormat:  '<span>{point.key}</span><br>',
+                  pointFormat: '<span style="color:{series.color}">●</span> <span class="highcharts-header"> {series.name}{point.y}{unit}</span><br/>'
+              }
+            },
+        },
 				series: [{
+
 				name: seriesTitle,
         color,
         // measures:{},

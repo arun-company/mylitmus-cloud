@@ -440,7 +440,7 @@
 		chart_data(title, yAxisTitle, color, minV, maxV, unit, seriesTitle, measures, sensorType) {
       // TODO 알람이 과거에는 존재하고 현재 없어진 경우, plotband subtitle에는 표시되지 않는 이슈가 있다.
 			return {
-				chart: { type: this.chartType, zoomType: 'x' },
+				chart: { type: this.chartType, zoomType: 'x'},
 				title: { text: title },
 				subtitle: {
 				  text: this.alarmRules.filter(rule => rule.sensorType.uid === sensorType).map(rule => `<span style="background-color: ${rule.color || '#FFC4C4'}; margin: 2px;">${rule.name}</span>`).join(''),
@@ -452,22 +452,56 @@
 					dateTimeLabelFormats: {
 						day: '%b %e일'
 					},
-				  plotBands: this.getPlotBands(sensorType),
+          plotBands: this.getPlotBands(sensorType),
 				},
         yAxis: {
           title: { text: yAxisTitle },
           min:minV, 
-          max:maxV
+          max:maxV,
+          tickAmount:parseInt((maxV-minV)/20) + 1,
+          // alignTicks: false
 				},
-        tooltip: { valueSuffix: unit },
-          legend: {
-            layout: 'vertical',
-            align: 'right',
-            verticalAlign: 'middle',
-            borderWidth: 0
-          },
+        // tooltip: { valueSuffix: unit },
+        legend: {
+          layout: 'vertical',
+          align: 'right',
+          verticalAlign: 'middle',
+          borderWidth: 0
+        },
 				plotOptions: {
-            scatter: {
+          scatter: {
+              marker: {
+                  radius: 2,
+                  states: {
+                      hover: {
+                          enabled: true,
+                      }
+                  }
+              },
+              states: {
+                  hover: {
+                      marker: {
+                          enabled: false
+                      }
+                  }
+              },
+              tooltip: {
+                shared: true,
+                dateTimeLabelFormats:{
+                      millisecond:"%A, %b%e일 %H:%M",
+                      second:"%A, %b%e일 %H:%M",
+                      minute:"%A, %b%e일 %H:%M",
+                      hour:"%A, %b%e일 %H:%M",
+                      day:"%A, %b%e일 %H:%M",
+                      week:"%A, %b%e일 %H:%M",
+                      month:"%A, %b%e일 %H:%M",
+                      year:"%A, %b%e일 %H:%M",
+                },
+                  headerFormat:  '<span>{point.key}</span><br>',
+                  pointFormat: '<span style="color:{series.color}">●</span> <span class="highcharts-header"> {series.name}{point.y}{unit}</span><br/>'
+              }
+            },
+            line: {
               marker: {
                   radius: 2,
                   states: {
@@ -485,14 +519,53 @@
               },
               tooltip: {
                 dateTimeLabelFormats:{
-                    day:"%A, %b %e, %H:%M",
+                      millisecond:"%A, %b%e일 %H:%M",
+                      second:"%A, %b%e일 %H:%M",
+                      minute:"%A, %b%e일 %H:%M",
+                      hour:"%A, %b%e일 %H:%M",
+                      day:"%A, %b%e일 %H:%M",
+                      week:"%A, %b%e일 %H:%M",
+                      month:"%A, %b%e일 %H:%M",
+                      year:"%A, %b%e일 %H:%M",
+                },
+                  headerFormat:  '<span>{point.key}</span><br>',
+                  pointFormat: '<span style="color:{series.color}">●</span> <span class="highcharts-header"> {series.name}{point.y}{unit}</span><br/>'
+              }
+            },
+            column: {
+              marker: {
+                  radius: 2,
+                  states: {
+                      hover: {
+                          enabled: true,
+                      }
+                  }
+              },
+              states: {
+                  hover: {
+                      marker: {
+                          enabled: false
+                      }
+                  }
+              },
+              tooltip: {
+                dateTimeLabelFormats:{
+                      millisecond:"%A, %b%e일 %H:%M",
+                      second:"%A, %b%e일 %H:%M",
+                      minute:"%A, %b%e일 %H:%M",
+                      hour:"%A, %b%e일 %H:%M",
+                      day:"%A, %b%e일 %H:%M",
+                      week:"%A, %b%e일 %H:%M",
+                      month:"%A, %b%e일 %H:%M",
+                      year:"%A, %b%e일 %H:%M",
                 },
                   headerFormat:  '<span>{point.key}</span><br>',
                   pointFormat: '<span style="color:{series.color}">●</span> <span class="highcharts-header"> {series.name}{point.y}{unit}</span><br/>'
               }
             }
           },
-            series: [{
+          
+          series: [{
             name: seriesTitle,
             color,
             measures:{},

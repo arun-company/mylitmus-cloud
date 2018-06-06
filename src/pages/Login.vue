@@ -50,7 +50,9 @@
           }
 
           auth.checkAuth()
-          this.$router.push('/')
+          window.location = '';
+          // this.$router.push('/')
+          
         })
       }
     }
